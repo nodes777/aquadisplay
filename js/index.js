@@ -5,12 +5,12 @@ console.log(today);
 
 
 $.ajax({
-  url: "https://aquascraper-data.firebaseio.com/"+monthAndYear+"/"+today+".json?callback=logResults&print=pretty",
+  url: "https://aquascraper-data.firebaseio.com/"+monthAndYear+"/"+today+".json?callback=processJson&print=pretty",
   dataType: "jsonp",
-  jsonpCallback: "logResults"
+  jsonpCallback: "processJson"
 });
 
-function logResults(json){
+function processJson(json){
   console.log(json);
   // get the sold and unsold as one object. Skipping the messy name Firebase creates
   var jsonPruned = json[Object.keys(json)[0]];
@@ -21,33 +21,52 @@ function logResults(json){
 
 function makeGraphs(data){
     var fw = data.sold.fw;
-    console.log(d3);
+    console.log(fw);
 
-    var width = 960;
-    var height = 500;
+    // width and height of chart area
+
+    var margin = {top: 20, right: 30, bottom: 30, left: 40};
+    var width = 960 - margin.left - margin.right;
+    var height = 500 - margin.top - margin.bottom;
 
     var y = d3.scaleLinear()
         .range([height, 0])
+        //set the y domain from 0 to max number
         .domain([0, d3.max(fw, function(d){
-        var num = currencyToNumber(d.bPrice);
-        return num;
-    })]);
+            var num = currencyToNumber(d.bPrice);
+            return num;
+        })]);
+
+    // Previously Scale Ordinal
+    var x = d3.scaleBand()
+            // return a new array of jsut the names
+            .domain(fw.map(function(fw){ return fw.item}))
+            // starting pixel positions, with optional parameter for padding between bars
+            .rangeRound([0, width])
+            .padding(0.1);
+
+    // bind our xAxis scale to the x func, can be stamped in multiple places
+    var xAxis = d3.scale.axis()
+                .scale(x)
+                .orient("bottom");
+
+    
 
     var chart = d3.select("#currentDayData")
                 //the w and height are applied
-                .attr("width", width)
-                .attr("height", height);
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                // Add a g element to offset the origin of the chart area by the top-left margin
+            .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    chart.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
 
 
-
-    //set the y domain from 0 to max number
-    /*
-    y.domain([0, d3.max(fw, function(d){
-        var num = currencyToNumber(d.bPrice);
-        return num;
-    })]);
-    */
-    var barWidth = fw.length;
+    var barWidth = (width/fw.length);
 
     var bar = chart.selectAll("g")
             .data(fw)
@@ -61,19 +80,17 @@ function makeGraphs(data){
     bar.append("rect")
         .attr("y", function(d){
             var num = currencyToNumber(d.bPrice);
-            console.log(num);
-            console.log(y(num));
             return y(num);})
         .attr("height", function(d){
             return height - y(currencyToNumber(d.bPrice));
         })
-        .attr("width", barWidth -1);
+        .attr("width", barWidth);
 
     bar.append("text")
         .attr("x", barWidth/2)
         .attr("y", function(d){ return y(currencyToNumber(d.bPrice));})
         .attr("dy", ".75em")
-        .text(function(d){ return d.item;});
+        .text(function(d){ return d.bPrice;});
 
 }
 
