@@ -11,15 +11,15 @@ $.ajax({
 });
 
 function processJson(json){
-  console.log(json);
   // get the sold and allAuctions as one object. Skipping the messy name Firebase creates
   var jsonPruned = json[Object.keys(json)[0]];
-  console.log(jsonPruned.sold)
+  console.log(jsonPruned.sold);
 
-  $.each(jsonPruned.sold, function(key, value){
-    makeGraph(value, key)
-  })
-  //makeGraph(jsonPruned);
+  makeAveragesGraph(jsonPruned.sold);
+
+  $.each(jsonPruned.sold, function(fishTypeName, object){
+    makeGraph(object, fishTypeName);
+  });
 }
 
 

@@ -1,9 +1,28 @@
-function makeGraph(data, fishTypeName){
-	//fishType is a object of objects
-    var fishType = data;
+function makeAveragesGraph(soldData){
 
-   // set the dimensions and margins of the graph
-    var margin = {top: 20, right: 20, bottom: 30, left: 40},
+	var avgObject = {}
+								// key      value
+	$.each(soldData, function(fishTypeName, object){
+    	//console.log(fishTypeName +" + "+ object)
+    	var avg = getAverage(object)
+    	avgObject[fishTypeName] = avg;
+  	});
+
+  	makeAvgGraph(avgObject);
+}
+
+function getAverage(objectArr){
+	var pricesArray = objectArr.map(function(d){ return currencyToNumber(d.bPrice)})
+	var total = pricesArray.reduce(function(accumulator, currentValue){
+		var sum = accumulator + currentValue;
+		return  sum
+	});
+	var avg = total/pricesArray.length;
+	return avg;
+}
+
+function makeAvgGraph(avgObject){
+	var margin = {top: 20, right: 20, bottom: 30, left: 40},
         width = 1024 - margin.left - margin.right,
         height = 720 - margin.top - margin.bottom;
 
@@ -15,9 +34,11 @@ function makeGraph(data, fishTypeName){
               .range([height, 0]);
 
 
+console.log(avgObject)
+
     // Scale the range of the data in the domains
-    x.domain(fishType.map(function(d) { return d.item; }));
-    y.domain([0, d3.max(fishType, function(d) { return currencyToNumber(d.bPrice); })]);
+    x.domain(Object.keys(avgObject));
+    y.domain([0, d3.max(Object.values(avgObject))]);
 
     // append the svg object to the body of the page
         // append a 'group' element to 'svg'
@@ -30,13 +51,13 @@ function makeGraph(data, fishTypeName){
             "translate(" + margin.left + "," + margin.top + ")");
 
     svg.selectAll(".bar")
-        .data(fishType)
+        .data(avgObject) // data is expecting an array?
       .enter().append("rect")
         .attr("class", "bar")
-        .attr("x", function(d) { return x(d.item); })
+        .attr("x", function(d) { return x(Object.keys(avgObject)); })
         .attr("width", x.bandwidth())
-        .attr("y", function(d) { return y(currencyToNumber(d.bPrice)); })
-        .attr("height", function(d) { return height - y(currencyToNumber(d.bPrice)); });
+        .attr("y", function(d) { return y(Object.values(avgObject)); })
+        .attr("height", function(d) { return height - y(Object.values(avgObject)); });
 
 
     // add the x Axis
@@ -53,6 +74,5 @@ function makeGraph(data, fishTypeName){
 		.attr("x", width / 2 )
         .attr("y", 0)
         .style("text-anchor", "middle")
-        .text("Sold "+getReadableName(fishTypeName));
-
+        .text("Averages");
 }
