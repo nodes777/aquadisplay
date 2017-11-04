@@ -1,14 +1,15 @@
 function makeAveragesGraph(soldData){
 
-	var avgObject = {}
+	var avgArr = []
 								// key      value
 	$.each(soldData, function(fishTypeName, object){
     	//console.log(fishTypeName +" + "+ object)
     	var avg = getAverage(object)
-    	avgObject[fishTypeName] = avg;
+    	avgObj = {[fishTypeName]: avg}
+    	avgArr.push(avgObj)
   	});
-
-  	makeAvgGraph(avgObject);
+console.log(avgArr);
+  	makeAvgGraph(avgArr);
 }
 
 function getAverage(objectArr){
@@ -21,7 +22,7 @@ function getAverage(objectArr){
 	return avg;
 }
 
-function makeAvgGraph(avgObject){
+function makeAvgGraph(avgArr){
 	var margin = {top: 20, right: 20, bottom: 30, left: 40},
         width = 1024 - margin.left - margin.right,
         height = 720 - margin.top - margin.bottom;
@@ -33,12 +34,9 @@ function makeAvgGraph(avgObject){
     var y = d3.scaleLinear() // scaleLinear, input is domain, output is range (domain added below)
               .range([height, 0]);
 
-
-console.log(avgObject)
-
     // Scale the range of the data in the domains
-    x.domain(Object.keys(avgObject));
-    y.domain([0, d3.max(Object.values(avgObject))]);
+    x.domain(avgArr.map(function(d) { return Object.keys(d); }));
+    y.domain([0, d3.max(avgArr, function(d) { return Object.values(d); })]);
 
     // append the svg object to the body of the page
         // append a 'group' element to 'svg'
@@ -51,13 +49,16 @@ console.log(avgObject)
             "translate(" + margin.left + "," + margin.top + ")");
 
     svg.selectAll(".bar")
-        .data(avgObject) // data is expecting an array?
-      .enter().append("rect")
+        .data(avgArr) // data is expecting an array, of objects in this case
+      .enter().append("rect") //add a rectangle for each item in the array
         .attr("class", "bar")
-        .attr("x", function(d) { return x(Object.keys(avgObject)); })
+        // add the x position of the new rect, at the position mappped by the function x()'s domain and range, passing in the name of the fishType
+        .attr("x", function(d) { return x(Object.keys(d)); })
         .attr("width", x.bandwidth())
-        .attr("y", function(d) { return y(Object.values(avgObject)); })
-        .attr("height", function(d) { return height - y(Object.values(avgObject)); });
+        // add the y position of the rect, the svg canvas is inverse, so if this number is 0, then the graph looks "upside down"
+        // the y function maps the passed in average number to the domain/range
+        .attr("y", function(d) { return y(Object.values(d)); })
+        .attr("height", function(d) {return height - y(Object.values(d)); });
 
 
     // add the x Axis
