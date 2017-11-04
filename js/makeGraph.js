@@ -26,7 +26,7 @@ function makeGraph(data, fishTypeName){
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
-        .attr("transform", 
+        .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
     svg.selectAll(".bar")
@@ -42,17 +42,33 @@ function makeGraph(data, fishTypeName){
     // add the x Axis
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
+        .attr("class", "xAxisLabel")
         .call(d3.axisBottom(x));
+
+    svg.selectAll('xAxisLabel').each(insertLineBreaks);
+
 
     // add the y Axis
     svg.append("g")
         .call(d3.axisLeft(y));
 
-    //Create Title 
+    //Create Title
 	svg.append("text")
 		.attr("x", width / 2 )
         .attr("y", 0)
         .style("text-anchor", "middle")
         .text("Sold "+getReadableName(fishTypeName));
 
+}
+
+function insertLineBreaks(d) {
+    var el = d3.select(this);
+    var words = d.split(' ');
+    el.text('');
+
+    for (var i = 0; i < words.length; i++) {
+        var tspan = el.append('tspan').text(words[i]);
+        if (i > 0)
+            tspan.attr('x', 0).attr('dy', '15');
+    }
 }

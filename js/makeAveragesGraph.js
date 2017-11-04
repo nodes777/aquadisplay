@@ -1,31 +1,32 @@
 function makeAveragesGraph(soldData){
-
-	var avgArr = []
+    // create an array to fill with objects
+	var avgArr = [];
 								// key      value
 	$.each(soldData, function(fishTypeName, object){
     	//console.log(fishTypeName +" + "+ object)
-    	var avg = getAverage(object)
-    	avgObj = {[fishTypeName]: avg}
-    	avgArr.push(avgObj)
+    	var avg = getAverage(object);
+        var realName = getReadableName(fishTypeName);
+    	avgObj = {[realName]: avg};
+    	avgArr.push(avgObj);
   	});
-console.log(avgArr);
+    console.log(avgArr);
   	makeAvgGraph(avgArr);
 }
 
 function getAverage(objectArr){
-	var pricesArray = objectArr.map(function(d){ return currencyToNumber(d.bPrice)})
+	var pricesArray = objectArr.map(function(d){ return currencyToNumber(d.bPrice);});
 	var total = pricesArray.reduce(function(accumulator, currentValue){
 		var sum = accumulator + currentValue;
-		return  sum
+		return  sum;
 	});
 	var avg = total/pricesArray.length;
 	return avg;
 }
 
 function makeAvgGraph(avgArr){
-	var margin = {top: 20, right: 20, bottom: 30, left: 40},
+	var margin = {top: 20, right: 20, bottom: 100, left: 40},
         width = 1024 - margin.left - margin.right,
-        height = 720 - margin.top - margin.bottom;
+        height = 520 - margin.top - margin.bottom;
 
     // set the ranges, these are funcs that return a number, scaled to a particular domain and range
     var x = d3.scaleBand() // scaleBand determines geometry of bars, splits the range into n bands (where n is the number of values in the domain array)
@@ -35,8 +36,8 @@ function makeAvgGraph(avgArr){
               .range([height, 0]);
 
     // Scale the range of the data in the domains
-    x.domain(avgArr.map(function(d) { return Object.keys(d); }));
-    y.domain([0, d3.max(avgArr, function(d) { return Object.values(d); })]);
+    x.domain(getOrdinals(avgArr));
+    y.domain([0, getMax(avgArr)]);
 
     // append the svg object to the body of the page
         // append a 'group' element to 'svg'
@@ -45,7 +46,7 @@ function makeAvgGraph(avgArr){
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
-        .attr("transform", 
+        .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
     svg.selectAll(".bar")
@@ -64,16 +65,40 @@ function makeAvgGraph(avgArr){
     // add the x Axis
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
+        .call(d3.axisBottom(x))
+        .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-65)");
+            //.text("")
 
     // add the y Axis
     svg.append("g")
         .call(d3.axisLeft(y));
 
-    //Create Title 
+    //Create Title
 	svg.append("text")
 		.attr("x", width / 2 )
         .attr("y", 0)
         .style("text-anchor", "middle")
         .text("Averages");
+}
+
+
+//gets the object in the array with the highest number
+function getMax(avgArr){
+    // Flattening this array
+    var arrOfAvgsArr = avgArr.map(function(d) { return Object.values(d); });// returns array of arrays
+    var maxAvgArr = arrOfAvgsArr.reduce(function(acc, curr){ return acc.concat(curr);}); // retuns array of numbers
+    // es6
+    //let arrayOfAvgPrices = [].concat(...arrayOfAvgPrices);
+    var max = d3.max(maxAvgArr);
+
+    return max;
+}
+
+
+function getOrdinals(avgArr){
+   return avgArr.map(function(d) { return Object.keys(d); });
 }
