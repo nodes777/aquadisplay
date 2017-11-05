@@ -26,7 +26,7 @@ function getAverage(objectArr){
 function makeAvgGraph(avgArr){
 	var margin = {top: 20, right: 20, bottom: 100, left: 40},
         width = 1024 - margin.left - margin.right,
-        height = 520 - margin.top - margin.bottom;
+        height = 720 - margin.top - margin.bottom;
 
     // set the ranges, these are funcs that return a number, scaled to a particular domain and range
     var x = d3.scaleBand() // scaleBand determines geometry of bars, splits the range into n bands (where n is the number of values in the domain array)
@@ -83,6 +83,30 @@ function makeAvgGraph(avgArr){
         .attr("y", 0)
         .style("text-anchor", "middle")
         .text("Averages");
+
+      // text label for the y axis
+    svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Sale Price in Dollars");
+
+    svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.bottom)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Sale Price in Dollars");
+
+        // text label for the x axis
+  svg.append("text")
+      .attr("transform",
+            "translate(" + (width/2) + " ," + (height + margin.top + 20) + ")")
+      .style("text-anchor", "middle")
+      .text("Fish");
 }
 
 

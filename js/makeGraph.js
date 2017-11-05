@@ -1,9 +1,8 @@
-function makeGraph(data, fishTypeName){
+function makeGraph(fishType, fishTypeName){
 	//fishType is a object of objects
-    var fishType = data;
 
    // set the dimensions and margins of the graph
-    var margin = {top: 20, right: 20, bottom: 60, left: 40},
+    var margin = {top: 30, right: 20, bottom: 60, left: 40},
         width = 1024 - margin.left - margin.right,
         height = 720 - margin.top - margin.bottom;
 
@@ -29,6 +28,7 @@ function makeGraph(data, fishTypeName){
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
+    // Create Bars
     svg.selectAll(".bar")
         .data(fishType)
       .enter().append("rect")
@@ -39,7 +39,7 @@ function makeGraph(data, fishTypeName){
         .attr("height", function(d) { return height - y(currencyToNumber(d.bPrice)); });
 
 
-    // add the x Axis
+    // Add the x Axis
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x))
@@ -47,16 +47,32 @@ function makeGraph(data, fishTypeName){
         // wrap the text so that the words don't overlap
         .call(wrap, x.bandwidth());
 
-    // add the y Axis
+    // Add the y Axis
     svg.append("g")
         .call(d3.axisLeft(y));
 
-    //Create Title
+    // Create Title
 	svg.append("text")
 		.attr("x", width / 2 )
-        .attr("y", 0)
+        .attr("y", -10)
         .style("text-anchor", "middle")
         .text("Sold "+getReadableName(fishTypeName));
+
+    // Create Y axis label
+    svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 20 - margin.bottom)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Sale Price in Dollars");
+
+    // Create X axis label
+    svg.append("text")
+      .attr("transform",
+            "translate(" + (width/2) + " ," + (height + margin.top + 20) + ")")
+      .style("text-anchor", "middle")
+      .text("Fish");
 
 }
 
