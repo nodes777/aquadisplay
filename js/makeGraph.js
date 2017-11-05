@@ -3,7 +3,7 @@ function makeGraph(data, fishTypeName){
     var fishType = data;
 
    // set the dimensions and margins of the graph
-    var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    var margin = {top: 20, right: 20, bottom: 60, left: 40},
         width = 1024 - margin.left - margin.right,
         height = 720 - margin.top - margin.bottom;
 
@@ -42,11 +42,10 @@ function makeGraph(data, fishTypeName){
     // add the x Axis
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
-        .attr("class", "xAxisLabel")
-        .call(d3.axisBottom(x));
-
-    svg.selectAll('xAxisLabel').each(insertLineBreaks);
-
+        .call(d3.axisBottom(x))
+      .selectAll(".tick text")
+        // wrap the text so that the words don't overlap
+        .call(wrap, x.bandwidth());
 
     // add the y Axis
     svg.append("g")
@@ -61,14 +60,27 @@ function makeGraph(data, fishTypeName){
 
 }
 
-function insertLineBreaks(d) {
-    var el = d3.select(this);
-    var words = d.split(' ');
-    el.text('');
 
-    for (var i = 0; i < words.length; i++) {
-        var tspan = el.append('tspan').text(words[i]);
-        if (i > 0)
-            tspan.attr('x', 0).attr('dy', '15');
+function wrap(text, width) {
+  text.each(function() {
+    var text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 0,
+        lineHeight = 1.1, // ems
+        y = text.attr("y"),
+        dy = parseFloat(text.attr("dy")),
+        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+    while (word = words.pop()) {
+      line.push(word);
+      tspan.text(line.join(" "));
+      if (tspan.node().getComputedTextLength() > width) {
+        line.pop();
+        tspan.text(line.join(" "));
+        line = [word];
+        tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+      }
     }
+  });
 }
