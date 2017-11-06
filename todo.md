@@ -1,5 +1,4 @@
 TO DO:
-Provide axis labels
 Add titles to bars with price and name
 Provide total number of sales per fish type
 Bootstrap/responsive

@@ -36,7 +36,20 @@ function makeGraph(fishType, fishTypeName){
         .attr("x", function(d) { return x(d.item); })
         .attr("width", x.bandwidth())
         .attr("y", function(d) { return y(currencyToNumber(d.bPrice)); })
-        .attr("height", function(d) { return height - y(currencyToNumber(d.bPrice)); });
+        .attr("height", function(d) { return height - y(currencyToNumber(d.bPrice)); })
+        .on("mouseover", function(d) {
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", 0.9);
+            tooltip .html(d.bPrice)
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+            })
+        .on("mouseout", function(d) {
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+        });
 
 
     // Add the x Axis
@@ -73,6 +86,11 @@ function makeGraph(fishType, fishTypeName){
             "translate(" + (width/2) + " ," + (height + margin.top + 20) + ")")
       .style("text-anchor", "middle")
       .text("Fish");
+
+      // Define the div for the tooltip
+    var tooltip = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
 
 }
 
