@@ -17,15 +17,18 @@ function getCurrentMonth(){
 }
 
 function currencyToNumber(bPrice) {
+	if(typeof bPrice === "number") {
+		return bPrice;
+	}
 	var currency = bPrice;
     // bPrice comes as a string with dollar sign, remove with regex
     var number = Number(currency.replace(/[^0-9\.-]+/g,""));
     return number;
 }
 
-function getWidthOfGraph() {
+function getWidthOfGraph(){
   var bb = document.querySelector('#firstGraph').getBoundingClientRect();
   var width = bb.right - bb.left;
 
-  return width
+  return width;
 }
