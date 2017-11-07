@@ -5,11 +5,11 @@ function makeAveragesGraph(soldData){
 	$.each(soldData, function(fishTypeName, object){
     	//console.log(fishTypeName +" + "+ object)
     	var avg = getAverage(object);
-        var realName = getReadableName(fishTypeName);
+      var realName = getReadableName(fishTypeName);
+      var stdDev = getStdDev(object);
     	avgObj = {[realName]: avg};
     	avgArr.push(avgObj);
   	});
-    console.log(avgArr);
   	makeAvgGraph(avgArr);
 }
 
@@ -24,8 +24,8 @@ function getAverage(objectArr){
 }
 
 function makeAvgGraph(avgArr){
-	var margin = {top: 20, right: 20, bottom: 100, left: 40},
-        width = 1024 - margin.left - margin.right,
+	var margin = {top: 20, right: 20, bottom: 110, left: 80},
+        width = 800 - margin.left - margin.right,
         height = 720 - margin.top - margin.bottom;
 
     // set the ranges, these are funcs that return a number, scaled to a particular domain and range
@@ -42,7 +42,7 @@ function makeAvgGraph(avgArr){
     // append the svg object to the body of the page
         // append a 'group' element to 'svg'
         // moves the 'group' element to the top left margin
-    var svg = d3.select("body").append("svg")
+    var svg = d3.select("#firstGraph").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
@@ -59,7 +59,21 @@ function makeAvgGraph(avgArr){
         // add the y position of the rect, the svg canvas is inverse, so if this number is 0, then the graph looks "upside down"
         // the y function maps the passed in average number to the domain/range
         .attr("y", function(d) { return y(Object.values(d)); })
-        .attr("height", function(d) {return height - y(Object.values(d)); });
+        .attr("height", function(d) {return height - y(Object.values(d)); })
+        //provide tooltip effects
+        .on("mouseover", function(d) {
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", 0.9);
+            tooltip.html("Average "+Object.keys(d)+" Price: $"+Math.round(Object.values(d)))
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+            })
+        .on("mouseout", function(d) {
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+        });
 
 
     // add the x Axis
@@ -71,7 +85,7 @@ function makeAvgGraph(avgArr){
             .attr("dx", "-.8em")
             .attr("dy", ".15em")
             .attr("transform", "rotate(-65)");
-            //.text("")
+
 
     // add the y Axis
     svg.append("g")
@@ -80,33 +94,32 @@ function makeAvgGraph(avgArr){
     //Create Title
 	svg.append("text")
 		.attr("x", width / 2 )
-        .attr("y", 0)
+        .attr("y", -10)
         .style("text-anchor", "middle")
         .text("Averages");
 
       // text label for the y axis
     svg.append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 0 - margin.left)
+      .attr("y", 20 - margin.left)
       .attr("x",0 - (height / 2))
       .attr("dy", "1em")
       .style("text-anchor", "middle")
       .text("Sale Price in Dollars");
 
-    svg.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - margin.bottom)
-      .attr("x",0 - (height / 2))
-      .attr("dy", "1em")
-      .style("text-anchor", "middle")
-      .text("Sale Price in Dollars");
-
-        // text label for the x axis
+  /*      // text label for the x axis
   svg.append("text")
       .attr("transform",
             "translate(" + (width/2) + " ," + (height + margin.top + 20) + ")")
       .style("text-anchor", "middle")
       .text("Fish");
+  */
+
+        // Define the div for the tooltip
+  var tooltip = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
 }
 
 
@@ -122,7 +135,12 @@ function getMax(avgArr){
     return max;
 }
 
-
 function getOrdinals(avgArr){
    return avgArr.map(function(d) { return Object.keys(d); });
+}
+
+function getStdDev(objectArr){
+  var pricesArray = objectArr.map(function(d){ return currencyToNumber(d.bPrice);});
+  var stdDev = d3.deviation(pricesArray)
+  return stdDev;
 }

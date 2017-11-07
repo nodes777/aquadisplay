@@ -2,8 +2,8 @@ function makeGraph(fishType, fishTypeName){
 	//fishType is a object of objects
 
    // set the dimensions and margins of the graph
-    var margin = {top: 30, right: 20, bottom: 60, left: 40},
-        width = 1024 - margin.left - margin.right,
+    var margin = {top: 30, right: 20, bottom: 60, left: 80},
+        width = 800 - margin.left - margin.right,
         height = 720 - margin.top - margin.bottom;
 
     // set the ranges, these are funcs that return a number, scaled to a particular domain and range
@@ -41,7 +41,7 @@ function makeGraph(fishType, fishTypeName){
             tooltip.transition()
                 .duration(200)
                 .style("opacity", 0.9);
-            tooltip .html(d.bPrice)
+            tooltip .html(d.item+" "+d.bPrice)
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
             })
