@@ -1,31 +1,27 @@
 function makeAveragesGraph(soldData){
     // create an array to fill with objects
 	var avgArr = [];
-								// key      value
-	$.each(soldData, function(fishTypeName, object){
-    	//console.log(fishTypeName +" + "+ object)
-    	var avg = getAverage(object);
+								              // key      value
+	$.each(soldData, function(fishTypeName, objectArr){
+    	//console.log(fishTypeName +" + "+ objectArr)
+    	var avg = getAverage(objectArr);
       var realName = getReadableName(fishTypeName);
-      var stdDev = getStdDev(object);
-    	avgObj = {[realName]: avg};
+      var stdDev = getStdDev(objectArr);
+      var numOfSales = objectArr.length
+    	avgObj = {"bPrice": avg,
+                "item": realName,
+                "stdDev": stdDev,
+                "numOfSales": numOfSales
+      };
     	avgArr.push(avgObj);
   	});
-  	makeAvgGraph(avgArr);
-}
-
-function getAverage(objectArr){
-	var pricesArray = objectArr.map(function(d){ return currencyToNumber(d.bPrice);});
-	var total = pricesArray.reduce(function(accumulator, currentValue){
-		var sum = accumulator + currentValue;
-		return  sum;
-	});
-	var avg = total/pricesArray.length;
-	return avg;
+  makeAvgGraph(avgArr);
 }
 
 function makeAvgGraph(avgArr){
+
 	var margin = {top: 20, right: 20, bottom: 110, left: 80},
-        width = 800 - margin.left - margin.right,
+        width = getWidthOfGraph() - margin.left - margin.right,
         height = 720 - margin.top - margin.bottom;
 
     // set the ranges, these are funcs that return a number, scaled to a particular domain and range
@@ -36,8 +32,8 @@ function makeAvgGraph(avgArr){
               .range([height, 0]);
 
     // Scale the range of the data in the domains
-    x.domain(getOrdinals(avgArr));
-    y.domain([0, getMax(avgArr)]);
+    x.domain(avgArr.map(function(d) { return d.item; }));
+    y.domain([0, d3.max(avgArr, function(d) { return d.bPrice; })]);
 
     // append the svg object to the body of the page
         // append a 'group' element to 'svg'
@@ -54,18 +50,20 @@ function makeAvgGraph(avgArr){
       .enter().append("rect") //add a rectangle for each item in the array
         .attr("class", "bar")
         // add the x position of the new rect, at the position mappped by the function x()'s domain and range, passing in the name of the fishType
-        .attr("x", function(d) { return x(Object.keys(d)); })
+        .attr("x", function(d) { return x(d.item); })
         .attr("width", x.bandwidth())
         // add the y position of the rect, the svg canvas is inverse, so if this number is 0, then the graph looks "upside down"
         // the y function maps the passed in average number to the domain/range
-        .attr("y", function(d) { return y(Object.values(d)); })
-        .attr("height", function(d) {return height - y(Object.values(d)); })
+        .attr("y", function(d) { 
+          console.log(d.bPrice)
+          return y(d.bPrice); })
+        .attr("height", function(d) {return height - y(d.bPrice); })
         //provide tooltip effects
         .on("mouseover", function(d) {
             tooltip.transition()
                 .duration(200)
                 .style("opacity", 0.9);
-            tooltip.html("Average "+Object.keys(d)+" Price: $"+Math.round(Object.values(d)))
+            tooltip.html("Average "+d.item+" Price: $"+Math.round(d.bPrice))
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
             })
@@ -136,11 +134,21 @@ function getMax(avgArr){
 }
 
 function getOrdinals(avgArr){
-   return avgArr.map(function(d) { return Object.keys(d); });
+  return  avgArr.map(function(d) { return Object.keys(d); });
 }
 
 function getStdDev(objectArr){
   var pricesArray = objectArr.map(function(d){ return currencyToNumber(d.bPrice);});
   var stdDev = d3.deviation(pricesArray)
   return stdDev;
+}
+
+function getAverage(objectArr){
+  var pricesArray = objectArr.map(function(d){ return currencyToNumber(d.bPrice);});
+  var total = pricesArray.reduce(function(accumulator, currentValue){
+   var sum = accumulator + currentValue;
+   return  sum;
+  }); 
+  var avg = total/pricesArray.length;
+  return avg;
 }

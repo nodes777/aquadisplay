@@ -22,3 +22,10 @@ function currencyToNumber(bPrice) {
     var number = Number(currency.replace(/[^0-9\.-]+/g,""));
     return number;
 }
+
+function getWidthOfGraph() {
+  var bb = document.querySelector('#firstGraph').getBoundingClientRect();
+  var width = bb.right - bb.left;
+
+  return width
+}
