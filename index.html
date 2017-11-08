@@ -23,6 +23,12 @@
   	</div>
   <div class="row ">
   	<div class="col-md-12" id="firstGraph">
+        <label for="averageRadio" class='radio-inline'>
+          <input id="averageRadio" type="radio" name="graphType" value="average" onclick='change(this.value)' checked> Averages
+        </label>
+        <label for="stdDevRadio" class='radio-inline'>
+          <input id="stdDevRadio" type="radio" name="graphType" value="stdDev" onclick='change(this.value)'> Standard Deviation
+        </label>
   		
   	</div>
     <div class="col-md-6" id="secondGraph">
