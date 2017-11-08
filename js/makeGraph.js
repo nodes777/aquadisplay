@@ -3,7 +3,7 @@ function makeGraph(fishType, fishTypeName){
 
    // set the dimensions and margins of the graph
     var margin = {top: 30, right: 20, bottom: 60, left: 80},
-        width = 800 - margin.left - margin.right,
+        width = getWidthOfGraph('#secondGraph') - margin.left - margin.right -20,
         height = 720 - margin.top - margin.bottom;
 
     // set the ranges, these are funcs that return a number, scaled to a particular domain and range

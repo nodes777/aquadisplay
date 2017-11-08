@@ -21,8 +21,8 @@ function makeAveragesGraph(soldData){
 
 function makeAvgGraph(avgArr){
 
-	var margin = {top: 20, right: 20, bottom: 110, left: 80},
-        width = getWidthOfGraph() - margin.left - margin.right,
+	var margin = {top: 20, right: 80, bottom: 110, left: 80},
+        width = getWidthOfGraph('#firstGraph') - margin.left - margin.right,
         height = 720 - margin.top - margin.bottom;
 
     // set the ranges, these are funcs that return a number, scaled to a particular domain and range
