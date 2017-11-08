@@ -15,8 +15,8 @@ function makeAveragesGraph(soldData){
       };
     	avgArr.push(avgObj);
   	});
-  //makeAvgGraph(avgArr);
-  makeGraph(avgArr);
+  makeAvgGraph(avgArr);
+  //makeGraph(avgArr);
 }
 
 function makeAvgGraph(avgArr){
@@ -151,5 +151,5 @@ function getAverage(objectArr){
    return  sum;
   }); 
   var avg = total/pricesArray.length;
-  return avg;
+  return Math.round(avg);
 }

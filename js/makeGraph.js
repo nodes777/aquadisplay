@@ -41,7 +41,7 @@ function makeGraph(fishType, fishTypeName){
             tooltip.transition()
                 .duration(200)
                 .style("opacity", 0.9);
-            tooltip .html(d.item+" "+d.bPrice)
+            tooltip .html(d.item+" $"+currencyToNumber(d.bPrice))
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
             })
@@ -69,7 +69,7 @@ function makeGraph(fishType, fishTypeName){
 		.attr("x", width / 2 )
         .attr("y", -10)
         .style("text-anchor", "middle")
-        .text("Sold "+getReadableName(fishTypeName));
+        .text("Sold " + getReadableName(fishTypeName));
 
     // Create Y axis label
     svg.append("text")
