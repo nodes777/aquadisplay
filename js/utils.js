@@ -32,3 +32,37 @@ function getWidthOfGraph(id){
 
   return width;
 }
+
+
+
+//gets the object in the array with the highest number
+function getMax(avgArr){
+    // Flattening this array
+    var arrOfAvgsArr = avgArr.map(function(d) { return Object.values(d); });// returns array of arrays
+    var maxAvgArr = arrOfAvgsArr.reduce(function(acc, curr){ return acc.concat(curr);}); // retuns array of numbers
+    // es6
+    //let arrayOfAvgPrices = [].concat(...arrayOfAvgPrices);
+    var max = d3.max(maxAvgArr);
+
+    return max;
+}
+
+function getOrdinals(avgArr){
+  return  avgArr.map(function(d) { return Object.keys(d); });
+}
+
+function getStdDev(objectArr){
+  var pricesArray = objectArr.map(function(d){ return currencyToNumber(d.bPrice);});
+  var stdDev = d3.deviation(pricesArray)
+  return stdDev;
+}
+
+function getAverage(objectArr){
+  var pricesArray = objectArr.map(function(d){ return currencyToNumber(d.bPrice);});
+  var total = pricesArray.reduce(function(accumulator, currentValue){
+   var sum = accumulator + currentValue;
+   return  sum;
+  }); 
+  var avg = total/pricesArray.length;
+  return Math.round(avg);
+}
