@@ -15,12 +15,16 @@ function processJson(json){
   var jsonPruned = json[Object.keys(json)[0]];
 
   makeAveragesGraph(jsonPruned.sold);
+  console.log(jsonPruned.sold);
 
-  $.each(jsonPruned.sold, function(fishTypeName, object){
-    makeGraph(object, fishTypeName);
-  });
+  makeGraph(jsonPruned.sold);
 }
 
 
 
 //$('#currentDayData').html(JSON.stringify(data,null,4));
+/*
+  $.each(jsonPruned.sold, function(fishTypeName, object){
+    makeGraph(object, fishTypeName);
+  });
+*/

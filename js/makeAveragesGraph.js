@@ -8,10 +8,11 @@ function makeAveragesGraph(soldData){
       var realName = getReadableName(fishTypeName);
       var stdDev = getStdDev(objectArr);
       var salesVolume = objectArr.length
-    	avgObj = {"bPrice": avg,
-                "item": realName,
-                "stdDev": stdDev,
-                "salesVolume": salesVolume
+    	avgObj = {
+        "bPrice": avg,
+        "item": realName,
+        "stdDev": stdDev,
+        "salesVolume": salesVolume
       };
     	avgArr.push(avgObj);
   	});
@@ -61,12 +62,12 @@ function makeAvgGraph(avgArr){
       var rect = d3.selectAll("rect");
         // add the y position of the rect, the svg canvas is inverse, so if this number is 0, then the graph looks "upside down"
         // the y function maps the passed in average number to the domain/range
-      rect.transition().duration(2000)//ease(d3.easeElastic)
+      rect.transition().duration(1500)//ease(d3.easeElastic)
         .attr("y", function(d) { return y(d.bPrice); })
         .attr("height", function(d) {return height - y(d.bPrice); });
 
         //provide tooltip effects
-        bars.on("mouseover", function(d) {
+      bars.on("mouseover", function(d) {
             tooltip.transition()
                 .duration(200)
                 .style("opacity", 0.9);

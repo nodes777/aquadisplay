@@ -1,9 +1,8 @@
-function makeGraph(fishType){
+function makeGraph(fishType, fishTypeName){
 	//fishType is a object of objects
   var fishTypeNames = Object.keys(fishType);
-
-  var selectionName = fishTypeNames[0];// string
-  var selection = fishType[selectionName];
+  console.log(elements);
+  var selection = fishTypeNames[0];
 
    // set the dimensions and margins of the graph
     var margin = {top: 30, right: 20, bottom: 60, left: 80},
@@ -17,9 +16,10 @@ function makeGraph(fishType){
     var y = d3.scaleLinear() // scaleLinear, input is domain, output is range (domain added below)
               .range([height, 0]);
 
+
     // Scale the range of the data in the domains
-    x.domain(selection.map(function(d) { return d.item; }));
-    y.domain([0, d3.max(selection, function(d) { return currencyToNumber(d.bPrice); })]);
+    x.domain(fishType.map(function(d) { return d.item; }));
+    y.domain([0, d3.max(fishType, function(d) { return currencyToNumber(d.bPrice); })]);
 
     // append the svg object to the body of the page
         // append a 'group' element to 'svg'
@@ -32,22 +32,15 @@ function makeGraph(fishType){
             "translate(" + margin.left + "," + margin.top + ")");
 
     // Create Bars
-    var bars = svg.selectAll(".categoryBar")
-        .data(selection)
+    svg.selectAll(".bar")
+        .data(fishType)
       .enter().append("rect")
-        .attr("class", "bar categoryBar")
+        .attr("class", "bar")
         .attr("x", function(d) { return x(d.item); })
         .attr("width", x.bandwidth())
-        // set y and height to 0, they will grow in the transition
-        .attr("y", y(0))
-        .attr("height", 0);
-
- 
-      bars.transition().duration(1500)//ease(d3.easeElastic)
         .attr("y", function(d) { return y(currencyToNumber(d.bPrice)); })
-        .attr("height", function(d) {return height - y(currencyToNumber(d.bPrice)); });
-
-      bars.on("mouseover", function(d) {
+        .attr("height", function(d) { return height - y(currencyToNumber(d.bPrice)); })
+        .on("mouseover", function(d) {
             tooltip.transition()
                 .duration(200)
                 .style("opacity", 0.9);
@@ -61,26 +54,25 @@ function makeGraph(fishType){
                 .style("opacity", 0);
         });
 
+
     // Add the x Axis
-    var xAxis = d3.axisBottom(x);
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
-        .call(xAxis)
+        .call(d3.axisBottom(x))
       .selectAll(".tick text")
         // wrap the text so that the words don't overlap
         .call(wrap, x.bandwidth());
 
     // Add the y Axis
-    var yAxis = d3.axisLeft(y);
     svg.append("g")
-        .call(yAxis);
+        .call(d3.axisLeft(y));
 
     // Create Title
 	svg.append("text")
 		.attr("x", width / 2 )
         .attr("y", -10)
         .style("text-anchor", "middle")
-        .text("Sold " + getReadableName(selectionName));
+        .text("Sold " + getReadableName(fishTypeName));
 
     // Create Y axis label
     svg.append("text")
@@ -103,69 +95,51 @@ function makeGraph(fishType){
         .attr("class", "tooltip")
         .style("opacity", 0);
 
-
-/* ----------------------------------------------*/
-
-
+    var selection = fishTypeName;
 
     var selector = d3.select("#drop")
       .append("select")
-      .style("margin-left", "25px")
       .attr("id","dropdown")
       .on("change", function(d){
-          selectionName = document.getElementById("dropdown").value;// string
-          selection = fishType[selectionName];
+          selection = document.getElementById("dropdown");
 
-          console.log(selection)
-
-          x.domain(selection.map(function(d) { return d.item; }));
-          y.domain([0, d3.max(selection, function(d) { return currencyToNumber(d.bPrice); })]);
+          y.domain([0, d3.max(data, function(d){
+        return +d[selection.value];})]);
 
           yAxis.scale(y);
-          xAxis.scale(x);
-            console.log(d3.selectAll(".categoryBar"))
-          d3.selectAll(".categoryBar").transition().duration(500).style("opacity", 0).remove();// whyyyyyyyyy doesnt this actually remove the elements????
-          d3.selectAll(".categoryBar").remove()
 
-          var barsOfCategory = svg.selectAll(".categoryBar")
-            .data(selection)
-          .enter().append("rect") //update?
-            .attr("class", "bar categoryBar")
-            .style("opacity", 1)
-            .attr("x", function(d) { return x(d.item); })
-            .attr("width", x.bandwidth())
-            .attr("y", y(0))
-            .attr("height", 0)
+          d3.selectAll(".rectangle")
+              .transition()
+              .attr("height", function(d){
+          return height - y(+d[selection.value]);
+        })
+        .attr("x", function(d, i){
+          return (width / data.length) * i ;
+        })
+        .attr("y", function(d){
+          return y(+d[selection.value]);
+        })
+              .ease("linear")
+              .select("title")
+              .text(function(d){
+                return d.State + " : " + d[selection.value];
+              });
+      
+            d3.selectAll("g.y.axis")
+              .transition()
+              .call(yAxis);
 
-          barsOfCategory.transition().duration(1500)
-            .attr("y", function(d) { return Math.round(currencyToNumber(d.bPrice)); })
-            .attr("height", function(d) { return height - currencyToNumber(d.bPrice); })
-
-          barsOfCategory.on("mouseover", function(d) {
-                tooltip.transition()
-                    .duration(200)
-                    .style("opacity", 0.9);
-                tooltip.html(d.item+" $"+currencyToNumber(d.bPrice))
-                    .style("left", (d3.event.pageX) + "px")
-                    .style("top", (d3.event.pageY - 28) + "px");
-                })
-            .on("mouseout", function(d) {
-                tooltip.transition()
-                    .duration(500)
-                    .style("opacity", 0);
-            });
          });
 
     selector.selectAll("option")
-      .data(fishTypeNames)
+      .data(elements)
       .enter().append("option")
       .attr("value", function(d){
         return d;
       })
       .text(function(d){
-        return getReadableName(d);
+        return d;
       })
-
 
 }
 
