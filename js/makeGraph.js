@@ -116,16 +116,16 @@ function makeGraph(fishType){
           selectionName = document.getElementById("dropdown").value;// string
           selection = fishType[selectionName];
 
-          console.log(selection)
+          //console.log(selection)
 
           x.domain(selection.map(function(d) { return d.item; }));
           y.domain([0, d3.max(selection, function(d) { return currencyToNumber(d.bPrice); })]);
 
           yAxis.scale(y);
           xAxis.scale(x);
-            console.log(d3.selectAll(".categoryBar"))
-          d3.selectAll(".categoryBar").transition().duration(500).style("opacity", 0).remove();// whyyyyyyyyy doesnt this actually remove the elements????
-          d3.selectAll(".categoryBar").remove()
+
+          d3.selectAll(".categoryBar").transition().style("opacity", 0).remove();// whyyyyyyyyy doesnt this actually remove the elements????
+          d3.selectAll(".categoryBar").remove()// needed to remove the elements from the DOM
 
           var barsOfCategory = svg.selectAll(".categoryBar")
             .data(selection)
@@ -154,7 +154,9 @@ function makeGraph(fishType){
                     .duration(500)
                     .style("opacity", 0);
             });
-         });
+         },
+      {passive: true});
+
 
     selector.selectAll("option")
       .data(fishTypeNames)

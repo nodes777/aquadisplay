@@ -20,9 +20,11 @@ function currencyToNumber(bPrice) {
 	if(typeof bPrice === "number") {
 		return bPrice;
 	}
+
 	var currency = bPrice;
     // bPrice comes as a string with dollar sign, remove with regex
     var number = Number(currency.replace(/[^0-9\.-]+/g,""));
+
     return number;
 }
 
@@ -60,8 +62,9 @@ function getAverage(objectArr){
   var total = pricesArray.reduce(function(accumulator, currentValue){
    var sum = accumulator + currentValue;
    return  sum;
-  }); 
+  }, 0); 
   var avg = total/pricesArray.length;
+  avg = checkNaN(avg);
   return Math.round(avg);
 }
 
@@ -87,4 +90,12 @@ function wrap(text, width) {
       }
     }
   });
+}
+
+function checkNaN (x){
+	if(isNaN(x)) {
+		return 0;
+	} else {
+		return x;
+	}
 }
