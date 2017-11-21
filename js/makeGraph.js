@@ -114,65 +114,9 @@ function makeGraph(fishType){
       .append("select")
       .style("margin-left", "25px")
       .attr("id","dropdown")
-      .on("change", function(d){
-          selectionName = document.getElementById("dropdown").value;// string
-          selection = fishType[selectionName];
-
-          //console.log(selection)
-
-          x.domain(selection.map(function(d) { return d.item; }));
-          y.domain([0, d3.max(selection, function(d) { return currencyToNumber(d.bPrice); })]);
-
-          yAxis.scale(y);
-          xAxis.scale(x);
-
-          d3.selectAll(".categoryBar").transition().style("opacity", 0).remove();// whyyyyyyyyy doesnt this actually remove the elements????
-          d3.selectAll(".categoryBar").remove()// needed to remove the elements from the DOM
-
-          var barsOfCategory = svg.selectAll(".categoryBar")
-            .data(selection)
-          .enter().append("rect") //update?
-            .attr("class", "bar categoryBar")
-            .style("opacity", 1)
-            .attr("x", function(d) { return x(d.item); })
-            .attr("width", x.bandwidth())
-            .attr("y", y(0))
-            .attr("height", 0)
-
-          barsOfCategory.transition().duration(1500)
-            .attr("y", function(d) { 
-              console.log(d+" y: "+y(Math.round(currencyToNumber(d.bPrice))))
-              return y(Math.round(currencyToNumber(d.bPrice))); })
-            .attr("height", function(d) { return height - y(currencyToNumber(d.bPrice)); })
-
-          barsOfCategory.on("mouseover", function(d) {
-                tooltip.transition()
-                    .duration(200)
-                    .style("opacity", 0.9);
-                tooltip.html(d.item+" $"+currencyToNumber(d.bPrice))
-                    .style("left", (d3.event.pageX) + "px")
-                    .style("top", (d3.event.pageY - 28) + "px");
-                })
-            .on("mouseout", function(d) {
-                tooltip.transition()
-                    .duration(500)
-                    .style("opacity", 0);
-            });
-
-            //Transition y Axis
-            svg.select(".yAxis")
-                    .transition().duration(2500).ease(d3.easeElastic)
-                    .call(yAxis);  
-
-            //Transition x Axis
-            svg.select(".xAxis")
-                    .call(xAxis);
-            svg.select(".xAxis").selectAll(".tick text")
-                // wrap the text so that the words don't overlap
-                .call(wrap, x.bandwidth());       
-
-         },
-      {passive: true});
+      .on("change", function(d) {
+            changeCategory.call(this, d, fishType, x, y, yAxis, xAxis, svg, height);
+          }   , {passive: true});
 
 
     selector.selectAll("option")
