@@ -1,11 +1,15 @@
-TO DO:
-Provide total number of sales per fish type
-Bootstrap/responsive
-Select day
-make a line graph for 30day
+# TO DO:
+* Provide total number of sales per fish type
+* Select day
+* Make a line graph for 30day
 
 
-Averages:
+## Averages:
 Sort by highest bar?
-Provide std dev ----- Width of bar represented by number of sales
-add links to axislabels
+
+
+## Game:
+* Store local picks
+* Compare to a market average:
+	* Create market average
+	*

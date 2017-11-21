@@ -66,6 +66,7 @@ function makeGraph(fishType){
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis)
+        .attr("class", "xAxis")
       .selectAll(".tick text")
         // wrap the text so that the words don't overlap
         .call(wrap, x.bandwidth());
@@ -73,6 +74,7 @@ function makeGraph(fishType){
     // Add the y Axis
     var yAxis = d3.axisLeft(y);
     svg.append("g")
+        .attr("class", "yAxis")
         .call(yAxis);
 
     // Create Title
@@ -138,8 +140,10 @@ function makeGraph(fishType){
             .attr("height", 0)
 
           barsOfCategory.transition().duration(1500)
-            .attr("y", function(d) { return Math.round(currencyToNumber(d.bPrice)); })
-            .attr("height", function(d) { return height - currencyToNumber(d.bPrice); })
+            .attr("y", function(d) { 
+              console.log(d+" y: "+y(Math.round(currencyToNumber(d.bPrice))))
+              return y(Math.round(currencyToNumber(d.bPrice))); })
+            .attr("height", function(d) { return height - y(currencyToNumber(d.bPrice)); })
 
           barsOfCategory.on("mouseover", function(d) {
                 tooltip.transition()
@@ -154,6 +158,19 @@ function makeGraph(fishType){
                     .duration(500)
                     .style("opacity", 0);
             });
+
+            //Transition y Axis
+            svg.select(".yAxis")
+                    .transition().duration(2500).ease(d3.easeElastic)
+                    .call(yAxis);  
+
+            //Transition x Axis
+            svg.select(".xAxis")
+                    .call(xAxis);
+            svg.select(".xAxis").selectAll(".tick text")
+                // wrap the text so that the words don't overlap
+                .call(wrap, x.bandwidth());       
+
          },
       {passive: true});
 
