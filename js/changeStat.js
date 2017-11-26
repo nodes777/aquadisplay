@@ -1,8 +1,8 @@
-function changeCategory(d, selection, fishType, x, y, yAxis, xAxis, svg, height, tooltip){
-          //console.log(selection)
+function changeStat(d, graphType, x, y, yAxis, xAxis, svg, height, tooltip){
+          //console.log(graphType)
 
-          x.domain(selection.map(function(d) { return d.item; }));
-          y.domain([0, d3.max(selection, function(d) { return currencyToNumber(d.bPrice); })]);
+          x.domain(graphType.map(function(d) { return d.item; }));
+          y.domain([0, d3.max(graphType, function(d) { return currencyToNumber(d.bPrice); })]);
 
           yAxis.scale(y);
           xAxis.scale(x);
@@ -19,7 +19,7 @@ function changeCategory(d, selection, fishType, x, y, yAxis, xAxis, svg, height,
         */
 
           var barsOfCategory = svg.selectAll(".categoryBar")
-            .data(selection)
+            .data(graphType)
           .enter().append("rect") //update?
             .attr("class", "bar categoryBar")
             .style("opacity", 1)

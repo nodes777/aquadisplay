@@ -106,15 +106,17 @@ function makeGraph(fishType){
 
 
 /* ----------------------------------------------*/
-
-
+// Add the drop down for changing the fishType graph
+/* ----------------------------------------------*/
 
     var selector = d3.select("#drop")
       .append("select")
       .style("margin-left", "25px")
       .attr("id","dropdown")
       .on("change", function(d) {
-            changeCategory.call(this, d, fishType, x, y, yAxis, xAxis, svg, height, tooltip);
+          selectionName = document.getElementById("dropdown").value;// string
+          selection = fishType[selectionName];
+            changeCategory.call(this, d, selection, fishType, x, y, yAxis, xAxis, svg, height, tooltip);
           }   , {passive: true});
 
 

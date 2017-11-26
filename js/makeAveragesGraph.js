@@ -17,7 +17,6 @@ function makeAveragesGraph(soldData){
     	avgArr.push(avgObj);
   	});
   makeAvgGraph(avgArr);
-  //makeGraph(avgArr);
 }
 
 function makeAvgGraph(avgArr){
@@ -83,6 +82,7 @@ function makeAvgGraph(avgArr){
 
 
     // add the x Axis
+    var xAxis = d3.axisBottom(x);
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x))
@@ -94,6 +94,7 @@ function makeAvgGraph(avgArr){
 
 
     // add the y Axis
+    var yAxis = d3.axisLeft(y);
     svg.append("g")
         .call(d3.axisLeft(y));
 
@@ -118,6 +119,15 @@ function makeAvgGraph(avgArr){
   var tooltip = d3.select("body").append("div")
         .attr("class", "tooltip")
         .style("opacity", 0);
+
+  var radioButtons = document.getElementsByName('graphType');
+    for (let radio of radioButtons) {
+      radio.addEventListener("change", function(d) {
+          graphType = this.value;
+            changeStat.call(this, d, graphType, x, y, yAxis, xAxis, svg, height, tooltip);
+          });
+    }
+
 
 }
 
