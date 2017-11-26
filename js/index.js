@@ -18,6 +18,8 @@ function processJson(json){
 
   getSoldItems(jsonPruned.allAuctions, makeGraph);
 
+  $("#currentDay").append(` ${today} ${monthAndYear}`);
+
 }
 
 function getSoldItems(objOfObjs, callback){
@@ -30,7 +32,7 @@ function getSoldItems(objOfObjs, callback){
         });
         objOfSold[key] = soldItems;
     });
-    callback(objOfSold)
+    callback(objOfSold);
 }
 
 //$('#currentDayData').html(JSON.stringify(data,null,4));

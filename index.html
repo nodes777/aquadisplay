@@ -20,7 +20,7 @@
   <body>
   	<div class="col-md-12">
   		<h1 class="text-center">Aquascraper</h1>
-      <h2 class="text-center">Current Day Data</h2>
+      <h2 class="text-center" id="currentDay">Current Day Data</h2>
   	</div>
   <div class="row ">
   	<div class="col-md-12" id="firstGraph">
@@ -30,11 +30,9 @@
         <label for="stdDevRadio" class='radio-inline'>
           <input id="stdDevRadio" type="radio" name="graphType" value="stdDev" onclick='change(this.value)'> Standard Deviation
         </label>
-  		
   	</div>
       <div id="drop"></div>
       <div class="col-md-6" id="secondGraph">
-      
       </div>
   </div>
   </body>
