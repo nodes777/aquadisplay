@@ -47,8 +47,12 @@ function changeStat(d, statArr, graphType, x, y, yAxis, xAxis, svg, height, tool
                     .style("opacity", 0);
             });
 
-            //Transition y Axis 
+            //Transition y Axis
             svg.select(".yAxisStatGraph")
                     .transition().duration(2500).ease(d3.easeExp)
                     .call(yAxis);
+
+            //Change title
+            svg.select("#statGraphTitle")
+                .text(getTooltipVerb(graphType));
 }

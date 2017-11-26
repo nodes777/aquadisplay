@@ -20,7 +20,6 @@ function processJson(json){
 
   $("#currentDay").append(` ${today} ${monthAndYear}`);
 
-
 }
 
 function getSoldItems(objOfObjs, callback){

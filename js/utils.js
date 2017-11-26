@@ -29,7 +29,7 @@ function currencyToNumber(bPrice) {
   // bPrice comes as a string with dollar sign, remove with regex
   var number = Number(currency.replace(/[^0-9\.-]+/g,""));
 
-    return number;
+  return number;
 }
 
 function getWidthOfGraph(id){

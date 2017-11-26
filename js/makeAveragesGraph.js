@@ -88,6 +88,7 @@ function makeAvgGraph(statArr){
         .call(d3.axisBottom(x))
         .selectAll("text")
             .style("text-anchor", "end")
+            .style("font-size", "1.2em")
             .attr("dx", "-.8em")
             .attr("dy", ".15em")
             .attr("transform", "rotate(-65)");
@@ -102,7 +103,8 @@ function makeAvgGraph(statArr){
     //Create Title
 	  svg.append("text")
 		.attr("x", width / 2 )
-        .attr("y", -10)
+        .attr("id", "statGraphTitle")
+        .attr("y", -5)
         .style("text-anchor", "middle")
         .text("Averages");
 
@@ -130,10 +132,5 @@ function makeAvgGraph(statArr){
           });
     }
 
-
-}
-
-function change(graphType){
-  console.log(graphType);
 
 }

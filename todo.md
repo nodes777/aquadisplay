@@ -1,6 +1,4 @@
 # TO DO:
-* Provide total number of sales per fish type
-* Select day
 * Make a line graph for 30day
 
 
