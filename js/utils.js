@@ -107,3 +107,10 @@ function checkNaN (x){
 function getTooltipVerb(graphType){
   return tooltipVerbObj[graphType];
 }
+
+function checkForLocalStorageSupport(){
+  if (typeof(Storage) === "undefined") {
+      console.log("Storage not supported");
+      throw "Storage not supported in this browser!";
+  }
+}

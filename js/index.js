@@ -14,9 +14,11 @@ function processJson(json){
   // get the sold and allAuctions as one object. Skipping the messy name Firebase creates
   var jsonPruned = json[Object.keys(json)[0]];
 
-  getSoldItems(jsonPruned.allAuctions, makeAveragesGraph);
+  var soldItems = getSoldItems(jsonPruned.allAuctions);
 
-  getSoldItems(jsonPruned.allAuctions, makeGraph);
+  makeStatsGraph(soldItems);
+
+  makeCategoryGraphs(soldItems);
 
   $("#currentDay").append(` ${today} ${monthAndYear}`);
 
@@ -32,18 +34,19 @@ function getSoldItems(objOfObjs, callback){
         });
         objOfSold[key] = soldItems;
     });
-    callback(objOfSold);
+   //callback(objOfSold);
+   return objOfSold;
 }
 
 //$('#currentDayData').html(JSON.stringify(data,null,4));
 /*
   $.each(jsonPruned.sold, function(fishTypeName, object){
-    makeGraph(object, fishTypeName);
+    makeCategoryGraphs(object, fishTypeName);
   });
 
 
   // this takes time to sort, must be a callback?
   //makeAveragesGraph(selfSortedSold);
 
-    //makeGraph(selfSortedSold);
+    //makeCategoryGraphs(selfSortedSold);
 */

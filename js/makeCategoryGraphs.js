@@ -1,4 +1,4 @@
-function makeGraph(fishType){
+function makeCategoryGraphs(fishType){
 	//fishType is a object of objects
   var fishTypeNames = Object.keys(fishType);
 

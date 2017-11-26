@@ -1,6 +1,7 @@
-function makeAveragesGraph(soldData){
+var statArr = [];
+
+function makeStatsGraph(soldData){
     // create an array to fill with objects
-	var statArr = [];
 								              // key      value
 	$.each(soldData, function(fishTypeName, objectArr){
     	//console.log(fishTypeName +" + "+ objectArr)
@@ -16,10 +17,10 @@ function makeAveragesGraph(soldData){
       };
     	statArr.push(avgObj);
   	});
-  makeAvgGraph(statArr);
+  initAvgGraph(statArr);
 }
 
-function makeAvgGraph(statArr){
+function initAvgGraph(statArr){
 
 	var margin = {top: 20, right: 80, bottom: 110, left: 80},
         width = getWidthOfGraph('#firstGraph') - margin.left - margin.right,
