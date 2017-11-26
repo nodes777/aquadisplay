@@ -1,3 +1,5 @@
+var tooltipVerbObj = { avg:"Average Price $", stdDev:"Standard Deviation:", salesVolume:"Sales Volume:"};
+
 function getCurrentDay(){
 	var daysArr = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 	var d = new Date();
@@ -55,7 +57,7 @@ function getOrdinals(avgArr){
 
 function getStdDev(objectArr){
   var pricesArray = objectArr.map(function(d){ return currencyToNumber(d.bPrice);});
-  var stdDev = d3.deviation(pricesArray)
+  var stdDev = d3.deviation(pricesArray);
   return stdDev;
 }
 
@@ -64,7 +66,7 @@ function getAverage(objectArr){
   var total = pricesArray.reduce(function(accumulator, currentValue){
    var sum = accumulator + currentValue;
    return  sum;
-  }, 0); 
+  }, 0);
   var avg = total/pricesArray.length;
   avg = checkNaN(avg);
   return Math.round(avg);
@@ -100,4 +102,8 @@ function checkNaN (x){
 	} else {
 		return x;
 	}
+}
+
+function getTooltipVerb(graphType){
+  return tooltipVerbObj[graphType];
 }
