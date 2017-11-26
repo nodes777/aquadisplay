@@ -1,5 +1,6 @@
 # TO DO:
 * Make a line graph for 30day
+* Provide button for drop down
 
 
 ## Averages:

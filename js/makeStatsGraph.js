@@ -86,7 +86,7 @@ function initAvgGraph(statArr){
     var xAxis = d3.axisBottom(x);
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x))
+        .call(xAxis)
         .selectAll("text")
             .style("text-anchor", "end")
             .style("font-size", "1.2em")
@@ -99,7 +99,7 @@ function initAvgGraph(statArr){
     var yAxis = d3.axisLeft(y);
     svg.append("g")
         .attr("class", "yAxisStatGraph")
-        .call(d3.axisLeft(y));
+        .call(yAxis);
 
     //Create Title
 	  svg.append("text")

@@ -24,7 +24,7 @@ function processJson(json){
 
 }
 
-function getSoldItems(objOfObjs, callback){
+function getSoldItems(objOfObjs){
 
     var objOfSold = {};
 
@@ -34,7 +34,6 @@ function getSoldItems(objOfObjs, callback){
         });
         objOfSold[key] = soldItems;
     });
-   //callback(objOfSold);
    return objOfSold;
 }
 
