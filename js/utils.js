@@ -20,10 +20,12 @@ function currencyToNumber(bPrice) {
 	if(typeof bPrice === "number") {
 		return bPrice;
 	}
-
+  if(typeof bPrice === "undefined") {
+    return 0;
+  }
 	var currency = bPrice;
-    // bPrice comes as a string with dollar sign, remove with regex
-    var number = Number(currency.replace(/[^0-9\.-]+/g,""));
+  // bPrice comes as a string with dollar sign, remove with regex
+  var number = Number(currency.replace(/[^0-9\.-]+/g,""));
 
     return number;
 }

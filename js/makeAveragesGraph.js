@@ -1,6 +1,6 @@
 function makeAveragesGraph(soldData){
     // create an array to fill with objects
-	var avgArr = [];
+	var statArr = [];
 								              // key      value
 	$.each(soldData, function(fishTypeName, objectArr){
     	//console.log(fishTypeName +" + "+ objectArr)
@@ -9,17 +9,17 @@ function makeAveragesGraph(soldData){
       var stdDev = getStdDev(objectArr);
       var salesVolume = objectArr.length;
     	avgObj = {
-        "bPrice": avg,
+        "avg": avg,
         "item": realName,
         "stdDev": stdDev,
         "salesVolume": salesVolume
       };
-    	avgArr.push(avgObj);
+    	statArr.push(avgObj);
   	});
-  makeAvgGraph(avgArr);
+  makeAvgGraph(statArr);
 }
 
-function makeAvgGraph(avgArr){
+function makeAvgGraph(statArr){
 
 	var margin = {top: 20, right: 80, bottom: 110, left: 80},
         width = getWidthOfGraph('#firstGraph') - margin.left - margin.right,
@@ -33,8 +33,8 @@ function makeAvgGraph(avgArr){
               .range([height, 0]);
 
     // Scale the range of the data in the domains
-    x.domain(avgArr.map(function(d) { return d.item; }));
-    y.domain([0, d3.max(avgArr, function(d) { return d.bPrice; })]);
+    x.domain(statArr.map(function(d) { return d.item; }));
+    y.domain([0, d3.max(statArr, function(d) { return d.avg; })]);
 
     // append the svg object to the body of the page
         // append a 'group' element to 'svg'
@@ -47,9 +47,9 @@ function makeAvgGraph(avgArr){
             "translate(" + margin.left + "," + margin.top + ")");
 
     var bars = svg.selectAll(".bar")
-        .data(avgArr) // data is expecting an array, of objects in this case
+        .data(statArr) // data is expecting an array, of objects in this case
       .enter().append("rect")//add a rectangle for each item in the array
-        .attr("class", "bar")
+        .attr("class", "bar statGraphBar")
         // add the x position of the new rect, at the position mappped by the function x()'s domain and range, passing in the name of the fishType
         .attr("x", function(d) { return x(d.item); })
         .attr("width", x.bandwidth())
@@ -62,15 +62,15 @@ function makeAvgGraph(avgArr){
         // add the y position of the rect, the svg canvas is inverse, so if this number is 0, then the graph looks "upside down"
         // the y function maps the passed in average number to the domain/range
       rect.transition().duration(1500)//ease(d3.easeElastic)
-        .attr("y", function(d) { return y(d.bPrice); })
-        .attr("height", function(d) {return height - y(d.bPrice); });
+        .attr("y", function(d) { return y(d.avg); })
+        .attr("height", function(d) {return height - y(d.avg); });
 
         //provide tooltip effects
       bars.on("mouseover", function(d) {
             tooltip.transition()
                 .duration(200)
                 .style("opacity", 0.9);
-            tooltip.html("Average "+d.item+" Price: $"+Math.round(d.bPrice))
+            tooltip.html("Average "+d.item+" Price: $"+Math.round(d.avg))
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
             })
@@ -96,6 +96,7 @@ function makeAvgGraph(avgArr){
     // add the y Axis
     var yAxis = d3.axisLeft(y);
     svg.append("g")
+        .attr("class", "yAxisStatGraph")
         .call(d3.axisLeft(y));
 
     //Create Title
@@ -107,6 +108,7 @@ function makeAvgGraph(avgArr){
 
       // text label for the y axis
     svg.append("text")
+      .attr("class", "statGraphYAxisLabel")
       .attr("transform", "rotate(-90)")
       .attr("y", 20 - margin.left)
       .attr("x",0 - (height / 2))
@@ -124,7 +126,7 @@ function makeAvgGraph(avgArr){
     for (let radio of radioButtons) {
       radio.addEventListener("change", function(d) {
           graphType = this.value;
-            changeStat.call(this, d, graphType, x, y, yAxis, xAxis, svg, height, tooltip);
+            changeStat.call(this, d, statArr, graphType, x, y, yAxis, xAxis, svg, height, tooltip);
           });
     }
 
