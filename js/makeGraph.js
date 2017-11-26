@@ -42,7 +42,6 @@ function makeGraph(fishType){
         .attr("y", y(0))
         .attr("height", 0);
 
- 
       bars.transition().duration(1500)//ease(d3.easeElastic)
         .attr("y", function(d) { return y(currencyToNumber(d.bPrice)); })
         .attr("height", function(d) {return height - y(currencyToNumber(d.bPrice)); });
@@ -115,7 +114,7 @@ function makeGraph(fishType){
       .style("margin-left", "25px")
       .attr("id","dropdown")
       .on("change", function(d) {
-            changeCategory.call(this, d, fishType, x, y, yAxis, xAxis, svg, height);
+            changeCategory.call(this, d, fishType, x, y, yAxis, xAxis, svg, height, tooltip);
           }   , {passive: true});
 
 
@@ -127,7 +126,7 @@ function makeGraph(fishType){
       })
       .text(function(d){
         return getReadableName(d);
-      })
+      });
 
 
 }

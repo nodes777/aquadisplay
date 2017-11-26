@@ -7,7 +7,7 @@ function makeAveragesGraph(soldData){
     	var avg = getAverage(objectArr);
       var realName = getReadableName(fishTypeName);
       var stdDev = getStdDev(objectArr);
-      var salesVolume = objectArr.length
+      var salesVolume = objectArr.length;
     	avgObj = {
         "bPrice": avg,
         "item": realName,
@@ -56,7 +56,7 @@ function makeAvgGraph(avgArr){
         .attr("width", x.bandwidth())
         // set y and height to 0, they will grow in the transition
         .attr("y", y(0))
-        .attr("height", 0)
+        .attr("height", 0);
 
       // Transition for growing the bars upwards
       var rect = d3.selectAll("rect");
@@ -120,7 +120,6 @@ function makeAvgGraph(avgArr){
         .style("opacity", 0);
 
 }
-
 
 function change(graphType){
   console.log(graphType);

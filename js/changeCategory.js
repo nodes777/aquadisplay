@@ -1,4 +1,4 @@
-function changeCategory(d, fishType, x, y, yAxis, xAxis, svg, height){
+function changeCategory(d, fishType, x, y, yAxis, xAxis, svg, height, tooltip){
           selectionName = document.getElementById("dropdown").value;// string
           selection = fishType[selectionName];
 
@@ -10,12 +10,8 @@ function changeCategory(d, fishType, x, y, yAxis, xAxis, svg, height){
           yAxis.scale(y);
           xAxis.scale(x);
 
-          d3.selectAll(".categoryBar")
-            .style("opacity", 1)
-          .transition()
-          .duration(300)
-            .style("opacity", 0).remove();// whyyyyyyyyy doesnt this actually remove the elements????
-          //d3.selectAll(".categoryBar").remove()// needed to remove the elements from the DOM
+          //d3.selectAll(".categoryBar").style("opacity", 1).transition().duration(300).style("opacity", 0).remove();// whyyyyyyyyy doesnt this actually remove the elements????
+          d3.selectAll(".categoryBar").remove()// needed to remove the elements from the DOM
 
         /* This fades out correctly, but when new bars appear, some bars are just missing
          d3.selectAll(".categoryBar")

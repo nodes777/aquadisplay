@@ -16,7 +16,7 @@ function processJson(json){
 
   getSoldItems(jsonPruned.allAuctions, makeAveragesGraph);
 
-  getSoldItems(jsonPruned.allAuctions, makeGraph)
+  getSoldItems(jsonPruned.allAuctions, makeGraph);
 
 }
 
