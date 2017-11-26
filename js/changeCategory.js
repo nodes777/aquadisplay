@@ -48,7 +48,7 @@ function changeCategory(d, selection, fishType, x, y, yAxis, xAxis, svg, height,
 
             //Transition y Axis
             svg.select(".yAxis")
-                    .transition().duration(2500).ease(d3.easeElastic)
+                    .transition().duration(2500).ease(d3.easeExp)
                     .call(yAxis);
 
             //Transition x Axis

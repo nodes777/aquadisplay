@@ -47,7 +47,7 @@ function changeStat(d, statArr, graphType, x, y, yAxis, xAxis, svg, height, tool
 
             //Transition y Axis
             svg.select(".yAxisStatGraph")
-                    .transition().duration(2500).ease(d3.easeElastic)
+                    .transition().duration(2500).ease(d3.easeExp)
                     .call(yAxis);
 
 
