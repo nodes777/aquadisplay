@@ -13,7 +13,7 @@ $.ajax({
 $.ajax({
   url: 'https://aquascraper-data.firebaseio.com/stats.json?orderBy="timestamp"&limitToLast=30',
   dataType: "jsonp",
-  jsonpCallback: "processStatsJson"
+  jsonpCallback: "processLineJson"
 });
 
 
@@ -44,10 +44,10 @@ function getSoldItems(objOfObjs){
    return objOfSold;
 }
 
-function processStatsJson(json){
+function processLineJson(json){
 
   makeLineGraph(json);
-  $('#lineGraph').html(JSON.stringify(json,null,4));
+
 }
 
 
