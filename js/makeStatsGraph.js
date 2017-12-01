@@ -17,6 +17,7 @@ function makeStatsGraph(soldData){
       };
     	statArr.push(avgObj);
   	});
+  console.log(statArr)
   initAvgGraph(statArr);
 }
 

@@ -5,12 +5,19 @@ console.log(today);
 
 
 $.ajax({
-  url: "https://aquascraper-data.firebaseio.com/"+monthAndYear+"/"+today+".json?callback=processJson&print=pretty",
+  url: "https://aquascraper-data.firebaseio.com/"+monthAndYear+"/"+today+".json?callback=processTodayJson&print=pretty",
   dataType: "jsonp",
-  jsonpCallback: "processJson"
+  jsonpCallback: "processTodayJson"
 });
 
-function processJson(json){
+$.ajax({
+  url: 'https://aquascraper-data.firebaseio.com/stats.json?orderBy="timestamp"&limitToLast=30',
+  dataType: "jsonp",
+  jsonpCallback: "processStatsJson"
+});
+
+
+function processTodayJson(json){
   // get the sold and allAuctions as one object. Skipping the messy name Firebase creates
   var jsonPruned = json[Object.keys(json)[0]];
 
@@ -36,6 +43,13 @@ function getSoldItems(objOfObjs){
     });
    return objOfSold;
 }
+
+function processStatsJson(json){
+
+  makeLineGraph(json);
+  $('#lineGraph').html(JSON.stringify(json,null,4));
+}
+
 
 //$('#currentDayData').html(JSON.stringify(data,null,4));
 /*
