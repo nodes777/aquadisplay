@@ -44,8 +44,6 @@ function makeLineGraph(json){
     var svg = d3.select("#lineGraph").append("svg");
     var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var parseTime = d3.timeParse("%d-%b-%y");
-
     var x = d3.scaleTime().range([0, width]);
     var y = d3.scaleLinear().range([height, 0]);
     // z is color, schemeCategory20 is a 20 color palette
@@ -53,7 +51,9 @@ function makeLineGraph(json){
 
     var line = d3.line()
 	    .curve(d3.curveBasis)
-	    .x(function(d) { return x(d.date); })
+	    .x(function(d) { 
+            console.log(d)
+            return x(d.date); })
 	    .y(function(d) { return y(d.avg); });
 
 	x.domain(d3.extent(thirtyDayStatObj, function(d) { 
@@ -87,4 +87,48 @@ function makeLineGraph(json){
 	  .attr('stroke', 'green')
 	  .attr('stroke-width', 2)
 	  .attr('fill', 'none');
+
+      draw(thirtyDayStatObj, "fw", x, y, svg, line, height)
 }
+
+
+function draw(data, fishTypeName, x, y, svg, line, height) {
+  
+  var data = data[fishTypeName];
+  var parseTime = d3.timeParse("%b-%Y-%d-%a");
+  // format the data
+  data.forEach(function(d) {
+      d.date = parseTime(d.date);
+      d.avg = +d.avg;
+      d.salesVolume = +d.salesVolume;
+  });
+  
+  // sort years ascending
+  data.sort(function(a, b){
+    return a["date"]-b["date"];
+    })
+ 
+  // Scale the range of the data
+  x.domain(d3.extent(data, function(d) { return d.date; }));
+  y.domain([0, d3.max(data, function(d) {
+      return Math.max(d.avg, d.salesVolume); })]);
+  
+  // Add the line path.
+  svg.append("path")
+      .data([data])
+      .attr("class", "line")
+      .attr("d", line);
+  // Add the line path.
+  svg.append("path")
+      .data([data])
+      .attr("class", "line")
+      .attr("d", line);  
+  // Add the X Axis
+  svg.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+
+  // Add the Y Axis
+  svg.append("g")
+      .call(d3.axisLeft(y));
+  }
