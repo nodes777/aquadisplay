@@ -59,7 +59,7 @@ function makeLineGraph(json){
     var color = d3.scaleOrdinal(d3.schemeCategory20);
 
     var line = d3.line()
-	    .curve(d3.curveBasis)
+	    //.curve(d3.curveBasis)
 	    .x(function(d) { return x(d.date); })
 	    .y(function(d) { return y(d.avg); });
 
@@ -70,7 +70,10 @@ function makeLineGraph(json){
   	y.domain([ 0, maxPoint])
     //color.domain(fishType.map(function(d) { return d.salesVolume; }));
 
-
+            // Define the div for the tooltip
+  var tooltip = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
   	// add the x Axis
   	var xAxis = d3.axisBottom(x);
     svg.append("g")
@@ -91,23 +94,37 @@ function makeLineGraph(json){
 
 
     $.each(thirtyDayLineObj, function(type){
-      draw(thirtyDayLineObj, type, x, y, svg, line, height, color)
+      draw(thirtyDayLineObj, type, x, y, svg, line, height, color, tooltip)
     })
 
 }
 
 
-function draw(data, fishTypeName, x, y, svg, line, height, color) {
+function draw(data, fishTypeName, x, y, svg, line, height, color, tooltip) {
   
   var fishType = data[fishTypeName];
   console.log(fishType)
 
   // Add the line path.
-  svg.append("path")
+  var lines = svg.append("path")
       .data(fishType)
       .attr("class", "line")
       .style("stroke", function() { // Add the colours dynamically
                 return fishType.color = color(fishTypeName); })
       .attr("d", line(fishType));  
+
+      lines.on("mouseover", function(d) {
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", 0.9);
+            tooltip.html(getReadableName(d.item)+" $"+d.avg)
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+            })
+        .on("mouseout", function(d) {
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+        });
 
 }
