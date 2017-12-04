@@ -66,9 +66,9 @@ function makeLineGraph(json){
     // Supply the earliest and latest dates
     //console.log(d3.extent(thirtyDayLineObj.fw, function(d) { return d.date; }))
 	x.domain(d3.extent(thirtyDayLineObj.fw, function(d) { return d.date; }));
-
-    console.log(d3.max(thirtyDayLineObj.fw, function(d) { return d.avg; }))
+    // Max point was created when first sorting the data.
   	y.domain([ 0, maxPoint])
+    //color.domain(fishType.map(function(d) { return d.salesVolume; }));
 
 
   	// add the x Axis
@@ -99,19 +99,15 @@ function makeLineGraph(json){
 
 function draw(data, fishTypeName, x, y, svg, line, height, color) {
   
-  var data = data[fishTypeName];
-  
- 
-  // Scale the range of the data
-  x.domain(d3.extent(data, function(d) { return d.date; }));
-  y.domain([0, d3.max(data, function(d) {return Math.max(d.avg); })]);
+  var fishType = data[fishTypeName];
+  console.log(fishType)
 
   // Add the line path.
   svg.append("path")
-      .data(data)
+      .data(fishType)
       .attr("class", "line")
       .style("stroke", function() { // Add the colours dynamically
-                return data.color = color(data.key); })
-      .attr("d", line(data));  
+                return fishType.color = color(fishTypeName); })
+      .attr("d", line(fishType));  
 
 }
