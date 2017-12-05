@@ -2,6 +2,7 @@ function makeLineGraph(json){
 	var thirtyDayLineObj = {};
     var maxPoint = 0;
     var parseTime = d3.timeParse("%b-%Y-%d-%a");
+    var formatDate = d3.timeFormat("%B %d")
 
 	/* Format data, each line/category must be an entry in the array */
 	$.each(json, function(date, objectDay){
@@ -42,7 +43,7 @@ function makeLineGraph(json){
 
 
 	console.log(thirtyDayLineObj);
-	var margin = {top: 20, right: 80, bottom: 110, left: 80},
+	var margin = {top: 40, right: 80, bottom: 110, left: 80},
     width = getWidthOfGraph('#lineGraph') - margin.left - margin.right,
     height = 720 - margin.top - margin.bottom;
 
@@ -92,6 +93,22 @@ function makeLineGraph(json){
         .attr("class", "yAxisLineGraph")
         .call(yAxis);
 
+    // y Axis Label
+    svg.append("text")
+      .attr("class", "statGraphYAxisLabel")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 20 - margin.left)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Average Sales Price in Dollars");
+
+    // Create Title
+    svg.append("text")
+        .attr("x", width / 2 )
+        .attr("y", -10)
+        .style("text-anchor", "middle")
+        .text("Average Fish Value Over Time");
 
     $.each(thirtyDayLineObj, function(type){
       draw(thirtyDayLineObj, type, x, y, svg, line, height, color, tooltip)
