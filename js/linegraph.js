@@ -59,7 +59,7 @@ function makeLineGraph(json){
     // schemeCategory20 is a 20 color palette
     var color = d3.scaleOrdinal(d3.schemeCategory20);
 
-    var line = d3.line()
+    var lineFunc = d3.line()
 	    //.curve(d3.curveBasis)
 	    .x(function(d) { return x(d.date); })
 	    .y(function(d) { return y(d.avg); });
@@ -95,7 +95,7 @@ function makeLineGraph(json){
 
     // y Axis Label
     svg.append("text")
-      .attr("class", "statGraphYAxisLabel")
+      .attr("class", "lineGraphYAxisLabel")
       .attr("transform", "rotate(-90)")
       .attr("y", 20 - margin.left)
       .attr("x",0 - (height / 2))
@@ -111,37 +111,50 @@ function makeLineGraph(json){
         .text("Average Fish Value Over Time");
 
     $.each(thirtyDayLineObj, function(type){
-      draw(thirtyDayLineObj, type, x, y, svg, line, height, color, tooltip)
+      draw(thirtyDayLineObj, type, x, y, svg, lineFunc, height, color, tooltip)
     })
 
 }
 
 
-function draw(data, fishTypeName, x, y, svg, line, height, color, tooltip) {
+function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
   
   var fishType = data[fishTypeName];
   console.log(fishType)
+  var id = "line-"+fishTypeName;
 
   // Add the line path.
-  var lines = svg.append("path")
+  var line = svg.append("path")
       .data(fishType)
       .attr("class", "line")
+      .attr("id", id)
       .style("stroke", function() { // Add the colours dynamically
                 return fishType.color = color(fishTypeName); })
-      .attr("d", line(fishType));  
+      .attr("d", lineFunc(fishType));  
 
-      lines.on("mouseover", function(d) {
+      line.on("mouseover", function(d) {
+        var self = this;
+            line.transition()
+                .style("stroke-width", "9px");
             tooltip.transition()
                 .duration(200)
                 .style("opacity", 0.9);
             tooltip.html(getReadableName(d.item)+" $"+d.avg)
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
+
+            var otherLines = d3.selectAll("path").filter(function (x) { return self != this; }).transition()
+                .style("opacity", 0.3)
+
             })
         .on("mouseout", function(d) {
+            line//.transition()
+                .style("stroke-width", "2.5px");
             tooltip.transition()
                 .duration(500)
                 .style("opacity", 0);
+            d3.selectAll("path").transition()
+                .style("opacity", 1)
         });
 
 }

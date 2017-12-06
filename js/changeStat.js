@@ -1,7 +1,7 @@
 function changeStat(d, statArr, graphType, x, y, yAxis, xAxis, svg, height, tooltip){
 
           x.domain(statArr.map(function(d) { return d.item; }));
-          y.domain([0, d3.max(statArr, function(d) {return currencyToNumber(d[graphType]); })]);
+          y.domain([0, d3.max(statArr, function(d) {return d[graphType]; })]);
 
           yAxis.scale(y);
           xAxis.scale(x);
@@ -30,8 +30,8 @@ function changeStat(d, statArr, graphType, x, y, yAxis, xAxis, svg, height, tool
             .attr("height", 0);
 
           barsOfCategory.transition().duration(1500)
-            .attr("y", function(d) { return y(Math.round(currencyToNumber(d[graphType]))); })
-            .attr("height", function(d) { return height - y(currencyToNumber(d[graphType])); });
+            .attr("y", function(d) { return y(d[graphType]); })
+            .attr("height", function(d) { return height - y(d[graphType]); });
 
           barsOfCategory.on("mouseover", function(d) {
                 tooltip.transition()

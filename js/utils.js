@@ -58,6 +58,7 @@ function getOrdinals(avgArr){
 function getStdDev(objectArr){
   var pricesArray = objectArr.map(function(d){ return currencyToNumber(d.bPrice);});
   var stdDev = d3.deviation(pricesArray);
+  if (stdDev === undefined) {stdDev = 0}
   return stdDev;
 }
 
