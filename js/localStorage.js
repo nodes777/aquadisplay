@@ -1,40 +1,74 @@
 checkForLocalStorageSupport();
 console.log(localStorage);
-console.log(localStorage.length);
 console.log(statArr);
+var todaysPrices = {};
+
 //localStorage.clear();
-if(localStorage.portfolio === undefined){
-	initStorage();
+//initLocalStorage()
+if(localStorage === undefined){
+	initLocalStorage();
 }
 
-function initStorage(){
+initForToday();
+
+console.log(localStorage);
+
+function initLocalStorage(){
 	var fishTypes = Object.keys(fishTypePairs);
-	console.log(fishTypes);
-	localStorage.portfolio = {};
-	localStorage.cash = 500;
+
+	var portfolio = {};
+	localStorage.setItem( 'cash', JSON.stringify(500) );
+	portfolio.value = 0; // Total of all values of all owned fishStocks
+	portfolio.avg = 0; // Avg
 
 	for (const key of fishTypes) {
-	    localStorage.portfolio[key] = {
-	    	"shares": 0,
-	    	"paid": 0,
-	    	"quote": 0,
-	    	"dollar change": 0,
-	    	"percent change": 0,
-	    	"cost": 0,
-	    	"value": 0,
-	    	"return": 0,
-	    	"weight": 0
+	    portfolio[key] = {
+	    	"shares": 0, // Units of fish stock - Changes on bought and sold 
+	    	"paid": 0, // Total amount of money put into that fish type - Changes on bought and sold 
+	    	"quote": 0, // Current value per share of a fish stock - Changes each day
+	    	"dollarChange": 0, // Dollar value changed since the purchase - Changes each day
+	    	"percentChange": 0, // Percent changed since the purchase - Changes each day
+	    	"value": 0, // Value of number of shares at todays price - Changes each day
+	    	"weight": 0 // How much that fish stock affects the whole portfolio. Found by dividing the dollar value of a security by the total dollar value of the portfolio
 	    };
 	}
+
+	localStorage.setItem( 'portfolio', JSON.stringify(portfolio) );
 }
 
-function addToPortfolio(obj){
-	localStorage.portfolio.push(obj);
+
+console.log(JSON.parse(localStorage.getItem('portfolio')));
+
+//makePurchase('fw', 2);
+
+function makePurchase(fishType, shares){
+	// reduce cash
+	var beforeCash = localStorage.getItem('cash')
+	var paid = (todaysPrices[fishType].price * shares);
+	var afterCash = beforeCash - paid;
+
+	localStorage.setItem('cash', JSON.stringify(afterCash)); 
+	
+	// add to portfolio
+	addToPortfolio(fishType, shares, paid);
 }
 
-/*
-localStorage.portfolio[fishType] is a unit, units remain the same unless bought or sold
-localStorage.portfolio[fishType].value is a value, changes each day
-localStorage.cash is a number, cash only changes when buying and selling.
+function addToPortfolio(fishType, sharesBought){
+	var p = JSON.parse( localStorage.getItem('portfolio'));
+	p[fishType].shares += sharesBought;
+	p[fishType].paid += paid;
 
-*/
+	localStorage.setItem( 'portfolio', JSON.stringify(p) );
+}
+
+
+function setTodaysPrices(statArr){
+	for( fishType of statArr){
+		todaysPrices[fishType.fishTypeName] = {
+			"fishType":fishType.fishTypeName,
+			"name": fishType.item,
+			"price":fishType.avg
+		}
+	}
+	console.log(todaysPrices)
+}

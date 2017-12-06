@@ -12,12 +12,14 @@ function makeStatsGraph(soldData){
     	avgObj = {
         "avg": avg,
         "item": realName,
+        "fishTypeName": fishTypeName,
         "stdDev": stdDev,
         "salesVolume": salesVolume
       };
     	statArr.push(avgObj);
   	});
   initAvgGraph(statArr);
+  setTodaysPrices(statArr);
 }
 
 function initAvgGraph(statArr){

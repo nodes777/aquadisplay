@@ -10,7 +10,7 @@ function makeLineGraph(json){
     	//console.log(date +" + "+ JSON.stringify(objectDay))
     	var fishTypeNames = Object.keys(objectDay); // array of just the names
     	var date = date;
-    	console.log(date)
+    	//console.log(date)
 
     	$.each(fishTypeNames, function(index, fishTypeName){
     		/* Within a particular fish type*/
@@ -42,7 +42,7 @@ function makeLineGraph(json){
       });
 
 
-	console.log(thirtyDayLineObj);
+	//console.log(thirtyDayLineObj);
 	var margin = {top: 40, right: 80, bottom: 110, left: 80},
     width = getWidthOfGraph('#lineGraph') - margin.left - margin.right,
     height = 720 - margin.top - margin.bottom;
@@ -120,7 +120,7 @@ function makeLineGraph(json){
 function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
   
   var fishType = data[fishTypeName];
-  console.log(fishType)
+  //console.log(fishType)
   var id = "line-"+fishTypeName;
 
   // Add the line path.
