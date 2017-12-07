@@ -128,12 +128,12 @@ function initAvgGraph(statArr){
         .style("opacity", 0);
 
   var radioButtons = document.getElementsByName('graphType');
-    for (let radio of radioButtons) {
-      radio.addEventListener("change", function(d) {
-          graphType = this.value;
-            changeStat.call(this, d, statArr, graphType, x, y, yAxis, xAxis, svg, height, tooltip);
-          });
-    }
+  for (let radio of radioButtons) {
+    radio.addEventListener("change", function(d) {
+        graphType = this.value;
+        changeStat.call(this, d, statArr, graphType, x, y, yAxis, xAxis, svg, height, tooltip);
+    });
+  }
 
 
 }

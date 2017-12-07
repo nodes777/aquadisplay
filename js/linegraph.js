@@ -110,15 +110,27 @@ function makeLineGraph(json){
         .style("text-anchor", "middle")
         .text("Average Fish Value Over Time");
 
-    $.each(thirtyDayLineObj, function(type){
-      draw(thirtyDayLineObj, type, x, y, svg, lineFunc, height, color, tooltip)
-    })
+   // $.each(thirtyDayLineObj, function(type){
+     // draw(thirtyDayLineObj, type, x, y, svg, lineFunc, height, color, tooltip)
+    //})
+
+    // add checkbox listeners
+    $("#checkBoxesDiv").on("change", "input[type=checkbox]", function(d) {
+        var fishType = this.value;
+        handleCheckboxChange.call(this, thirtyDayLineObj, fishType, x, y, svg, lineFunc, height, color, tooltip);
+    });
 
 }
 
 
+function handleCheckboxChange(thirtyDayLineObj, fishType, x, y, svg, lineFunc, height, color, tooltip){
+    var fishType = this.value;
+    var checked = this.checked;
+    if(checked){draw.call(this, thirtyDayLineObj, fishType, x, y, svg, lineFunc, height, color, tooltip)}
+    if(!checked){d3.select("#line-"+fishType).remove();}
+}
+
 function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
-  
   var fishType = data[fishTypeName];
   //console.log(fishType)
   var id = "line-"+fishTypeName;
@@ -143,6 +155,7 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
 
+            // for all the other lines, reduce opacity
             var otherLines = d3.selectAll("path").filter(function (x) { return self != this; }).transition()
                 .style("opacity", 0.3)
 

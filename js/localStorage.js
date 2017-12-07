@@ -9,8 +9,6 @@ if(localStorage === undefined){
 	initLocalStorage();
 }
 
-initForToday();
-
 console.log(localStorage);
 
 function initLocalStorage(){
@@ -57,7 +55,11 @@ function addToPortfolio(fishType, sharesBought){
 	var p = JSON.parse( localStorage.getItem('portfolio'));
 	p[fishType].shares += sharesBought;
 	p[fishType].paid += paid;
-
+	//"quote": 0, // Current value per share of a fish stock - Changes each day
+	//    	"dollarChange": 0, // Dollar value changed since the purchase - Changes each day
+	//    	"percentChange": 0, // Percent changed since the purchase - Changes each day
+	 //   	"value": 0, // Value of number of shares at todays price - Changes each day
+	 //   	"weight": 0 
 	localStorage.setItem( 'portfolio', JSON.stringify(p) );
 }
 
