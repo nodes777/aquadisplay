@@ -120,8 +120,10 @@ function makeLineGraph(json){
         handleCheckboxChange.call(this, thirtyDayLineObj, fishType, x, y, svg, lineFunc, height, color, tooltip);
     });
 
-}
+    // Add default checked status
+    $("#fwMixedCheckbox").trigger("click")
 
+}
 
 function handleCheckboxChange(thirtyDayLineObj, fishType, x, y, svg, lineFunc, height, color, tooltip){
     var fishType = this.value;
