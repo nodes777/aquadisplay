@@ -129,22 +129,34 @@ function handleCheckboxChange(thirtyDayLineObj, fishType, x, y, svg, lineFunc, h
     var fishType = this.value;
     var checked = this.checked;
     if(checked){draw.call(this, thirtyDayLineObj, fishType, x, y, svg, lineFunc, height, color, tooltip)}
-    if(!checked){d3.select("#line-"+fishType).remove();}
+    if(!checked){d3.selectAll("#line-"+fishType).remove();}
 }
 
 function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
+
+    var t = d3.transition()
+            .duration(1000)
+            .ease(d3.easeLinear)
+
   var fishType = data[fishTypeName];
   //console.log(fishType)
   var id = "line-"+fishTypeName;
 
-  // Add the line path.
-  var line = svg.append("path")
-      .data(fishType)
-      .attr("class", "line")
-      .attr("id", id)
-      .style("stroke", function() { // Add the colours dynamically
+  // Add the line path. Why does this have to be selectAll for the path to be drawn transition
+  var line = svg.selectAll("#line-"+fishTypeName)
+            .data(fishType);
+
+        line.enter().append("path").classed("line", true)
+            .merge(line)
+            .attr("d", lineFunc(fishType))
+            .attr("id", id)
+            .style("stroke", function() { // Add the colours dynamically
                 return fishType.color = color(fishTypeName); })
-      .attr("d", lineFunc(fishType));  
+            .attr("stroke-dasharray", function(d){ return this.getTotalLength() })
+            .attr("stroke-dashoffset", function(d){ return this.getTotalLength() })
+
+        svg.selectAll("#line-"+fishTypeName).transition(t)
+            .attr("stroke-dashoffset", 0)
 
       line.on("mouseover", function(d) {
         var self = this;
