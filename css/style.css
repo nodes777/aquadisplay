@@ -1,4 +1,4 @@
-.bar { fill: steelblue; }
+.bar { fill:  var(--green); }
 .radio-inline{ margin-left: 20px; }
 
 div.tooltip {
@@ -21,4 +21,28 @@ div.tooltip {
   fill: none;
   stroke: steelblue;
   stroke-width: 2.5px;
+}
+
+.bettas{
+  background-color: var(--blue);
+}
+
+.catfish{
+  background-color: var(--green);
+}
+
+.cichlids{
+  background-color: var(--red);
+}
+
+.livebearers{
+    background-color: var(--orange);
+}
+
+:root {
+  --blue: #1BE7FF;
+  --green: #6EEB83;
+  --yellow: #E4FF1A;
+  --orange: #FFB800;
+  --red: #FF5714;
 }

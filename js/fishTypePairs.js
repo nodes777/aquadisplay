@@ -29,7 +29,7 @@ var fishTypePairs = {
 	"fwflowerhorn": "Flowerhorn Cichlids",
 	"fwgoldfish": "Goldfish",
 	"fwguppies": "Guppies",
-	"fwinverts": "Invertabrates",
+	"fwinverts": "Invertebrates",
 	"fwkillifish": "Killifish",
 	"fwkillifishe": "Killifish Eggs",
 	"fwkoi": "Koi",
