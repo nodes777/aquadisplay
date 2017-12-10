@@ -117,7 +117,7 @@ function makeCategoryGraphs(fishType){
           selectionName = document.getElementById("dropdown").value;// string
           selection = fishType[selectionName];
             changeCategory.call(this, d, selection, fishType, x, y, yAxis, xAxis, svg, height, tooltip);
-          }   , {passive: true});
+          }, {passive: true});
 
 
     selector.selectAll("option")
@@ -129,7 +129,6 @@ function makeCategoryGraphs(fishType){
       .text(function(d){
         return getReadableName(d);
       });
-
 
 }
 

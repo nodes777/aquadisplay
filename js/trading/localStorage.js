@@ -1,5 +1,4 @@
 checkForLocalStorageSupport();
-console.log("statArr: "+statArr);
 var todaysPrices = {};
 
 //localStorage.clear();
@@ -52,15 +51,15 @@ function addToPortfolio(fishType, sharesBought){
 	var p = JSON.parse( localStorage.getItem('portfolio'));
 	p[fishType].shares += sharesBought;
 	p[fishType].paid += paid;
-	//"quote": 0, // Current value per share of a fish stock - Changes each day
+	//		"quote": 0, // Current value per share of a fish stock - Changes each day
 	//    	"dollarChange": 0, // Dollar value changed since the purchase - Changes each day
 	//    	"percentChange": 0, // Percent changed since the purchase - Changes each day
-	 //   	"value": 0, // Value of number of shares at todays price - Changes each day
-	 //   	"weight": 0 // How much that category affects the whole portfolio
+	//   	"value": 0, // Value of number of shares at todays price - Changes each day
+	//   	"weight": 0 // How much that category affects the whole portfolio
 	localStorage.setItem( 'portfolio', JSON.stringify(p) );
 }
 
-
+/* Called in makeStatsGraph after sorting the stats data*/
 function setTodaysPrices(statArr){
 	for( var fishType of statArr){
 		todaysPrices[fishType.fishTypeName] = {
@@ -70,4 +69,38 @@ function setTodaysPrices(statArr){
 		};
 	}
 	console.log(todaysPrices);
+}
+
+
+function addFishTypeListToBuyTable(){
+	// Using todaysPrices, instead of fishTypePairs, to ensure no zero dollar fish can be purchased
+	var fishTypeNames = Object.keys(todaysPrices);
+	var selector = d3.select("#buyList")
+      .append("select")
+      .attr("id","buyListDropDown")
+      .on("change", function(d) {
+          var selectionName = document.getElementById("buyListDropDown").value;// string
+          updateBuyOptions(selectionName);
+          }, {passive: true});
+
+    selector.selectAll("option")
+      .data(fishTypeNames)
+      .enter().append("option")
+      .attr("value", function(d){
+        return d;
+      })
+      .text(function(d){
+        return getReadableName(d);
+      });
+}
+
+function updateBuyOptions(fish){
+	console.log(todaysPrices[fish]);
+	console.log(todaysPrices[fish].price);
+	var perShareHTML = d3.select("#pricePerShare");
+	var totalPriceHTML = d3.select("#totalPrice");
+
+
+	perShareHTML.node().innerHTML = todaysPrices[fish].price;
+	totalPriceHTML.node().innerHTML = todaysPrices[fish].price;
 }

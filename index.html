@@ -45,7 +45,24 @@
       <div class="col-md-6" id="secondGraph">
               <div id="drop"></div>
       </div>
-
+      <div class="col-md-6" id="tradingDiv">
+          <table>
+            <tr>
+              <th>Fish Type</th>
+              <th>Price Per Share</th>
+              <th>Total</th>
+              <th>Number to Buy</th>
+              <th>Purchase</th>
+            </tr>
+            <tr>
+              <td><div id="buyList"></div></td>
+              <td><p id="pricePerShare">0</p></td>
+              <td><p id="totalPrice">0</p></td>
+              <td><input type="number" name="quantity" min="1" max="10" id="numberToBuy"></td>
+              <td><button id="buyButton">Buy</button></td>
+            </tr>
+          </table>
+      </div>
     </div>
     <div class="row">
       <div class="col-md-6" id="checkBoxesDiv">
