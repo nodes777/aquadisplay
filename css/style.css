@@ -28,7 +28,7 @@ div.tooltip {
 }
 
 .catfish{
-  background-color: var(--green);
+  background-color: var(--yellow);
 }
 
 .cichlids{
@@ -39,6 +39,7 @@ div.tooltip {
     background-color: var(--orange);
 }
 
+/* https://coolors.co/1be7ff-6eeb83-e4ff1a-ffb800-ff5714 */
 :root {
   --blue: #1BE7FF;
   --green: #6EEB83;
