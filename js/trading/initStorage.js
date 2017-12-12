@@ -23,7 +23,7 @@ function initLocalStorage(){
 	var portfolio = {};
 	localStorage.setItem( 'cash', JSON.stringify(500) );
 	portfolio.value = 0; // Total of all values of all owned fishStocks
-	portfolio.avg = 0; // Avg
+	portfolio.avg = 0; // Avg of value and all shares
 
 	for (const key of fishTypes) {
 	    portfolio[key] = {
@@ -41,9 +41,7 @@ function initLocalStorage(){
 	console.log(localStorage);
 }
 
-console.log(JSON.parse(localStorage.getItem('portfolio')));
-
-
+//console.log(JSON.parse(localStorage.getItem('portfolio')));
 
 /* Called in makeStatsGraph after sorting the stats data*/
 function setTodaysPrices(statArr){
@@ -54,9 +52,8 @@ function setTodaysPrices(statArr){
 			"price":fishType.avg
 		};
 	}
-	console.log("Today's Prices:"+JSON.stringify(todaysPrices));
+	//console.log("Today's Prices: \n"+JSON.stringify(todaysPrices));
 }
-
 
 function addFishTypeListToBuyTable(){
 	// Using todaysPrices, instead of fishTypePairs, to ensure no zero dollar fish can be purchased
