@@ -28,7 +28,7 @@ function processTodayJson(json){
   makeCategoryGraphs(soldItems);
 
   $("#currentDay").append(` ${today} ${monthAndYear}`);
-  addFishTypeListToBuyTable();
+  prepTransactions();
 }
 
 function getSoldItems(objOfObjs){
