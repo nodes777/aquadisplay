@@ -57,7 +57,7 @@ function makePurchase(fishType, shares){
 
 function addToPortfolio(fishType, sharesBought, paid){
 	var p = JSON.parse( localStorage.getItem('portfolio'));
-	p[fishType].shares += sharesBought;
+	p[fishType].shares += +sharesBought;
 	p[fishType].paid += paid; // Amount of money paid into this fish stock
 	//		"quote": 0, // Current value per share of a fish stock - Changes each day
 	//    	"dollarChange": 0, // Dollar value changed since the purchase - Changes each day
@@ -79,7 +79,7 @@ function setTodaysPrices(statArr){
 			"price":fishType.avg
 		};
 	}
-	console.log(todaysPrices);
+	console.log("Today's Prices:"+JSON.stringify(todaysPrices));
 }
 
 
@@ -120,8 +120,12 @@ function updateBuyOptions(fish){
 function handleBuy(){
     var fishType = document.getElementById("buyListDropDown").value;
     var numberToBuy = document.getElementById("numberToBuy").value;
-    console.log(fishType);
-    makePurchase(fishType, numberToBuy)
+    var pricePerShare = document.getElementById("pricePerShare").innerHTML;
+    if (pricePerShare==0) {
+    	alert("Hey, you can't buy at zero dollar value.")
+    } else {
+    	makePurchase(fishType, numberToBuy)
+    }
 }
 
 function updateTotal(){
