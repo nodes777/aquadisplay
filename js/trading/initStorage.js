@@ -3,7 +3,8 @@ var todaysPrices = {};
 
 //localStorage.clear();
 //initLocalStorage();
-if(localStorage === undefined){
+/* NEED TO REVIEW */
+if(localStorage == undefined || localStorage == null){
 	initLocalStorage();
 }
 
@@ -15,6 +16,8 @@ function prepTransactions(){
   	$("#numberToBuy").on("change", function(e){
   		updateTotal();
   	})
+  	// init the first buy option on load (its fw, hard coding it here)
+  	updateBuyOptions("fw")
 }
 
 function initLocalStorage(){
@@ -63,7 +66,7 @@ function addFishTypeListToBuyTable(){
       .attr("id","buyListDropDown")
       .on("change", function(d) {
           var selectionName = document.getElementById("buyListDropDown").value;// string
-          updateBuyOptions(selectionName);
+          updateBuyOptions(selectionName, updateTotal);
           }, {passive: true});
 
     selector.selectAll("option")

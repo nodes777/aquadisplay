@@ -14,10 +14,10 @@ function makeLineGraph(json){
 
     	$.each(fishTypeNames, function(index, fishTypeName){
     		/* Within a particular fish type*/
-    		// Just leave if its the timestamp 
+    		// Just leave if its the timestamp
     		if(fishTypeName === "timestamp"){ return;}
     		// Create the empty array if there isn't an array there yet
-    		if(thirtyDayLineObj[fishTypeName] === undefined){ 
+    		if(thirtyDayLineObj[fishTypeName] === undefined){
     			thirtyDayLineObj[fishTypeName] = [];
     		}
 
@@ -42,7 +42,6 @@ function makeLineGraph(json){
       });
 
 
-	//console.log(thirtyDayLineObj);
 	var margin = {top: 40, right: 80, bottom: 110, left: 80},
     width = getWidthOfGraph('#lineGraph') - margin.left - margin.right,
     height = 720 - margin.top - margin.bottom;
@@ -64,15 +63,14 @@ function makeLineGraph(json){
 	    .x(function(d) { return x(d.date); })
 	    .y(function(d) { return y(d.avg); });
 
-    // Supply the earliest and latest dates
-    //console.log(d3.extent(thirtyDayLineObj.fw, function(d) { return d.date; }))
+    // Supply the earliest and latest dates, choosing fw, just because they all have the same date range
 	x.domain(d3.extent(thirtyDayLineObj.fw, function(d) { return d.date; }));
     // Max point was created when first sorting the data.
   	y.domain([ 0, maxPoint])
     //color.domain(fishType.map(function(d) { return d.salesVolume; }));
 
             // Define the div for the tooltip
-  var tooltip = d3.select("body").append("div")
+    var tooltip = d3.select("body").append("div")
         .attr("class", "tooltip")
         .style("opacity", 0);
   	// add the x Axis
@@ -122,6 +120,8 @@ function makeLineGraph(json){
 
     // Add default checked status
     $("#fwMixedCheckbox").trigger("click")
+    $("#fwCheckbox").trigger("click")
+    $("#fwcatfishpCheckbox").trigger("click")
 
 }
 
@@ -138,12 +138,12 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
             .duration(1000)
             .ease(d3.easeLinear)
 
-  var fishType = data[fishTypeName];
-  //console.log(fishType)
-  var id = "line-"+fishTypeName;
+    var fishType = data[fishTypeName];
+    //console.log(fishType)
+    var id = "line-"+fishTypeName;
 
-  // Add the line path. Why does this have to be selectAll for the path to be drawn transition
-  var line = svg.selectAll("#line-"+fishTypeName)
+    // Add the line path. Why does this have to be selectAll for the path to be drawn transition
+    var line = svg.selectAll("#line-"+fishTypeName)
             .data(fishType);
 
         line.enter().append("path").classed("line", true)
@@ -155,27 +155,30 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
             .attr("stroke-dasharray", function(d){ return this.getTotalLength() })
             .attr("stroke-dashoffset", function(d){ return this.getTotalLength() })
 
-        svg.selectAll("#line-"+fishTypeName).transition(t)
+    var specificLine = svg.selectAll("#line-"+fishTypeName);
+
+        specificLine.transition(t)
             .attr("stroke-dashoffset", 0)
 
-      line.on("mouseover", function(d) {
-        var self = this;
-            line.transition()
-                .style("stroke-width", "9px");
-            tooltip.transition()
-                .duration(200)
-                .style("opacity", 0.9);
-            tooltip.html(getReadableName(d.item)+" $"+d.avg)
-                .style("left", (d3.event.pageX) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
 
-            // for all the other lines, reduce opacity
-            var otherLines = d3.selectAll("path").filter(function (x) { return self != this; }).transition()
-                .style("opacity", 0.3)
+        specificLine.on("mouseover", function(d) {
+            var self = this;
+                specificLine.transition()
+                    .style("stroke-width", "9px");
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", 0.9);
+                tooltip.html(getReadableName(d.item)+" $"+d.avg)
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
 
-            })
+                // for all the other lines, reduce opacity
+                var otherLines = d3.selectAll(".line").filter(function (x) { return self != this; }).transition()
+                    .style("opacity", 0.3)
+
+                })
         .on("mouseout", function(d) {
-            line//.transition()
+            specificLine//.transition()
                 .style("stroke-width", "2.5px");
             tooltip.transition()
                 .duration(500)

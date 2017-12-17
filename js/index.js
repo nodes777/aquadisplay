@@ -29,6 +29,7 @@ function processTodayJson(json){
 
   $("#currentDay").append(` ${today} ${monthAndYear}`);
   prepTransactions();
+  initPortfolio();
 }
 
 function getSoldItems(objOfObjs){

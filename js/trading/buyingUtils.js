@@ -32,13 +32,14 @@ function addToPortfolio(fishType, sharesBought, paid){
 	localStorage.setItem( 'portfolio', JSON.stringify(p) );
 }
 
-function updateBuyOptions(fish){
+function updateBuyOptions(fish, cb){
 	var perShareHTML = d3.select("#pricePerShare");
 	var totalPriceHTML = d3.select("#totalPrice");
 
 	perShareHTML.node().innerHTML = todaysPrices[fish].price;
 	totalPriceHTML.node().innerHTML = todaysPrices[fish].price;
-	updateTotal()
+	// The inital loading of the page calls this function without the cb. Buying will call the cb
+	if(cb){cb()}
 }
 
 function handleBuy(){
