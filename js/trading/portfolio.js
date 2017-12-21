@@ -1,11 +1,23 @@
-function initPortfolio(){
-	/* Get refence to div */
+function initPortfolio() {
 
-	/* Get localStorage */
-	var portfolioData = JSON.parse( localStorage.getItem('portfolio'));
-	console.log(portfolioData);
+    createTable();
+    updateCash();
+	
 
-	/* Create table and headers */
+}
+
+function updateCash(){
+    var cash = JSON.parse( localStorage.getItem('cash'));
+    var div = document.getElementById("cash");
+    div.innerHTML = cash;
+}
+
+function createTable(){
+    /* Get localStorage */
+    var portfolioData = JSON.parse( localStorage.getItem('portfolio'));
+    console.log(portfolioData);
+
+    /* Create table and headers */
     var table = document.createElement("TABLE");
     table.border = "1";
 
@@ -26,24 +38,23 @@ function initPortfolio(){
 
     //Add the data rows.
     for (fishType in portfolioData) {
-    	var name = getReadableName(fishType)
-    	// Check for not being avg, Avg, and value
-    	if(name !== undefined){
-    		// Check for owning at least one stock of that fish
-    		if (portfolioData[fishType].shares > 0) {
-    			row = table.insertRow(-1);
-		        var cell = row.insertCell(-1);
-		        cell.innerHTML = name;
-		        for (stat in portfolioData[fishType]) {
-		            var cell = row.insertCell(-1);
-		            cell.innerHTML = portfolioData[fishType][stat];
-		        }
-    		}
-    	}
+        var name = getReadableName(fishType)
+        // Check for not being avg, Avg, and value
+        if(name !== undefined){
+            // Check for owning at least one stock of that fish
+            if (portfolioData[fishType].shares > 0) {
+                row = table.insertRow(-1);
+                var cell = row.insertCell(-1);
+                cell.innerHTML = name;
+                for (stat in portfolioData[fishType]) {
+                    var cell = row.insertCell(-1);
+                    cell.innerHTML = portfolioData[fishType][stat];
+                }
+            }
+        }
     }
 
     var dvTable = document.getElementById("portfolio");
     dvTable.innerHTML = "";
     dvTable.appendChild(table);
-
 }
