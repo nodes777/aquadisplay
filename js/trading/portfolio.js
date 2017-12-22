@@ -1,12 +1,6 @@
-function initPortfolio() {
+function renderPortfolio() {
     createTable();
-    updateCash();
-}
-
-function updateCash(){
-    var cash = JSON.parse( localStorage.getItem('cash'));
-    var div = document.getElementById("cash");
-    div.textContent = cash;
+    renderAggStats();
 }
 
 function createTable(){
@@ -54,3 +48,28 @@ function createTable(){
     dvTable.innerHTML = "";
     dvTable.appendChild(table);
 }
+
+function renderAggStats(){
+    updateCash();
+    updateAvgValShares();
+}
+
+function updateCash(){
+    var cash = JSON.parse( localStorage.getItem('cash'));
+    var div = document.getElementById("cash");
+    div.textContent = cash;
+}
+
+function updateAvgValShares(){
+    var p = JSON.parse( localStorage.getItem('portfolio'));
+    var div = document.getElementById("value");
+    div.textContent = p.aggStats.value 
+
+    div = document.getElementById("avg");
+    div.textContent = p.aggStats.avg 
+
+    div = document.getElementById("shares");
+    div.textContent = p.aggStats.shares 
+}
+
+

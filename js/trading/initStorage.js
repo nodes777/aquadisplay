@@ -4,7 +4,7 @@ var todaysPrices = {};
 //localStorage.clear();
 //initLocalStorage();
 /* NEED TO REVIEW */
-if(localStorage == undefined || localStorage == null){
+if(localStorage.length === 0){
 	initLocalStorage();
 }
 
@@ -25,19 +25,24 @@ function initLocalStorage(){
 
 	var portfolio = {};
 	localStorage.setItem( 'cash', JSON.stringify(500) );
-	portfolio.value = 0; // Total of all values of all owned fishStocks
-	portfolio.avg = 0; // Avg of value and all shares
+	portfolio.aggStats = {
+		"value": 0,
+		"avg": 0,
+		"shares": 0,
+	}
 
 	for (const key of fishTypes) {
-	    portfolio[key] = {
-	    	"shares": 0, // Units of fish stock - Changes on bought and sold
-	    	"paid": 0, // Total amount of money put into that fish type - Changes on bought and sold
-	    	"quote": 0, // Current value per share of a fish stock - Changes each day
-	    	"dollarChange": 0, // Dollar value changed since the purchase - Changes each day
-	    	"percentChange": 0, // Percent changed since the purchase - Changes each day
-	    	"value": 0, // Value of number of shares at todays price - Changes each day
-	    	"weight": 0 // How much that fish stock affects the whole portfolio. Found by dividing the dollar value of a security by the total dollar value of the portfolio
-	    };
+		if(key !== "Avg"){
+		    portfolio[key] = {
+		    	"shares": 0, // Units of fish stock - Changes on bought and sold
+		    	"paid": 0, // Total amount of money put into that fish type - Changes on bought and sold
+		    	"quote": 0, // Current value per share of a fish stock - Changes each day
+		    	"dollarChange": 0, // Dollar value changed since the purchase - Changes each day
+		    	"percentChange": 0, // Percent changed since the purchase - Changes each day
+		    	"value": 0, // Value of number of shares at todays price - Changes each day
+		    	"weight": 0 // How much that fish stock affects the whole portfolio. Found by dividing the dollar value of a security by the total dollar value of the portfolio
+		    };
+		}
 	}
 
 	localStorage.setItem( 'portfolio', JSON.stringify(portfolio) );

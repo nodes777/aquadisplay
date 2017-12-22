@@ -179,7 +179,10 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
                 //otherLines.style = "0.3";
                 var otherLines = d3.selectAll("path.line").filter(function (x) { return self != this; })
                 otherLines.style("opacity", 0.3)
-                console.log(otherLines)
+                //var mixed = d3.select("#line-fwmixed").style("opacity", 0.3)
+                //console.log(otherLines)
+                //console.log(this)
+                //console.log(mixed)
 
                 })
         .on("mouseout", function(d) {

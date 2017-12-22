@@ -16,7 +16,7 @@ function addToPortfolio(fishType, sharesBought, paid){
 	p[fishType].paid += paid; // Amount of money paid into this fish stock
 	p[fishType].value = p[fishType].shares * todaysPrices[fishType].price; // Value of number of shares at todays price - Changes each day
 
-	/*The below is now updated in initTodaysChangesOnPortfolio()
+	//The below is now updated in initTodaysChangesOnPortfolio()
 	p.value += p[fishType].value; // adjust the value of the entire portfolio
 
 	var numOfAllSharesB = getTotalNumOfShares();
@@ -24,7 +24,7 @@ function addToPortfolio(fishType, sharesBought, paid){
 
 	p.avg = p.value/numOfAllShares// Update p.avg,p.avg = p.value / numOfAllShares
 	p[fishType].weight = (p[fishType].value/p.value) // How much that category affects the whole portfolio
-	*/
+	
 	console.log(p);
 	localStorage.setItem( 'portfolio', JSON.stringify(p) );
 	updatePortfolio()
@@ -63,10 +63,9 @@ function updateTotal(){
 
 function getPriceOf(fish){
 	if (!todaysPrices[fish]) {
-		console.log(`${fish} can't be sold today`)
+		//console.log(`${fish} can't be sold today`)
 		return 0;
 	}
-
 	return todaysPrices[fish].price;
 }
 
