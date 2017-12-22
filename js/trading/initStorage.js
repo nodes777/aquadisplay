@@ -8,18 +8,6 @@ if(localStorage.length === 0){
 	initLocalStorage();
 }
 
-function prepTransactions(){
-	addFishTypeListToBuyTable();
-  	$("#buyButton").on("click", function(e){
-  		handleBuy();
-  	})
-  	$("#numberToBuy").on("change", function(e){
-  		updateTotal();
-  	})
-  	// init the first buy option on load (its fw, hard coding it here)
-  	updateBuyOptions("fw")
-}
-
 function initLocalStorage(){
 	var fishTypes = Object.keys(fishTypePairs);
 
@@ -83,3 +71,15 @@ function addFishTypeListToBuyTable(){
       });
 }
 
+
+function prepTransactions(){
+	addFishTypeListToBuyTable();
+  	$("#buyButton").on("click", function(e){
+  		handleBuy();
+  	})
+  	$("#numberToBuy").on("change", function(e){
+  		updateTotal();
+  	})
+  	// init the first buy option on load (its fw, hard coding it here)
+  	updateBuyOptions("fw")
+}

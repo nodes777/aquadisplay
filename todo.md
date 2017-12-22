@@ -6,17 +6,15 @@
 ## Averages:
 * Sort by highest bar? No
 
-
 ## Game:
-* Store local picks
+* Verify localStorage works on:
+	* First time opening the page
+	* Making a purchase that first page open
+	* Reopening the page
+
 * Compare to a market average:
-	* Create market average
-	
-### Must be updated each day:
-	* value
-	* Quote
-	* dollar change
-	* percent change
+	* Create market average -Scraper?
+
 
 ## Line Graph
 * Create organization for fish types

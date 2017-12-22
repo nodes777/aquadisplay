@@ -15,7 +15,7 @@ function updatePortfolio(){
 	        portfolioData[fishType].quote = price;
 	        //portfolioData[fishType].weight = // (portfolioData[fishType].value/portfolioData.value) portfolioData.value is out of date at this point.
 	        dollarChange = portfolioData[fishType].value - portfolioData[fishType].paid;
-	        portfolioData[fishType].dollarChange = `$ ${dollarChange}`;// START HERE< THESE UPDATE INCCORECTLY
+	        portfolioData[fishType].dollarChange = `$ ${dollarChange}`;
 	        portfolioData[fishType].percentChange = `${(((dollarChange/portfolioData[fishType].paid).toFixed(2))*100)} %`;
 
 	        runningTotalOfValue += portfolioData[fishType].value;
