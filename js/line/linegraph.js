@@ -142,7 +142,7 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
     //console.log(fishType)
     var id = "line-"+fishTypeName;
 
-    // Add the line path. Why does this have to be selectAll for the path to be drawn transition
+    // Add the line path. Why does this have to be selectAll for the path to be drawn transition??
     var line = svg.selectAll("#line-"+fishTypeName)
             .data(fishType);
 
@@ -150,6 +150,7 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
             .merge(line)
             .attr("d", lineFunc(fishType))
             .attr("id", id)
+            .style("opacity", 1)
             .style("stroke", function() { // Add the colours dynamically
                 return fishType.color = color(fishTypeName); })
             .attr("stroke-dasharray", function(d){ return this.getTotalLength() })
@@ -165,6 +166,7 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
             var self = this;
                 specificLine.transition()
                     .style("stroke-width", "9px");
+
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 0.9);
@@ -173,8 +175,11 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
                     .style("top", (d3.event.pageY - 28) + "px");
 
                 // for all the other lines, reduce opacity
-                var otherLines = d3.selectAll(".line").filter(function (x) { return self != this; }).transition()
-                    .style("opacity", 0.3)
+                //var otherLines = d3.selectAll(".line").nodes()//.filter(function (x) { return self != this; }).style("opacity", 0.3);
+                //otherLines.style = "0.3";
+                var otherLines = d3.selectAll("path.line").filter(function (x) { return self != this; })
+                otherLines.style("opacity", 0.3)
+                console.log(otherLines)
 
                 })
         .on("mouseout", function(d) {
