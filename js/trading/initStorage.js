@@ -44,8 +44,6 @@ function initLocalStorage(){
 	console.log(localStorage);
 }
 
-//console.log(JSON.parse(localStorage.getItem('portfolio')));
-
 /* Called in makeStatsGraph after sorting the stats data*/
 function setTodaysPrices(statArr){
 	for( var fishType of statArr){

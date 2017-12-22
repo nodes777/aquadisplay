@@ -1,21 +1,17 @@
 function initPortfolio() {
-
     createTable();
     updateCash();
-	
-
 }
 
 function updateCash(){
     var cash = JSON.parse( localStorage.getItem('cash'));
     var div = document.getElementById("cash");
-    div.innerHTML = cash;
+    div.textContent = cash;
 }
 
 function createTable(){
     /* Get localStorage */
     var portfolioData = JSON.parse( localStorage.getItem('portfolio'));
-    console.log(portfolioData);
 
     /* Create table and headers */
     var table = document.createElement("TABLE");
@@ -28,11 +24,11 @@ function createTable(){
     var row = table.insertRow(-1);
     // Create name header
     var headerCell = document.createElement("TH");
-    headerCell.innerHTML = "Name";
+    headerCell.textContent = "Name";
     row.appendChild(headerCell);
     for (stat in portfolioData.fw) {
         var headerCell = document.createElement("TH");
-        headerCell.innerHTML = stat;
+        headerCell.textContent = stat;
         row.appendChild(headerCell);
     }
 
@@ -45,10 +41,10 @@ function createTable(){
             if (portfolioData[fishType].shares > 0) {
                 row = table.insertRow(-1);
                 var cell = row.insertCell(-1);
-                cell.innerHTML = name;
+                cell.textContent = name;
                 for (stat in portfolioData[fishType]) {
                     var cell = row.insertCell(-1);
-                    cell.innerHTML = portfolioData[fishType][stat];
+                    cell.textContent = portfolioData[fishType][stat];
                 }
             }
         }

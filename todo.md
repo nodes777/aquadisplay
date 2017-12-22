@@ -11,7 +11,12 @@
 * Store local picks
 * Compare to a market average:
 	* Create market average
-	*
+	
+### Must be updated each day:
+	* value
+	* Quote
+	* dollar change
+	* percent change
 
 ## Line Graph
 * Create organization for fish types

@@ -14,38 +14,37 @@ function addToPortfolio(fishType, sharesBought, paid){
 	var p = JSON.parse( localStorage.getItem('portfolio'));
 	p[fishType].shares += +sharesBought;
 	p[fishType].paid += paid; // Amount of money paid into this fish stock
-	//		"quote": 0, // Current value per share of a fish stock - Changes each day
-	//    	"dollarChange": 0, // Dollar value changed since the purchase - Changes each day
-	//    	"percentChange": 0, // Percent changed since the purchase - Changes each day
 	p[fishType].value = p[fishType].shares * todaysPrices[fishType].price; // Value of number of shares at todays price - Changes each day
+
+	/*The below is now updated in initTodaysChangesOnPortfolio()
 	p.value += p[fishType].value; // adjust the value of the entire portfolio
+
 	var numOfAllSharesB = getTotalNumOfShares();
-	console.log("numOfAllSharesB: "+numOfAllSharesB)
 	var numOfAllShares = numOfAllSharesB + +sharesBought;
-	console.log("numOfAllShares: "+numOfAllShares)
-	console.log("p.value: "+p.value)
-	console.log(p.value/numOfAllShares)
+
 	p.avg = p.value/numOfAllShares// Update p.avg,p.avg = p.value / numOfAllShares
 	p[fishType].weight = (p[fishType].value/p.value) // How much that category affects the whole portfolio
-
+	*/
 	console.log(p);
 	localStorage.setItem( 'portfolio', JSON.stringify(p) );
+	updatePortfolio()
+	createTable()
 }
 
 function updateBuyOptions(fish, cb){
 	var perShareHTML = d3.select("#pricePerShare");
 	var totalPriceHTML = d3.select("#totalPrice");
 
-	perShareHTML.node().innerHTML = todaysPrices[fish].price;
-	totalPriceHTML.node().innerHTML = todaysPrices[fish].price;
-	// The inital loading of the page calls this function without the cb. Buying will call the cb
+	perShareHTML.node().textContent = todaysPrices[fish].price;
+	totalPriceHTML.node().textContent = todaysPrices[fish].price;
+	// The inital loading of the page calls this function without the cb. Buying will call the cb, updateTotal
 	if(cb){cb()}
 }
 
 function handleBuy(){
     var fishType = document.getElementById("buyListDropDown").value;
     var numberToBuy = document.getElementById("numberToBuy").value;
-    var pricePerShare = document.getElementById("pricePerShare").innerHTML;
+    var pricePerShare = document.getElementById("pricePerShare").textContent;
     if (pricePerShare==0) {
     	alert("Hey, you can't buy at zero dollar value.")
     } else {
@@ -59,10 +58,15 @@ function updateTotal(){
 	var pricePerShare = getPriceOf(selectionName);
 	var numberToBuy = document.getElementById("numberToBuy").value;
 	var total = pricePerShare * numberToBuy;
-	totalHTML.innerHTML = total;
+	totalHTML.textContent = total;
 }
 
 function getPriceOf(fish){
+	if (!todaysPrices[fish]) {
+		console.log(`${fish} can't be sold today`)
+		return 0;
+	}
+
 	return todaysPrices[fish].price;
 }
 

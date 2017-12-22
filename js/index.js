@@ -28,6 +28,7 @@ function processTodayJson(json){
   makeCategoryGraphs(soldItems);
 
   $("#currentDay").append(` ${today} ${monthAndYear}`);
+  updatePortfolio();
   prepTransactions();
   initPortfolio();
 }
