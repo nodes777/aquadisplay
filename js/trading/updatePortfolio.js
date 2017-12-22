@@ -15,21 +15,17 @@ function updatePortfolio(){
 	        portfolioData[fishType].quote = price;
 	        //portfolioData[fishType].weight = // (portfolioData[fishType].value/portfolioData.value) portfolioData.value is out of date at this point.
 	        dollarChange = portfolioData[fishType].value - portfolioData[fishType].paid;
-	        portfolioData[fishType].dollarChange = `$ ${dollarChange}`;
+	        portfolioData[fishType].dollarChange = `$ ${dollarChange}`;// START HERE< THESE UPDATE INCCORECTLY
 	        portfolioData[fishType].percentChange = `${(((dollarChange/portfolioData[fishType].paid).toFixed(2))*100)} %`;
 
 	        runningTotalOfValue += portfolioData[fishType].value;
-	        console.log(portfolioData[fishType])
-	        console.log(portfolioData[fishType].shares)
-	        var o = portfolioData[fishType].shares;
 	        runningTotalOfShares = runningTotalOfShares + portfolioData[fishType].shares;
-	        console.log(portfolioData[fishType].shares)
     	}
     }
 
     // Update aggregate stats
     portfolioData.aggStats.value = runningTotalOfValue;
-    portfolioData.aggStats.avg = runningTotalOfValue/runningTotalOfShares;
+    portfolioData.aggStats.avg = (runningTotalOfValue/runningTotalOfShares).toFixed(2);
     portfolioData.aggStats.shares = runningTotalOfShares;
 
     // Apply weight since it was dependent on getting the totals first. Inefficient to loop through these all again
