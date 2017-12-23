@@ -3,7 +3,15 @@ function makeLineGraph(json){
     var maxPoint = 0;
     var parseTime = d3.timeParse("%b-%Y-%d-%a");
     var formatDate = d3.timeFormat("%B %d")
-
+/*
+    var marketStats = {
+        "avg": avg,
+        "item": item,
+        "stdDev": stdDev,
+        "date": currentDate,
+        "salesVolume": salesVolume
+    }
+*/
 	/* Format data, each line/category must be an entry in the array */
 	$.each(json, function(date, objectDay){
 		/* Within a particular day*/
@@ -36,12 +44,17 @@ function makeLineGraph(json){
 		        "date": currentDate,
 		        "salesVolume": salesVolume
 		     };
-
+            // Add that days stats to the array for the fishtype within the 30day obj
 			thirtyDayLineObj[fishTypeName].push(lineFishTypeObj);
     	})
       });
+    thirtyDayLineObj.marketStats = createMarketStats(thirtyDayLineObj)
 
-
+    /*
+    *-------------------------------------------------------------------------------------------------
+    * Create Graph
+    *-------------------------------------------------------------------------------------------------
+    */
 	var margin = {top: 40, right: 80, bottom: 110, left: 80},
     width = getWidthOfGraph('#lineGraph') - margin.left - margin.right,
     height = 720 - margin.top - margin.bottom;

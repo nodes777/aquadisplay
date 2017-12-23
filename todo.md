@@ -2,7 +2,6 @@
 * Provide button for drop down
 * Find better organization for graphs and everything
 
-
 ## Averages:
 * Sort by highest bar? No
 
@@ -13,8 +12,7 @@
 	* Reopening the page
 
 * Compare to a market average:
-	* Create market average -Scraper?
-
+	* Create market average -Scraper? No, use the stat data.
 
 ## Line Graph
 * Create organization for fish types
