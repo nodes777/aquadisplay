@@ -33,6 +33,11 @@ function processTodayJson(json){
   renderPortfolio();
 }
 
+function processLineJson(json){
+
+  formatStatData(json);
+
+}
 function getSoldItems(objOfObjs){
 
     var objOfSold = {};
@@ -46,11 +51,7 @@ function getSoldItems(objOfObjs){
    return objOfSold;
 }
 
-function processLineJson(json){
 
-  makeLineGraph(json);
-
-}
 
 
 //$('#currentDayData').html(JSON.stringify(data,null,4));
