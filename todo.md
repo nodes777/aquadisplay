@@ -18,5 +18,7 @@
 ## Scraper:
 * Links to fish closed auction pages
 
-
-Fork to create game, one for aquadisplay, which is done? needs to be prettier
+## Display
+* Prettify date
+* Add names for categories
+* Change bar colors?

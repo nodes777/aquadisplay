@@ -24,7 +24,7 @@ function makeStatsGraph(soldData){
 
 function initAvgGraph(statArr){
 
-	var margin = {top: 20, right: 80, bottom: 110, left: 80},
+	var margin = {top: 20, right: 80, bottom: 140, left: 80},
         width = getWidthOfGraph('#firstGraph') - margin.left - margin.right,
         height = 720 - margin.top - margin.bottom;
 
