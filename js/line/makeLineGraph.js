@@ -113,7 +113,8 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
             .attr("stroke-dasharray", function(d){ return this.getTotalLength() })
             .attr("stroke-dashoffset", function(d){ return this.getTotalLength() })
 
-    var specificLine = svg.selectAll("#line-"+fishTypeName);
+        // Previously using selectAll here, this wouldn't allow the otherLine selection to cause effects,
+    var specificLine = svg.select("#line-"+fishTypeName);
 
         specificLine.transition(t)
             .attr("stroke-dashoffset", 0)
@@ -130,16 +131,8 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
                 tooltip.html(getReadableName(d.item)+" $"+d.avg)
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 28) + "px");
-
-                // for all the other lines, reduce opacity
-                //var otherLines = d3.selectAll(".line").nodes()//.filter(function (x) { return self != this; }).style("opacity", 0.3);
-                //otherLines.style = "0.3";
                 var otherLines = d3.selectAll("path.line").filter(function (x) { return self != this; })
-                otherLines.style("opacity", 0.3)
-                //var mixed = d3.select("#line-fwmixed").style("opacity", 0.3)
-                //console.log(otherLines)
-                //console.log(this)
-                //console.log(mixed)
+                    .style("opacity", 0.3)
 
                 })
         .on("mouseout", function(d) {
