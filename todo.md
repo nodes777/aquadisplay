@@ -11,12 +11,12 @@
 	* Making a purchase that first page open
 	* Reopening the page
 
-* Compare to a market average:
-	* Create market average -Scraper? No, use the stat data.
-
 ## Line Graph
 * Create organization for fish types
 * Associate lines and colors
 
 ## Scraper:
 * Links to fish closed auction pages
+
+
+Fork to create game, one for aquadisplay, which is done? needs to be prettier

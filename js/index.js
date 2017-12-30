@@ -38,6 +38,7 @@ function processLineJson(json){
   formatStatData(json);
 
 }
+
 function getSoldItems(objOfObjs){
 
     var objOfSold = {};

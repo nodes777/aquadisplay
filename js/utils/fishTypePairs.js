@@ -46,6 +46,10 @@ var fishTypePairs = {
 };
 
 function getReadableName(string) {
+	// If the string has whitespace, it probably already has the correct format, ex: Market Stats
+	if(/\s/.test(string)){
+		return string;
+	}
 	var name = fishTypePairs[string];
     return name;
 }
