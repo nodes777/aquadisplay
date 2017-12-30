@@ -62,6 +62,7 @@ function makeLineGraph(thirtyDayLineObj, maxPoint){
     svg.append("text")
         .attr("x", width / 2 )
         .attr("y", -10)
+        .style("font-size", "24px")
         .style("text-anchor", "middle")
         .text("Average Fish Value Over Time");
 
@@ -113,7 +114,7 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
             .attr("stroke-dasharray", function(d){ return this.getTotalLength() })
             .attr("stroke-dashoffset", function(d){ return this.getTotalLength() })
 
-        // Previously using selectAll here, this wouldn't allow the otherLine selection to cause effects,
+    // Previously using selectAll here, this wouldn't allow the otherLine selection to cause effects,
     var specificLine = svg.select("#line-"+fishTypeName);
 
         specificLine.transition(t)

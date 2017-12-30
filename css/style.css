@@ -13,6 +13,16 @@ div.tooltip {
     pointer-events: none;
 }
 
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.checkboxes{
+  font-size: 13px;
+}
+
 .axis--x path {
   display: none;
 }

@@ -19,7 +19,7 @@ function makeStatsGraph(soldData){
     	statArr.push(avgObj);
   	});
   initAvgGraph(statArr);
-  setTodaysPrices(statArr);
+  //setTodaysPrices(statArr);
 }
 
 function initAvgGraph(statArr){
