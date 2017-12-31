@@ -16,7 +16,5 @@
 * Links to fish closed auction pages
 
 ## Display
-* Prettify date
-* Add names for categories
-* Change bar colors?
 * Add padding to checkboxes
+* Hover on line graph for real price points / Remove price on hover

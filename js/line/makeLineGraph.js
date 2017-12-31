@@ -26,10 +26,11 @@ function makeLineGraph(thirtyDayLineObj, maxPoint){
   	y.domain([ 0, maxPoint])
     //color.domain(fishType.map(function(d) { return d.salesVolume; }));
 
-            // Define the div for the tooltip
+    // Define the div for the tooltip
     var tooltip = d3.select("body").append("div")
         .attr("class", "tooltip")
         .style("opacity", 0);
+
   	// add the x Axis
   	var xAxis = d3.axisBottom(x);
     svg.append("g")
@@ -114,12 +115,40 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
             .attr("stroke-dasharray", function(d){ return this.getTotalLength() })
             .attr("stroke-dashoffset", function(d){ return this.getTotalLength() })
 
+
+    var dots = svg.selectAll("dot")
+        .data(fishType)
+      .enter().append("circle")
+        .attr("r", 3.5)
+        //.style("opacity", 0)
+        .attr("cx", function(d) { return x(d.date); })
+        .attr("cy", function(d) { return y(d.avg); });
+
+    dots.on("mouseover", function(d) {
+            var self = this;
+                dots.transition()
+                    .style("stroke-width", "9px");
+
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", 0.9);
+                tooltip.html(getReadableName(d.item)+" $"+d.avg)
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
+                })
+        .on("mouseout", function(d) {
+            dots//.transition()
+                .style("stroke-width", "2.5px");
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+        });
+
     // Previously using selectAll here, this wouldn't allow the otherLine selection to cause effects,
     var specificLine = svg.select("#line-"+fishTypeName);
 
         specificLine.transition(t)
             .attr("stroke-dashoffset", 0)
-
 
         specificLine.on("mouseover", function(d) {
             var self = this;
@@ -129,12 +158,11 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 0.9);
-                tooltip.html(getReadableName(d.item)+" $"+d.avg)
+                tooltip.html(getReadableName(d.item))
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 28) + "px");
                 var otherLines = d3.selectAll("path.line").filter(function (x) { return self != this; })
                     .style("opacity", 0.3)
-
                 })
         .on("mouseout", function(d) {
             specificLine//.transition()
