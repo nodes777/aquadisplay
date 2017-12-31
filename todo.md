@@ -2,9 +2,6 @@
 * Provide button for drop down
 * Find better organization for graphs and everything
 
-## Averages:
-* Sort by highest bar? No
-
 ## Game:
 * Verify localStorage works on:
 	* First time opening the page
@@ -22,3 +19,4 @@
 * Prettify date
 * Add names for categories
 * Change bar colors?
+* Add padding to checkboxes

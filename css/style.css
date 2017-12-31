@@ -1,6 +1,9 @@
-.bar { fill:  var(--green); }
+.bar { fill:  steelblue; }
 .radio-inline{ margin-left: 20px; }
 
+
+*{
+}
 div.tooltip {
     position: absolute;
     text-align: center;
@@ -17,6 +20,9 @@ ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
+}
+.row h3 {
+  font-size: 18px;
 }
 
 .checkboxes{
@@ -47,6 +53,10 @@ ul {
 
 .livebearers{
     background-color: var(--orange);
+}
+
+.otherFish1{
+  background-color: var(--green);
 }
 
 /* https://coolors.co/1be7ff-6eeb83-e4ff1a-ffb800-ff5714 */

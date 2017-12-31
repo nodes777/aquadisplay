@@ -1,4 +1,4 @@
-var tooltipVerbObj = { avg:"Average Price $", stdDev:"Standard Deviation:", salesVolume:"Sales Volume:"};
+var tooltipVerbObj = { avg:"Averages", stdDev:"Standard Deviation", salesVolume:"Sales Volume"};
 
 function getCurrentDay(){
 	var daysArr = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
@@ -114,4 +114,22 @@ function checkForLocalStorageSupport(){
       console.log("Storage not supported");
       throw "Storage not supported in this browser!";
   }
+}
+
+function getReadableDate(today, monthAndYear){
+  //31-Sun, Dec2017
+  var date = today.split("-")[0];
+  var month = monthAndYear.split("2")[0];
+  var year = monthAndYear.substring(3);
+
+
+  var formatTime = d3.timeFormat("%B");
+  var m = formatTime(month); // "June 30, 2015"
+
+  console.log(m)
+
+  var string = ` ${month} ${date}, ${year}`
+
+  return string;
+
 }

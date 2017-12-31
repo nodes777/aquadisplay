@@ -66,6 +66,5 @@ function formatStatData(json){
         // Add the stats to the day
         thirtyDayLineObj.marketStats.push({avg:+dayAvg.toFixed(2), item:"Market Stats", date:date, stdDev:+dayStdDev.toFixed(2), salesVolume:+daySalesVol.toFixed(2)})
       });
-    console.log(thirtyDayLineObj)
     makeLineGraph(thirtyDayLineObj, maxPoint);
 }
