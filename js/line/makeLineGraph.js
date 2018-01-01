@@ -88,7 +88,10 @@ function handleCheckboxChange(thirtyDayLineObj, fishType, x, y, svg, lineFunc, h
     var fishType = this.value;
     var checked = this.checked;
     if(checked){draw.call(this, thirtyDayLineObj, fishType, x, y, svg, lineFunc, height, color, tooltip)}
-    if(!checked){d3.selectAll("#line-"+fishType).remove();}
+    if(!checked){
+        d3.selectAll("#line-"+fishType).remove();
+        d3.selectAll("#dot-"+fishType).remove();
+    }
 }
 
 function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
@@ -117,10 +120,11 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
             .attr("stroke-dasharray", function(d){ return this.getTotalLength() })
             .attr("stroke-dashoffset", function(d){ return this.getTotalLength() })
 
-
+    var dotID = "dot-"+fishTypeName;
     var dots = svg.selectAll("dot")
         .data(fishType)
       .enter().append("circle")
+        .attr("id", id)
         .attr("r", 3.5)
         //.style("opacity", 0)
         .attr("cx", function(d) { return x(d.date); })
