@@ -122,12 +122,6 @@ function getReadableDate(today, monthAndYear){
   var month = monthAndYear.split("2")[0];
   var year = monthAndYear.substring(3);
 
-
-  var formatTime = d3.timeFormat("%B");
-  var m = formatTime(month); // "June 30, 2015"
-
-  console.log(m)
-
   var string = ` ${month} ${date}, ${year}`
 
   return string;

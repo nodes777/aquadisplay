@@ -78,7 +78,7 @@ function makeLineGraph(thirtyDayLineObj, maxPoint){
     });
 
     // Add default checked status
-    $("#fwMixedCheckbox").trigger("click")
+    $("#fwbettasctCheckbox").trigger("click")
     $("#marketStatsCheckbox").trigger("click")
     $("#fwcatfishpCheckbox").trigger("click")
 
@@ -92,6 +92,8 @@ function handleCheckboxChange(thirtyDayLineObj, fishType, x, y, svg, lineFunc, h
 }
 
 function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
+
+    var formatTime = d3.timeFormat("%B %d, %Y");
 
     var t = d3.transition()
             .duration(1000)
@@ -132,7 +134,7 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 0.9);
-                tooltip.html(getReadableName(d.item)+" $"+d.avg)
+                tooltip.html(`${getReadableName(d.item)} $${d.avg} on ${formatTime(d.date)}`)
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 28) + "px");
                 })
