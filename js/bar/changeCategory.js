@@ -1,5 +1,4 @@
-function changeCategory(d, selection, fishType, x, y, yAxis, xAxis, svg, height, tooltip){
-          //console.log(selection)
+function changeCategory(d, selection, fishType, x, y, yAxis, xAxis, svg, height, tooltip, selectionName){
 
           x.domain(selection.map(function(d) { return d.item; }));
           y.domain([0, d3.max(selection, function(d) { return currencyToNumber(d.bPrice); })]);
@@ -45,6 +44,10 @@ function changeCategory(d, selection, fishType, x, y, yAxis, xAxis, svg, height,
                     .duration(500)
                     .style("opacity", 0);
             });
+
+          // Change Title
+            svg.select("#categoryBarTitle")
+              .text("Sold " + getReadableName(selectionName));
 
             //Transition y Axis
             svg.select(".yAxis")

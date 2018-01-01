@@ -80,6 +80,7 @@ function makeCategoryGraphs(fishType){
 	svg.append("text")
 		.attr("x", width / 2 )
         .attr("y", -10)
+        .attr("id", "categoryBarTitle")
         .style("text-anchor", "middle")
         .text("Sold " + getReadableName(selectionName));
 
@@ -116,7 +117,7 @@ function makeCategoryGraphs(fishType){
       .on("change", function(d) {
           selectionName = document.getElementById("dropdown").value;// string
           selection = fishType[selectionName];
-            changeCategory.call(this, d, selection, fishType, x, y, yAxis, xAxis, svg, height, tooltip);
+            changeCategory.call(this, d, selection, fishType, x, y, yAxis, xAxis, svg, height, tooltip, selectionName);
           }, {passive: true});
 
 
