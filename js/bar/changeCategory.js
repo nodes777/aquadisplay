@@ -1,4 +1,5 @@
-function changeCategory(d, selection, fishType, x, y, yAxis, xAxis, svg, height, tooltip, selectionName){
+function changeCategory(d, selection, fishType, x, y, yAxis, xAxis, svg, height, width, tooltip, selectionName){
+    checkIfSales(selection, svg, height, width);
 
           x.domain(selection.map(function(d) { return d.item; }));
           y.domain([0, d3.max(selection, function(d) { return currencyToNumber(d.bPrice); })]);
@@ -62,3 +63,18 @@ function changeCategory(d, selection, fishType, x, y, yAxis, xAxis, svg, height,
                 .call(wrap, x.bandwidth());
 
          }
+
+function checkIfSales(selection, svg, height, width){
+      if(selection.length === 0){
+        svg.append("text")
+          .attr("y", (height / 2))
+          .attr("x", (width/2) )
+          .attr("id","noSales")
+          .attr("class", "text-center")
+          .style("text-anchor", "middle")
+          .text("No sales of that fish type today");
+      } else {
+        svg.select("#noSales")
+          .remove()
+      }
+}

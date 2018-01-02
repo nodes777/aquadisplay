@@ -117,7 +117,7 @@ function makeCategoryGraphs(fishType){
       .on("change", function(d) {
           selectionName = document.getElementById("dropdown").value;// string
           selection = fishType[selectionName];
-            changeCategory.call(this, d, selection, fishType, x, y, yAxis, xAxis, svg, height, tooltip, selectionName);
+            changeCategory.call(this, d, selection, fishType, x, y, yAxis, xAxis, svg, height, width, tooltip, selectionName);
           }, {passive: true});
 
 
