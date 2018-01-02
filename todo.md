@@ -1,5 +1,5 @@
 # TO DO:
-* Provide button for drop down
+* Provide button for drop down// Doesnt feel good...
 * Find better organization for graphs and everything
 
 ## Game:
