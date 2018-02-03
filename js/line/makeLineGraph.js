@@ -103,7 +103,9 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
             .ease(d3.easeLinear)
 
     var fishType = data[fishTypeName];
-    //console.log(fishType)
+    // Sort by date so that months don't have a weird gap
+    fishType.sort(function(a, b){return a.date - b.date});
+
     var id = "line-"+fishTypeName;
 
     // Add the line path. Why does this have to be selectAll for the path to be drawn transition??
@@ -181,3 +183,5 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
         });
 
 }
+
+
