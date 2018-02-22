@@ -37,7 +37,7 @@ function changeStat(d, statArr, graphType, x, y, yAxis, xAxis, svg, height, tool
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 0.9);
-                tooltip.html(d.item+" "+tooltipVerb+Math.round(currencyToNumber(d[graphType])))
+                tooltip.html(d.item+" "+tooltipVerb+" "+Math.round(currencyToNumber(d[graphType])))
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 28) + "px");
                 })
