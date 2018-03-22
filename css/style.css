@@ -59,14 +59,19 @@ ul {
   background-color: var(--green);
 }
 
+.nav-link{
+  padding: 0.5rem;
+}
+
 /* https://coolors.co/1be7ff-6eeb83-e4ff1a-ffb800-ff5714 */
 :root {
-  --blue: #1BE7FF;
-  --green: #6EEB83;
-  --yellow: #E4FF1A;
-  --orange: #FFB800;
-  --red: #FF5714;
+  --blue: #007bff;
+  --green: #28a745;
+  --yellow: #ffc107;
+  --orange: #fd7e14;
+  --red: #dc3545;
 }
+
 
 table {
     font-family: arial, sans-serif;
