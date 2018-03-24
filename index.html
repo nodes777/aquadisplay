@@ -10,6 +10,24 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="css/style.css" type="text/css">
 
+  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyD2lRrZYj34gtG07lKdTA7s5ooXhPrgWPQ",
+      authDomain: "aquascraper-data.firebaseapp.com",
+      databaseURL: "https://aquascraper-data.firebaseio.com",
+      projectId: "aquascraper-data",
+      storageBucket: "aquascraper-data.appspot.com",
+      messagingSenderId: "136223702052"
+    };
+    firebase.initializeApp(config);
+  </script>
+
+  <script src="./js/applyPortfolio.js"></script>
+  <script type="text/javascript" src="./js/firebase/firebaseAuth.js"></script>
+  <script type="text/javascript" src="./js/firebase/firebaseHomeLoggedIn.js"></script>
+
 	<script src="./js/utils/d3.min.js"></script>
   <script src="./js/utils/fishTypePairs.js"></script>
   <script src="./js/bar/makeStatsGraph.js"></script>
@@ -19,6 +37,12 @@
   <script src="./js/bar/changeStat.js"></script>
   <script src="./js/line/formatStatData.js"></script>
   <script src="./js/line/makeLineGraph.js"></script>
+
+  <script src="./js/trading/portfolio.js"></script>
+  <script src="./js/trading/initStorage.js"></script>
+  <script src="./js/trading/updatePortfolio.js"></script>
+  <script src="./js/trading/buyingUtils.js"></script>
+
 	<script src="./js/index.js"></script>
   </head>
   <body>
@@ -222,18 +246,40 @@
   	</div>
   </div>
     <div class="row ">
-      <div class="col-md-8" id="secondGraph">
+      <div class="col-md-6" id="secondGraph">
       <h2 class="text-center">Sales by Fish Type</h2>
               <div id="drop"></div>
       </div>
-      <div class="col-md-4" id="explanation">
-        <h2>About</h2>
-        <p>I made this as a personal project as a way to learn how to <a href="https://medium.com/@Tnodes/all-i-wanted-to-do-is-scrape-in-javascript-c329c8e757e3"> scrape in JavaScript</a> and to learn D3.js. The categories of fish are defined by aquabid. Fish sales data is from <a href="https://aquabid.com">aquabid.com</a> and is updated each night at 12:30am</p>
-        <h4>Notes</h4>
-        <p>Previously, the data being displayed for the <a href="http://www.aquabid.com/cgi-bin/auction/closed.cgi">closed auctions on aquabid</a>, after selecting "view 1 previous day", included sales that have been sold before their close date. This allowed a single sale to remain as a data point for multiple days. This has been fixed as of February 22nd 2018. Sales are now sorted to display only the day of sale. Dates after this point accurately reflect sales made on that day.</p>
-        <p>As of January 2018, <a href="http://www.aquabid.com/robots.txt">aquabid's robots.txt</a> only prevents automated browsing on the "/cgi-bin/auction/vfb.cgi" pages. Presumably, this is to avoid automated bid making.</p>
-        <p>This page's <a href="https://github.com/nodes777/aquadisplay">github.</a></p>
-        <p>Raw data is available publicly from a Firebase with instructions on the <a href="https://github.com/nodes777/aquascraper">scraper's github.</a></p>
+      <div class="col-md-6" id="uhhh">
+        <h2>Your Portfolio</h2>
+        <div id="portStats">
+            <span id="cash"></span>
+            <span id="value"></span>
+            <span id="avg"></span>
+            <span id="shares"></span>
+        </div>
+        <div class="" id="portfolio">
+        </div>
+         <div id="tradingDiv">
+          <table>
+            <tr>
+              <th>Fish Type</th>
+              <th>Price Per Share</th>
+              <th>Total</th>
+              <th>Number to Buy</th>
+              <th>Purchase</th>
+            </tr>
+            <tr>
+              <td><div id="buyList"></div></td>
+              <td><p id="pricePerShare">0</p></td>
+              <td class="center"><p id="totalPrice">0</p></td>
+              <td><input type="number" name="quantity" min="1" max="10" id="numberToBuy" value="1"></td>
+              <td><button id="buyButton">Buy</button></td>
+            </tr>
+          </table>
+      </div>
+
+        <div id="account-details"></div>
       </div>
   </body>
 </html>

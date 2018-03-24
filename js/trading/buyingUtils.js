@@ -35,8 +35,11 @@ function updateBuyOptions(fish, cb){
 	var perShareHTML = d3.select("#pricePerShare");
 	var totalPriceHTML = d3.select("#totalPrice");
 
-	perShareHTML.node().textContent = todaysPrices[fish].price;
-	totalPriceHTML.node().textContent = todaysPrices[fish].price;
+	if(todaysPrices[fish]){
+		perShareHTML.node().textContent = todaysPrices[fish].price;
+		totalPriceHTML.node().textContent = todaysPrices[fish].price;
+	}
+
 	// The inital loading of the page calls this function without the cb. Buying will call the cb, updateTotal
 	if(cb){cb()}
 }
