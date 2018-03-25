@@ -86,11 +86,11 @@ function initPortfolio(userId){
 					}
 				}
 			writeUserPortfolio(userId, portfolio)
-			applyPortfolio(userId); // in applyPortfolio.js
+			applyPortfolio(userId, portfolio); // in applyPortfolio.js
 		} else {
 			console.log("User has a portfolio already")
 			getUserInfo(userId)
-			applyPortfolio(userId); // in applyPortfolio.js
+			applyPortfolio(userId, portfolio); // in applyPortfolio.js
 		}
 	});
 }

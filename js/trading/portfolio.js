@@ -1,11 +1,12 @@
-function renderPortfolio() {
-    createTable();
+function renderPortfolio(data) {
+    createTable(data);
     renderAggStats();
 }
 
-function createTable(){
-    /* Get localStorage */
-    var portfolioData = JSON.parse( localStorage.getItem('portfolio'));
+function createTable(data){
+    /* Data from Firebase */
+    // console.log(`In createTable: ${JSON.stringify(data)}`)
+    var portfolioData = data;
 
     /* Create table and headers */
     var table = document.createElement("TABLE");

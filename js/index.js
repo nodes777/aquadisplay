@@ -30,7 +30,7 @@ function processTodayJson(json){
   $("#currentDay").append(getReadableDate(today, monthAndYear));
   updatePortfolio();
   prepTransactions();
-  renderPortfolio();
+
 }
 
 function processLineJson(json){
