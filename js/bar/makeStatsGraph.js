@@ -20,6 +20,7 @@ function makeStatsGraph(soldData){
   	});
   initAvgGraph(statArr);
   setTodaysPrices(statArr);
+
 }
 
 function initAvgGraph(statArr){

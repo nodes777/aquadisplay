@@ -1,7 +1,7 @@
 var monthAndYear = getCurrentMonth();
 var today = getCurrentDay();
-console.log(monthAndYear);
-console.log(today);
+// console.log(monthAndYear);
+// console.log(today);
 
 
 $.ajax({
