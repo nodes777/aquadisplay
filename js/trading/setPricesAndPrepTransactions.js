@@ -9,7 +9,7 @@ function setTodaysPrices(statArr){
 			"price":fishType.avg
 		};
 	}
-	console.log("Today's Prices: \n"+JSON.stringify(todaysPrices));
+	//console.log("Today's Prices: \n"+JSON.stringify(todaysPrices));
 }
 
 function addFishTypeListToBuyTable(){
@@ -43,7 +43,7 @@ function prepTransactions(){
   	$("#numberToBuy").on("change", function(e){
   		updateTotal();
   	})
-  	
+
   	// init the first buy option on load
   	updateBuyOptions(todaysPrices[Object.keys(todaysPrices)[0]].fishType)
 }

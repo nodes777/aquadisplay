@@ -1,11 +1,10 @@
 function renderPortfolio(data) {
     createTable(data);
-    renderAggStats();
+    renderAggStats(data);
 }
 
 function createTable(data){
-    /* Data from Firebase */
-    // console.log(`In createTable: ${JSON.stringify(data)}`)
+    var statsList = ["Shares", "Paid", "Quote", "Dollar Change", "Percent Change", "Value", "Weight"]
     var portfolioData = data;
 
     /* Create table and headers */
@@ -21,14 +20,17 @@ function createTable(data){
     var headerCell = document.createElement("TH");
     headerCell.textContent = "Name";
     row.appendChild(headerCell);
-    for (stat in portfolioData.fw) {
+    statsList.forEach(function(stat) {
         var headerCell = document.createElement("TH");
         headerCell.textContent = stat;
         row.appendChild(headerCell);
-    }
+    })
 
     //Add the data rows.
+    // Sort the stats to match up with the table headers, order isnt guaranteed in JSON.
     for (fishType in portfolioData) {
+        let p = portfolioData[fishType];
+        let arr = [p.shares, p.paid, p.quote, p.dollarChange, p.percentChange, p.value, p.weight,]
         var name = getReadableName(fishType)
         // Check for not being avg, Avg, and value
         if(name !== undefined){
@@ -37,10 +39,10 @@ function createTable(data){
                 row = table.insertRow(-1);
                 var cell = row.insertCell(-1);
                 cell.textContent = name;
-                for (stat in portfolioData[fishType]) {
+                arr.forEach(function(stat){
                     var cell = row.insertCell(-1);
-                    cell.textContent = portfolioData[fishType][stat];
-                }
+                    cell.textContent = stat;
+                })
             }
         }
     }
@@ -50,19 +52,19 @@ function createTable(data){
     dvTable.appendChild(table);
 }
 
-function renderAggStats(){
-    updateCash();
-    updateAvgValShares();
+function renderAggStats(pData){
+    updateCash(pData);
+    updateAvgValShares(pData);
 }
 
-function updateCash(){
-    var cash = JSON.parse( localStorage.getItem('cash'));
+function updateCash(pData){
+    var cash = pData.cash;
     var div = document.getElementById("cash");
     div.textContent = cash;
 }
 
-function updateAvgValShares(){
-    var p = JSON.parse( localStorage.getItem('portfolio'));
+function updateAvgValShares(pData){
+    var p = pData;
     var div = document.getElementById("value");
     div.textContent = p.aggStats.value;
 

@@ -28,9 +28,10 @@ function processTodayJson(json){
   makeCategoryGraphs(soldItems);
 
   $("#currentDay").append(getReadableDate(today, monthAndYear));
-  updatePortfolio();
+  // var databasePortfolio = firebase.database().ref("users/" + id);
+  // console.log(databasePortfolio)
+  // updatePortfolio(databasePortfolio);
   prepTransactions();
-
 }
 
 function processLineJson(json){
@@ -51,19 +52,3 @@ function getSoldItems(objOfObjs){
     });
    return objOfSold;
 }
-
-
-
-
-//$('#currentDayData').html(JSON.stringify(data,null,4));
-/*
-  $.each(jsonPruned.sold, function(fishTypeName, object){
-    makeCategoryGraphs(object, fishTypeName);
-  });
-
-
-  // this takes time to sort, must be a callback?
-  //makeAveragesGraph(selfSortedSold);
-
-    //makeCategoryGraphs(selfSortedSold);
-*/

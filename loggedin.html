@@ -43,6 +43,13 @@
                 providerData: providerData
               }, null, '  ');
             });
+
+            // CREATING THE USER FIREBASE FOR THE  FIRST TIME
+            firebase.database().ref('users/' + uid).set({
+              username: displayName,
+              email: email,
+              portfolio: {}
+            });
           } else {
             // User is signed out.
             document.getElementById('sign-in-status').textContent = 'Signed out';
@@ -59,7 +66,7 @@
       });
     </script>
     <script src="./js/utils/fishTypePairs.js"></script>
-    <script type="text/javascript" src="js/firebase/firebaseAuth.js"></script>
+    <!-- <script type="text/javascript" src="js/firebase/firebaseAuth.js"></script> -->
   </head>
   <body>
     <h1>Welcome to My Awesome App</h1>

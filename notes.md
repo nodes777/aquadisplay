@@ -1,0 +1,1 @@
+When buying, I need to go request for the amount of cash before decrementing. This is Async and I cant figure out the best way to wait for that response.

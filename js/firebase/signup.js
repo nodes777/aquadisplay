@@ -1,16 +1,3 @@
-dbRef = firebase.database().ref()
-
-
-const auth = firebase.auth();
-
-//auth.signInWithEmailAndPassword(email, pass);
-//auth.createUserWithEmailAndPassword(email, pass);
-
-//auth.onAuthStateChanged(firebaseUser => { console.log(`User ${firebaseUser}`)});
-
-// Initialize the FirebaseUI Widget using Firebase.
-var ui = new firebaseui.auth.AuthUI(firebase.auth());
-
 ui.start('#firebaseui-auth-container', {
   signInOptions: [
     {
@@ -37,7 +24,7 @@ var uiConfig = {
   },
   // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
   signInFlow: 'popup',
-  signInSuccessUrl: 'loggedIn.html',
+  signInSuccessUrl: 'loggedIn.html', // ******this is where we will create the user in Firebase data******
   signInOptions: [
     // Leave the lines as is for the providers you want to offer your users.
     firebase.auth.EmailAuthProvider.PROVIDER_ID,
@@ -62,10 +49,3 @@ function writeUserData(userId, name, email, imageUrl) {
     profile_picture : imageUrl
   });
 }
-
-
-// var userId = firebase.auth().currentUser.uid;
-// return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
-//   var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-//   // ...
-// });

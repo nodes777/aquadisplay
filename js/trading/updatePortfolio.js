@@ -1,7 +1,8 @@
-function updatePortfolio(){
+
+function updatePortfolio(portfolioData){
 	// Get portfolio
-	var portfolioData = JSON.parse( localStorage.getItem('portfolio'));
-    console.log(portfolioData);
+	var portfolioData = portfolioData
+
 
     var runningTotalOfValue = 0;
     var runningTotalOfShares = 0;
@@ -9,7 +10,7 @@ function updatePortfolio(){
     var price;
 	//Update each fish, check for not being stats
     for (fishType in portfolioData) {
-    	if(fishType != 'aggStats') {
+    	if(fishType != 'aggStats' && fishType != 'cash') {
     		price = getPriceOf(fishType)
 	    	portfolioData[fishType].value = portfolioData[fishType].shares*(price);
 	        portfolioData[fishType].quote = price;
@@ -35,9 +36,8 @@ function updatePortfolio(){
     	}
     }
 
-    console.log(portfolioData);
 	// Apply changes to portfolio
-	localStorage.setItem( 'portfolio', JSON.stringify(portfolioData) );
+    writeUserPortfolio(uid, portfolioData)
 
-	renderAggStats();
+	renderAggStats(portfolioData);
 }
