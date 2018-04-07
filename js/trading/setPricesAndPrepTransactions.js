@@ -9,7 +9,7 @@ function setTodaysPrices(statArr){
 			"price":fishType.avg
 		};
 	}
-	//console.log("Today's Prices: \n"+JSON.stringify(todaysPrices));
+	console.log("Today's Prices: \n"+JSON.stringify(todaysPrices));
 }
 
 function addFishTypeListToBuyTable(){

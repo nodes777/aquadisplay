@@ -95,10 +95,10 @@ function initPortfolio(userId){
 			// 		}
 			// 	}
 			writeUserPortfolio(userId, portfolio)
-			renderPortfolio(portfolio);
+			updatePortfolio(portfolio);
 		} else {
 			getUserInfo(userId)
-			renderPortfolio(portfolio);
+			updatePortfolio(portfolio);
 		}
 	});
 }

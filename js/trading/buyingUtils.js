@@ -4,6 +4,11 @@ function makePurchase(fishType, shares){
 	  	var beforeCash = snapshot.val().portfolio.cash;
 	  	var paid = (todaysPrices[fishType].price * shares);
 	  	var afterCash = beforeCash - paid;
+
+	  	if(afterCash < 0){
+	  		alert("Hey you don't have enough money to make that purchase");
+	  		return;
+	  	}
 	  	console.log(`Before: ${beforeCash}; Paid: ${paid}; After : ${afterCash}`)
 
 	  	// add to portfolio
@@ -11,7 +16,6 @@ function makePurchase(fishType, shares){
 	});
 }
 
-/*Making a purchase bug, create table needs to be passed a portfolio*/
 function addToPortfolio(fishType, sharesBought, paid, portfolio, afterCash){
 	var p = portfolio;
 	// update cash
@@ -31,17 +35,8 @@ function addToPortfolio(fishType, sharesBought, paid, portfolio, afterCash){
 	p[fishType].paid += paid; // Amount of money paid into this fish stock
 	p[fishType].value = p[fishType].shares * todaysPrices[fishType].price; // Value of number of shares at todays price - Changes each day
 
-	/*The below is now updated in initTodaysChangesOnPortfolio()
-	//p.value += p[fishType].value; // adjust the value of the entire portfolio
-
-	var numOfAllSharesB = getTotalNumOfShares();
-	var numOfAllShares = numOfAllSharesB + +sharesBought;
-
-	//p.avg = p.value/numOfAllShares// Update p.avg,p.avg = p.value / numOfAllShares
-	//p[fishType].weight = (p[fishType].value/p.value) // How much that category affects the whole portfolio
-	*/
+	/* updatePortfolio handles changes that occur by day, ex: p[fishType].quote*/
 	updatePortfolio(p)
-	createTable(p)
 }
 
 function updateBuyOptions(fish, cb){
