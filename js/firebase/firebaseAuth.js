@@ -94,10 +94,14 @@ function initPortfolio(userId){
 			// 		    };
 			// 		}
 			// 	}
-			writeUserPortfolio(userId, portfolio)
+			// Send to Firebase
+			writeUserPortfolio(userId, portfolio);
+			// Update client side
 			updatePortfolio(portfolio);
 		} else {
+			// Check Firebase
 			getUserInfo(userId)
+			// Update client side
 			updatePortfolio(portfolio);
 		}
 	});

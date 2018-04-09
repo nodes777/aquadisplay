@@ -16,6 +16,13 @@ function makePurchase(fishType, shares){
 	});
 }
 
+function makeSale(fishType, shares){
+
+  firebase.database().ref('users/' + userId).update({
+    portfolio: portfolio
+  });
+}
+
 function addToPortfolio(fishType, sharesBought, paid, portfolio, afterCash){
 	var p = portfolio;
 	// update cash
@@ -53,17 +60,28 @@ function updateBuyOptions(fish, cb){
 function updateSellOptions(fish, cb){
 	var perShareHTML = d3.select("#valuePerShare");
 	var totalPriceHTML = d3.select("#totalSale");
+	var numToSellHTML = d3.select("#numberToSell");
 	var price;
+	var userId = firebase.auth().currentUser.uid
+	// Set the num to sell to 0 to prevent selling what you don't have
+	numToSellHTML.node().value = 0;
 
-	if(todaysPrices[fish] == undefined){
-		price = 0
-	} else {
-		price = todaysPrices[fish].price;
-	}
+	// Set max attribute to only be able to sell
+	firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+		var portfolio = snapshot.val().portfolio;
+		var numOwned = portfolio[fish].shares;
 
-	perShareHTML.node().textContent = price;
-	totalPriceHTML.node().textContent = price;
+		if(todaysPrices[fish] == undefined){
+			price = 0
+		} else {
+			price = todaysPrices[fish].price;
+		}
 
+		perShareHTML.node().textContent = price;
+		totalPriceHTML.node().textContent = price;
+
+		numToSellHTML.node().setAttribute("max", numOwned)
+	})
 	// The inital loading of the page calls this function without the cb. Buying will call the cb, updateTotal
 	if(cb){cb()}
 }
@@ -81,12 +99,12 @@ function handleBuy(){
 
 function handleSell(){
     var fishType = document.getElementById("sellListDropDown").value;
-    var numberToBuy = document.getElementById("numberToSell").value;
-    var pricePerShare = document.getElementById("valuePerShare").textContent;
-    if (pricePerShare == 0) {
+    var numberToSell = document.getElementById("numberToSell").value;
+    var valuePerShare = document.getElementById("valuePerShare").textContent;
+    if (valuePerShare == 0) {
     	alert("Hey, you can't sell at zero dollar value.")
     } else {
-    	makeSale(fishType, numberToBuy)
+    	makeSale(fishType, numberToSell)
     }
 }
 
