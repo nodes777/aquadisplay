@@ -8,8 +8,8 @@ firebase.auth().onAuthStateChanged(function(user) {
     uid = firebase.auth().currentUser.uid;
 	initPortfolio(uid);
 
-	var ref = firebase.database().ref('/users/' + uid)
-	ref.on("value", gotData, errData)
+	// var ref = firebase.database().ref('/users/' + uid)
+	// ref.on("value", gotData, errData)
 
   } else {
     console.log(`User not signed in`)

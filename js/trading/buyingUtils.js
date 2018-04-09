@@ -50,6 +50,24 @@ function updateBuyOptions(fish, cb){
 	if(cb){cb()}
 }
 
+function updateSellOptions(fish, cb){
+	var perShareHTML = d3.select("#valuePerShare");
+	var totalPriceHTML = d3.select("#totalSale");
+	var price;
+
+	if(todaysPrices[fish] == undefined){
+		price = 0
+	} else {
+		price = todaysPrices[fish].price;
+	}
+
+	perShareHTML.node().textContent = price;
+	totalPriceHTML.node().textContent = price;
+
+	// The inital loading of the page calls this function without the cb. Buying will call the cb, updateTotal
+	if(cb){cb()}
+}
+
 function handleBuy(){
     var fishType = document.getElementById("buyListDropDown").value;
     var numberToBuy = document.getElementById("numberToBuy").value;
@@ -60,6 +78,18 @@ function handleBuy(){
     	makePurchase(fishType, numberToBuy)
     }
 }
+
+function handleSell(){
+    var fishType = document.getElementById("sellListDropDown").value;
+    var numberToBuy = document.getElementById("numberToSell").value;
+    var pricePerShare = document.getElementById("valuePerShare").textContent;
+    if (pricePerShare == 0) {
+    	alert("Hey, you can't sell at zero dollar value.")
+    } else {
+    	makeSale(fishType, numberToBuy)
+    }
+}
+
 
 function updateTotal(){
 	var totalHTML = document.getElementById("totalPrice");

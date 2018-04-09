@@ -19,9 +19,11 @@ function createTable(data){
     // Create name header
     var headerCell = document.createElement("TH");
     headerCell.textContent = "Name";
+    headerCell.setAttribute("scope","col")
     row.appendChild(headerCell);
     statsList.forEach(function(stat) {
-        var headerCell = document.createElement("TH");
+        headerCell = document.createElement("TH");
+        headerCell.setAttribute("scope","col")
         headerCell.textContent = stat;
         row.appendChild(headerCell);
     })
@@ -38,6 +40,7 @@ function createTable(data){
             if (portfolioData[fishType].shares > 0) {
                 row = table.insertRow(-1);
                 var cell = row.insertCell(-1);
+                cell.setAttribute("scope","row")
                 cell.textContent = name;
                 arr.forEach(function(stat){
                     var cell = row.insertCell(-1);

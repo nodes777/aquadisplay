@@ -258,24 +258,46 @@
         </div>
         <div class="" id="portfolio">
         </div>
-        <h3>Trading Div</h3>
+        <h3>Trading</h3>
          <div id="tradingDiv">
-          <table>
+          <h3>Buy</h3>
+          <div id="buyingDiv">
+            <table>
+              <tr>
+                <th>Fish Type</th>
+                <th>Price Per Share</th>
+                <th>Total</th>
+                <th>Number to Buy</th>
+                <th>Purchase</th>
+              </tr>
+              <tr>
+                <td><div id="buyList"></div></td>
+                <td><p id="pricePerShare">0</p></td>
+                <td class="center"><p id="totalPrice">0</p></td>
+                <td><input type="number" name="quantity" min="1" max="10" id="numberToBuy" value="1"></td>
+                <td><button id="buyButton">Buy</button></td>
+              </tr>
+            </table>
+          </div>
+          <h3>Sell</h3>
+          <div id="sellingDiv">
+            <table>
             <tr>
               <th>Fish Type</th>
-              <th>Price Per Share</th>
-              <th>Total</th>
-              <th>Number to Buy</th>
-              <th>Purchase</th>
+              <th>Value Per Share</th>
+              <th>Total Sale</th>
+              <th>Number to Sell</th>
+              <th>Sell</th>
             </tr>
             <tr>
-              <td><div id="buyList"></div></td>
-              <td><p id="pricePerShare">0</p></td>
-              <td class="center"><p id="totalPrice">0</p></td>
-              <td><input type="number" name="quantity" min="1" max="10" id="numberToBuy" value="1"></td>
-              <td><button id="buyButton">Buy</button></td>
+              <td><div id="sellList"></div></td>
+              <td><p id="valuePerShare">0</p></td>
+              <td class="center"><p id="totalSale">0</p></td>
+              <td><input type="number" name="quantity" min="1" max="10" id="numberToSell" value="1"></td>
+              <td><button id="buyButton">Sell</button></td>
             </tr>
           </table>
+          </div>
       </div>
 
 

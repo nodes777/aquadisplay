@@ -1,4 +1,3 @@
-
 function updatePortfolio(portfolioData){
 	// Get portfolio
 	var portfolioData = portfolioData;
@@ -11,7 +10,6 @@ function updatePortfolio(portfolioData){
     for (fishType in portfolioData) {
     	if(fishType != 'aggStats' && fishType != 'cash') {
     		price = getPriceOf(fishType);
-            console.log(price)
 	    	portfolioData[fishType].value = portfolioData[fishType].shares*(price);
 	        portfolioData[fishType].quote = price;
 	        //portfolioData[fishType].weight = // (portfolioData[fishType].value/portfolioData.value) portfolioData.value is out of date at this point.
@@ -40,4 +38,5 @@ function updatePortfolio(portfolioData){
     writeUserPortfolio(uid, portfolioData)
     createTable(portfolioData)
 	renderAggStats(portfolioData);
+    updateSellTable(portfolioData)
 }
