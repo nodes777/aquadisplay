@@ -90,7 +90,7 @@ function updateSellOptions(fish, cb){
 
 		numToSellHTML.node().setAttribute("max", numOwned)
 	})
-	// The inital loading of the page calls this function without the cb. Buying will call the cb, updateTotal
+	// The inital loading of the page calls this function without the cb. Selling will call the cb, updateTotal
 	if(cb){cb()}
 }
 
@@ -117,11 +117,20 @@ function handleSell(){
 }
 
 
-function updateTotal(){
+function updateTotalBuy(){
 	var totalHTML = document.getElementById("totalPrice");
 	var selectionName = document.getElementById("buyListDropDown").value;
 	var pricePerShare = getPriceOf(selectionName);
 	var numberToBuy = document.getElementById("numberToBuy").value;
+	var total = pricePerShare * numberToBuy;
+	totalHTML.textContent = total;
+}
+
+function updateTotalSell(){
+	var totalHTML = document.getElementById("totalSale");
+	var selectionName = document.getElementById("sellListDropDown").value;
+	var pricePerShare = getPriceOf(selectionName);
+	var numberToBuy = document.getElementById("numberToSell").value;
 	var total = pricePerShare * numberToBuy;
 	totalHTML.textContent = total;
 }

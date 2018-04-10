@@ -20,7 +20,7 @@ function addFishTypeListToBuyTable(){
       .attr("id","buyListDropDown")
       .on("change", function(d) {
           var selectionName = document.getElementById("buyListDropDown").value;// string
-          updateBuyOptions(selectionName, updateTotal);
+          updateBuyOptions(selectionName, updateTotalBuy);
           }, {passive: true});
 
     selector.selectAll("option")
@@ -47,12 +47,13 @@ function updateSellTable(p){
   * Even though updatePortfolio calls this function
   * Which should update with the new portfolio fish
   */
+
   // Doesn't append like the buy Select, selects it directly
   var selector = d3.select("#sellSelect")
       .attr("id","sellListDropDown")
       .on("change", function(d) {
           let selectionName = document.getElementById("sellListDropDown").value;// string
-          updateSellOptions(selectionName, updateTotal);// check here???????????????????????????
+          updateSellOptions(selectionName, updateTotalSell);// check here???????????????????????????
           }, {passive: true});
 
     selector.selectAll("option")
@@ -77,8 +78,11 @@ function prepTransactions(){
       handleSell();
     })
   	$("#numberToBuy").on("change", function(e){
-  		updateTotal();
+  		updateTotalBuy();
   	})
+    $("#numberToSell").on("change", function(e){
+      updateTotalSell();
+    })
 
   	// init the first buy option on load
   	updateBuyOptions(todaysPrices[Object.keys(todaysPrices)[0]].fishType)
