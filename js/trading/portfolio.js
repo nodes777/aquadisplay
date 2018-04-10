@@ -61,9 +61,9 @@ function renderAggStats(pData){
 }
 
 function updateCash(pData){
-    var cash = pData.cash;
-    var div = document.getElementById("cash");
-    div.textContent = cash;
+    let cashNum = pData.cash;
+    let div = document.getElementById("cash");
+    div.textContent = cashNum;
 }
 
 function updateAvgValShares(pData){

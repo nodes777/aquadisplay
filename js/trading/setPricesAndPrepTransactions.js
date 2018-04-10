@@ -41,13 +41,18 @@ function updateSellTable(p){
         return item;
       }
   });
-
-  var selector = d3.select("#sellList")
-      .append("select")
+  console.log(fishTypeNames)
+  /*
+  * Sell select options dont update after making a purchase.
+  * Even though updatePortfolio calls this function
+  * Which should update with the new portfolio fish
+  */
+  // Doesn't append like the buy Select, selects it directly
+  var selector = d3.select("#sellSelect")
       .attr("id","sellListDropDown")
       .on("change", function(d) {
           let selectionName = document.getElementById("sellListDropDown").value;// string
-          updateSellOptions(selectionName, updateTotal);
+          updateSellOptions(selectionName, updateTotal);// check here???????????????????????????
           }, {passive: true});
 
     selector.selectAll("option")
@@ -59,6 +64,8 @@ function updateSellTable(p){
       .text(function(d){
         return getReadableName(d);
       });
+      // updateBuyOptions is in prepTransactions
+      updateSellOptions(fishTypeNames[0]);
 }
 
 function prepTransactions(){
@@ -75,4 +82,6 @@ function prepTransactions(){
 
   	// init the first buy option on load
   	updateBuyOptions(todaysPrices[Object.keys(todaysPrices)[0]].fishType)
+    //updateSellOptions is in updateSellTable
+
 }

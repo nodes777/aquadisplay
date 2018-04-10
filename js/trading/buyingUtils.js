@@ -9,18 +9,26 @@ function makePurchase(fishType, shares){
 	  		alert("Hey you don't have enough money to make that purchase");
 	  		return;
 	  	}
-	  	console.log(`Before: ${beforeCash}; Paid: ${paid}; After : ${afterCash}`)
+	  	//console.log(`Before: ${beforeCash}; Paid: ${paid}; After : ${afterCash}`)
 
 	  	// add to portfolio
 		addToPortfolio(fishType, shares, paid, portfolio, afterCash);
 	});
 }
 
-function makeSale(fishType, shares){
+function makeSale(fishType, sharesSold){
+	firebase.database().ref('/users/' + uid).once('value').then(function(snapshot) {
+		let p = snapshot.val().portfolio;
+		let sharesLeft = p[fishType].shares - sharesSold; // subtract the shares sold
+		let cashGained = todaysPrices[fishType].price * sharesSold; // find the cash gained
 
-  firebase.database().ref('users/' + userId).update({
-    portfolio: portfolio
-  });
+		/**** Apply these changes to the firebase *****/
+
+		p[fishType].shares = sharesLeft;
+		p.cash = p.cash + cashGained;
+
+		updatePortfolio(p);
+	})
 }
 
 function addToPortfolio(fishType, sharesBought, paid, portfolio, afterCash){
@@ -62,12 +70,12 @@ function updateSellOptions(fish, cb){
 	var totalPriceHTML = d3.select("#totalSale");
 	var numToSellHTML = d3.select("#numberToSell");
 	var price;
-	var userId = firebase.auth().currentUser.uid
+
 	// Set the num to sell to 0 to prevent selling what you don't have
 	numToSellHTML.node().value = 0;
 
 	// Set max attribute to only be able to sell
-	firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+	firebase.database().ref('/users/' + uid).once('value').then(function(snapshot) {
 		var portfolio = snapshot.val().portfolio;
 		var numOwned = portfolio[fish].shares;
 
