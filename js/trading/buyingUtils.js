@@ -22,8 +22,6 @@ function makeSale(fishType, sharesSold){
 		let sharesLeft = p[fishType].shares - sharesSold; // subtract the shares sold
 		let cashGained = todaysPrices[fishType].price * sharesSold; // find the cash gained
 
-		/**** Apply these changes to the firebase *****/
-
 		p[fishType].shares = sharesLeft;
 		p.cash = p.cash + cashGained;
 

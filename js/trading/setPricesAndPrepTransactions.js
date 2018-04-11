@@ -35,17 +35,22 @@ function addFishTypeListToBuyTable(){
 }
 
 function updateSellTable(p){
-  // Using what's present in portfolio, removing the cash and aggStats
-  var fishTypeNames = Object.keys(p).filter(function(item){
-      if(item != "cash" && item != "aggStats"){
-        return item;
+  var fishTypeNames = [];
+  // Create an array of only fishNames with more than 0 shares
+  $.each(p, function(key, value){
+   if(key != "cash" && key != "aggStats"){
+        if(value.shares>0){
+          fishTypeNames.push(key);
+        }
       }
-  });
+  })
   console.log(fishTypeNames)
-  /*
+
+  /* START HERE
   * Sell select options dont update after making a purchase.
   * Even though updatePortfolio calls this function
   * Which should update with the new portfolio fish
+  * Selling to zero also doesn't remove the fish type from the options
   */
 
   // Doesn't append like the buy Select, selects it directly
@@ -53,18 +58,22 @@ function updateSellTable(p){
       .attr("id","sellListDropDown")
       .on("change", function(d) {
           let selectionName = document.getElementById("sellListDropDown").value;// string
-          updateSellOptions(selectionName, updateTotalSell);// check here???????????????????????????
+          updateSellOptions(selectionName, updateTotalSell);
           }, {passive: true});
 
-    selector.selectAll("option")
-      .data(fishTypeNames)
-      .enter().append("option")
+    var options = selector.selectAll("option") //  Join new data with old elements, if any.
+      .data(fishTypeNames);
+
+      options.enter().append("option")
       .attr("value", function(d){
         return d;
       })
+      .merge(options)
       .text(function(d){
         return getReadableName(d);
       });
+
+      options.exit().remove(); // Remove old elements as needed.
       // updateBuyOptions is in prepTransactions
       updateSellOptions(fishTypeNames[0]);
 }
