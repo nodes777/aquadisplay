@@ -54,8 +54,9 @@ function updateSellTable(p){
   */
 
   // Doesn't append like the buy Select, selects it directly
-  var selector = d3.select("#sellSelect")
-      .attr("id","sellListDropDown")
+  var selector = d3.select("#sellListDropDown");
+
+      selector.attr("id","sellListDropDown")
       .on("change", function(d) {
           let selectionName = document.getElementById("sellListDropDown").value;// string
           updateSellOptions(selectionName, updateTotalSell);
@@ -65,15 +66,15 @@ function updateSellTable(p){
       .data(fishTypeNames);
 
       options.enter().append("option")
+      .merge(options) //Update with new dataset if needed
       .attr("value", function(d){
         return d;
       })
-      .merge(options)
       .text(function(d){
         return getReadableName(d);
       });
 
-      options.exit().remove(); // Remove old elements as needed.
+      options.exit().remove(); // Remove old elements as needed. 
       // updateBuyOptions is in prepTransactions
       updateSellOptions(fishTypeNames[0]);
 }
