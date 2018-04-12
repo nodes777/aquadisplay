@@ -45,7 +45,7 @@ function addToPortfolio(fishType, sharesBought, paid, portfolio, afterCash){
 			};
 	}
 	p[fishType].shares += +sharesBought;
-	p[fishType].paid += paid; // Amount of money paid into this fish stock
+	p[fishType].paid += paid; // Amount of money paid into this fish stock // <CHECK THIS> this will only increment
 	p[fishType].value = p[fishType].shares * todaysPrices[fishType].price; // Value of number of shares at todays price - Changes each day
 
 	/* updatePortfolio handles changes that occur by day, ex: p[fishType].quote*/
