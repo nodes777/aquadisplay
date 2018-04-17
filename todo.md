@@ -3,7 +3,7 @@
 * Find better organization for graphs and everything
 
 ## Game:
-* write Portfolio maintainer auto updater for days that users don't login
+* write Portfolio maintainer auto updater for recording account values over time
 
 * Make line for portfolio
 
@@ -21,7 +21,6 @@
 ## Bug Notes
 * Daily Bar Chart: If no auctions are closed with a specific fish type, that fish type is not represented on the x axis and not in the drop down select. If there are closed auctions but none in that category were sold, then there is an x axis label with a bar height of 0.
 
-* Bar Chart: Needs a space between number and text info, on tooltip mouseover.
 
 
 
