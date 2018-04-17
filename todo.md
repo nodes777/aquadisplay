@@ -3,7 +3,14 @@
 * Find better organization for graphs and everything
 
 ## Game:
-* write applyPortfolio
+* write Portfolio maintainer auto updater for days that users don't login
+
+* Make line for portfolio
+
+* Make a Leaderboard page
+
+## AI:
+
 
 ## Line Graph
 * Associate lines and colors

@@ -35,8 +35,8 @@ function updatePortfolio(portfolioData){
     }
 
 	// Apply changes to portfolio
-    writeUserPortfolio(uid, portfolioData)
-    createTable(portfolioData)
-	renderAggStats(portfolioData);
-    updateSellTable(portfolioData)
+    writeUserPortfolio(uid, portfolioData) // in firebaseAuth.js
+    createTable(portfolioData) // in portfolio.js
+	renderAggStats(portfolioData); // in portfolio.js
+    updateSellTable(portfolioData) // in setPricesAndPrepTransactions.js
 }

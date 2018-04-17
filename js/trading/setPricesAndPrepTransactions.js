@@ -44,19 +44,11 @@ function updateSellTable(p){
         }
       }
   })
-  console.log(fishTypeNames)
-
-  /* START HERE
-  * Sell select options dont update after making a purchase.
-  * Even though updatePortfolio calls this function
-  * Which should update with the new portfolio fish
-  * Selling to zero also doesn't remove the fish type from the options
-  */
 
   // Doesn't append like the buy Select, selects it directly
   var selector = d3.select("#sellListDropDown");
 
-      selector.attr("id","sellListDropDown")
+    selector.attr("id","sellListDropDown")
       .on("change", function(d) {
           let selectionName = document.getElementById("sellListDropDown").value;// string
           updateSellOptions(selectionName, updateTotalSell);

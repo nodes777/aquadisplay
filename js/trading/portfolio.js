@@ -4,15 +4,12 @@ function renderPortfolio(data) {
 }
 
 function createTable(data){
-    var statsList = ["Shares", "Paid", "Quote", "Dollar Change", "Percent Change", "Value", "Weight"]
+    var statsList = ["Shares", "Paid", "Quote", "Dollar Change", "Percent Change", "Value", "Weight"];
     var portfolioData = data;
 
     /* Create table and headers */
     var table = document.createElement("TABLE");
     table.border = "1";
-
-    //Get the count of columns. fw is just the example, all fish have the same number of stat types
-    //var columnCount = Object.keys(portfolioData.fw).length;
 
     //Add the header row.
     var row = table.insertRow(-1);
@@ -21,6 +18,8 @@ function createTable(data){
     headerCell.textContent = "Name";
     headerCell.setAttribute("scope","col")
     row.appendChild(headerCell);
+
+    // For each stat, add another header cell
     statsList.forEach(function(stat) {
         headerCell = document.createElement("TH");
         headerCell.setAttribute("scope","col")
@@ -50,32 +49,26 @@ function createTable(data){
         }
     }
 
-    var dvTable = document.getElementById("portfolio");
-    dvTable.innerHTML = "";
-    dvTable.appendChild(table);
+    var divTable = document.getElementById("portfolio");
+    divTable.innerHTML = "";
+    divTable.appendChild(table);
 }
 
 function renderAggStats(pData){
-    updateCash(pData);
-    updateAvgValShares(pData);
-}
-
-function updateCash(pData){
     let cashNum = pData.cash;
     let div = document.getElementById("cash");
-    div.textContent = cashNum;
-}
+    div.textContent += cashNum;
 
-function updateAvgValShares(pData){
-    var p = pData;
-    var div = document.getElementById("value");
-    div.textContent = p.aggStats.value;
+    let p = pData;
+    div = document.getElementById("value");
+    div.textContent += p.aggStats.value;
 
     div = document.getElementById("avg");
-    div.textContent = p.aggStats.avg;
+    div.textContent += p.aggStats.avg;
 
     div = document.getElementById("shares");
-    div.textContent = p.aggStats.shares;
+    div.textContent += p.aggStats.shares;
 }
+
 
 

@@ -63,6 +63,11 @@ ul {
   padding: 0.5rem;
 }
 
+#portStats span{
+  font-size: 20pt;
+  padding: 10px;
+}
+
 /* https://coolors.co/1be7ff-6eeb83-e4ff1a-ffb800-ff5714 */
 :root {
   --blue: #007bff;
