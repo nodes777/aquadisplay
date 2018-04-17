@@ -57,17 +57,17 @@ function createTable(data){
 function renderAggStats(pData){
     let cashNum = pData.cash;
     let div = document.getElementById("cash");
-    div.textContent += cashNum;
+    div.textContent = cashNum;
 
     let p = pData;
     div = document.getElementById("value");
-    div.textContent += p.aggStats.value;
+    div.textContent = p.aggStats.value;
 
     div = document.getElementById("avg");
-    div.textContent += p.aggStats.avg;
+    div.textContent = p.aggStats.avg;
 
     div = document.getElementById("shares");
-    div.textContent += p.aggStats.shares;
+    div.textContent = p.aggStats.shares;
 }
 
 
