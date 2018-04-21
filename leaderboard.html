@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  	<meta charset="UTF-8">
+  	<title>Leaderboard</title>
+
+	  <!--<script src="https://d3js.org/d3.v4.min.js"></script>-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="css/leaderboardStyle.css" type="text/css">
+
+  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyD2lRrZYj34gtG07lKdTA7s5ooXhPrgWPQ",
+      authDomain: "aquascraper-data.firebaseapp.com",
+      databaseURL: "https://aquascraper-data.firebaseio.com",
+      projectId: "aquascraper-data",
+      storageBucket: "aquascraper-data.appspot.com",
+      messagingSenderId: "136223702052"
+    };
+    firebase.initializeApp(config);
+  </script>
+
+
+
+  </head>
+
+  <body>
+    <div class="row">
+      <div class="col-md-9">
+        <h1 class="text-center">Leaderboard</h1>
+      </div>
+      <div class="col-md-3">
+        <ul class="nav nav-pills">
+          <li class="nav-item"><a class="nav-link" href="#">Home</a> </li>
+          <li class="nav-item"><a class="nav-link" href="./about.html" class="text-center">About</a> </li>
+          <li class="nav-item"><a class="nav-link active" href="./leaderboard.html" class="text-center">Leaderboard</a> </li>
+          <li class="nav-item"><a id="loginLink" class="nav-link" href="./signup.html" class="text-center">Login</a> </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div id="leaderboard">
+        <ol id="leaderboardList">
+          
+        </ol>
+      </div>
+    </div>
+      <script src="./js/leaderboard/index.js"></script>
+  </body>
