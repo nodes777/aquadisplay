@@ -10,21 +10,32 @@ usersRef.once("value", function(snapshot) {
     users = snapshot.val();
     var leaderboardArr = [];
 
-    // MUST SORT THE USERS SCORE FIRST
+    // Grab all the users
     for(user in users){
 		let player = users[user];
     	//console.log(player)
 
     	leaderboardArr.push({"username":player.username, "value": player.stats[today].value})
     }
-
+    //Sort the scores
    	leaderboardArr.sort(function(a, b){
-   		console.log(a)
    		return  b.value - a.value
    	});
 
-    leaderboardArr.forEach(function(element){
-    	leaderboardList.append(`<li> ${element.username} ${element.value}</li>`)
+    leaderboardArr.forEach(function(element, i){
+    	console.log(i)
+    	//let newLi = leaderboardList.append(`<li class=""> ${element.username} ${element.value}</li>`)
+    	let newLi = $(`<li class="invisible"> ${element.username} ${element.value}</li>`).appendTo(leaderboardList);
+    	let delay = i*300;
+
+    	//Animate the new li's coming in
+
+    	newLi[0].style.animationDelay = String(delay+"ms");
+    	newLi.addClass("w3-animate-bottom")
+    	setTimeout(function () {
+            newLi.removeClass("invisible")
+		}, delay+10);
+
     })
 })
 

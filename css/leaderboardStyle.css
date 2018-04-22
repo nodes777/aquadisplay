@@ -1,0 +1,12 @@
+
+
+#leaderboard li {
+	font-size: 26px;
+	margin-left: 5px;
+}
+
+.w3-animate-bottom{
+	position:relative;
+	animation:animatebottom 0.4s
+}
+@keyframes animatebottom{from{bottom:-300px;opacity:0} to{bottom:0;opacity:1}}

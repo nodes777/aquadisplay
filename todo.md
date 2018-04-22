@@ -5,23 +5,23 @@
 
 
 # SOMETIMES Firebase doesn't return in time, or returns too fast
-	* This causes errors with value in portfolio being displayed and login name
+* This causes errors with value in portfolio being displayed and login name
 
 
-* After sign up, should redircet back to home page
-* Add link for leaderboard in nav
+
 
 ## Game:
-* write Portfolio maintainer auto updater for recording account values over time
-
 * Make line for portfolio
 
 * Make a profile page
 
+* Paid, Dollar Change, and Percent Change are not implemented correctly
+
 ## Leaderboard page
 * Style
 * Include cash and avg? Make this a table?
-
+* Value is only updated once a day, not after making trades
+* Add line graph
 
 
 ## Line Graph
