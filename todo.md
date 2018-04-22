@@ -9,7 +9,6 @@
 
 
 
-
 ## Game:
 * Make line for portfolio
 
@@ -17,10 +16,12 @@
 
 * Paid, Dollar Change, and Percent Change are not implemented correctly
 
+* Make fades on changes to portfolio
+
 ## Leaderboard page
 * Style
 * Include cash and avg? Make this a table?
-* Value is only updated once a day, not after making trades
+* Value is only updated once a day, not after making trades ?BUG?
 * Add line graph
 
 
