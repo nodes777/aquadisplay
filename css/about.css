@@ -1,0 +1,12 @@
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,fd7e14+100&0.01+0,1+100 */
+
+body{
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,fd7e14+100&0.01+0,0.5+100 */
+background: -moz-linear-gradient(top, rgba(255,255,255,0.01) 0%, rgba(253,126,20,0.5) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(255,255,255,0.01) 0%,rgba(253,126,20,0.5) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(255,255,255,0.01) 0%,rgba(253,126,20,0.5) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#03ffffff', endColorstr='#80fd7e14',GradientType=0 ); /* IE6-9 */
+
+}
+
+

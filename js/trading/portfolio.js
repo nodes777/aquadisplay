@@ -4,7 +4,7 @@ function renderPortfolio(data) {
 }
 
 function createTable(data){
-    var statsList = ["Shares", "Paid", "Quote", "Dollar Change", "Percent Change", "Value", "Weight"];
+    var statsList = ["Shares", "Quote", "Value", "Paid", "Dollar Change", "Percent Change", "Weight"];
     var portfolioData = data;
 
     /* Create table and headers */
@@ -31,7 +31,7 @@ function createTable(data){
     // Sort the stats to match up with the table headers, order isnt guaranteed in JSON.
     for (fishType in portfolioData) {
         let p = portfolioData[fishType];
-        let arr = [p.shares, p.paid, p.quote, p.dollarChange, p.percentChange, p.value, p.weight,]
+        let arr = [p.shares, p.quote, p.value, p.paid, p.dollarChange, p.percentChange, p.weight]
         var name = getReadableName(fishType)
         // Check for not being avg, Avg, and value
         if(name !== undefined){
