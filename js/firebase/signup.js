@@ -30,13 +30,13 @@ var uiConfig = {
   },
   // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
   signInFlow: 'popup',
-  signInSuccessUrl: 'loggedIn.html', // ******this is where we will create the user in Firebase data******
+  signInSuccessUrl: 'index.html', // ******this is where we will create the user in Firebase data******
   signInOptions: [
     // Leave the lines as is for the providers you want to offer your users.
     firebase.auth.EmailAuthProvider.PROVIDER_ID,
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-    // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+    firebase.auth.TwitterAuthProvider.PROVIDER_ID,
     // firebase.auth.GithubAuthProvider.PROVIDER_ID,
   ],
   // Terms of service url.
