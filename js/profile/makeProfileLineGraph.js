@@ -1,5 +1,6 @@
-function makeLineGraph(thirtyDayLineObj, maxPoint){
+function makeProfileLineGraph(thirtyDayLineObj){
 
+    console.log(thirtyDayLineObj)
 	var margin = {top: 40, right: 80, bottom: 110, left: 80},
     width = getWidthOfGraph('#lineGraph') - margin.left - margin.right,
     height = 720 - margin.top - margin.bottom;
@@ -18,14 +19,15 @@ function makeLineGraph(thirtyDayLineObj, maxPoint){
 
     var lineFunc = d3.line()
 	    //.curve(d3.curveBasis)
-	    .x(function(d) { return x(d.date); })
-	    .y(function(d) { return y(d.avg); });
+	    .x(function(d) {return x(d.date); })
+	    .y(function(d) { return y(d.value); });
+
+       // console.log(d3.extent(thirtyDayLineObj, function(d) { return d.date; }))
 
     // Supply the earliest and latest dates, choosing fw, just because they all have the same date range
-	x.domain(d3.extent(thirtyDayLineObj.fw, function(d) { return d.date; }));
+	x.domain(d3.extent(thirtyDayLineObj, function(d) { return d.date; }));
     // Max point was created when first sorting the data.
-  	y.domain([ 0, maxPoint])
-    //color.domain(fishType.map(function(d) { return d.salesVolume; }));
+  	y.domain([ 0, d3.max(thirtyDayLineObj, function(d) { return d.value; })])
 
     // Define the div for the tooltip
     var tooltip = d3.select("body").append("div")
@@ -58,7 +60,7 @@ function makeLineGraph(thirtyDayLineObj, maxPoint){
       .attr("x",0 - (height / 2))
       .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .text("Average Sales Price in Dollars");
+      .text("Portfolio Value in Dollars");
 
     // Create Title
     svg.append("text")
@@ -66,22 +68,18 @@ function makeLineGraph(thirtyDayLineObj, maxPoint){
         .attr("y", -10)
         .style("font-size", "24px")
         .style("text-anchor", "middle")
-        .text("Average Fish Value Over Time");
+        .text("Average Portfolio Value Over Time");
 
-   // $.each(thirtyDayLineObj, function(type){
-     // draw(thirtyDayLineObj, type, x, y, svg, lineFunc, height, color, tooltip)
-    //})
+   $.each(thirtyDayLineObj, function(index){
+     draw(thirtyDayLineObj, index, x, y, svg, lineFunc, height, color, tooltip)
+    })
 
     // add checkbox listeners
-    $("#checkBoxesDiv").on("change", "input[type=checkbox]", function(d) {
-        var fishType = this.value;
-        handleCheckboxChange.call(this, thirtyDayLineObj, fishType, x, y, svg, lineFunc, height, color, tooltip);
-    });
+    // $("#checkBoxesDiv").on("change", "input[type=checkbox]", function(d) {
+    //     var fishType = this.value;
+    //     handleCheckboxChange.call(this, thirtyDayLineObj, fishType, x, y, svg, lineFunc, height, color, tooltip);
+    // });
 
-    // Add default checked status
-    $("#fwbettasctCheckbox").trigger("click")
-    $("#marketStatsCheckbox").trigger("click")
-    $("#fwcatfishpCheckbox").trigger("click")
 
 }
 
@@ -95,44 +93,40 @@ function handleCheckboxChange(thirtyDayLineObj, fishType, x, y, svg, lineFunc, h
     }
 }
 
-function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
-
+function draw(data, index, x, y, svg, lineFunc, height, color, tooltip) {
     var formatTime = d3.timeFormat("%B %d, %Y");
 
     var t = d3.transition()
             .duration(1000)
             .ease(d3.easeLinear)
 
-    var fishType = data[fishTypeName];
+    var fishType = data[index];
 
-    // Sort by date so that months don't have a weird gap
-    fishType.sort(function(a, b){return a.date - b.date});
-
-    var id = "line-"+fishTypeName;
+    var id = "line-"+index;
 
     // Add the line path. Why does this have to be selectAll for the path to be drawn transition??
-    var line = svg.selectAll("#line-"+fishTypeName)
-            .data(fishType);
+    var line = svg.selectAll("#line-"+index)
+            .data(data);
 
         line.enter().append("path").classed("line", true)
             .merge(line)
-            .attr("d", lineFunc(fishType))
+            .attr("d", lineFunc(data))
             .attr("id", id)
             .style("opacity", 1)
             .style("stroke", function() { // Add the colours dynamically
-                return fishType.color = color(fishTypeName); })
+                return data.color = color(index); })
             .attr("stroke-dasharray", function(d){ return this.getTotalLength() })
             .attr("stroke-dashoffset", function(d){ return this.getTotalLength() })
 
-    var dotID = "dot-"+fishTypeName;
+    var dotID = "dot-"+index;
     var dots = svg.selectAll("dot")
-        .data(fishType)
+        .data(data)
       .enter().append("circle")
         .attr("id", id)
         .attr("r", 3.5)
         //.style("opacity", 0)
         .attr("cx", function(d) { return x(d.date); })
-        .attr("cy", function(d) { return y(d.avg); });
+        .attr("cy", function(d) { return y(d.value); });
 
     dots.on("mouseover", function(d) {
             var self = this;
@@ -142,7 +136,7 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 0.9);
-                tooltip.html(`${getReadableName(d.item)} $${d.avg} on ${formatTime(d.date)}`)
+                tooltip.html(`$${d.value} on ${formatTime(d.date)}`)
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 28) + "px");
                 })
@@ -155,7 +149,7 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
         });
 
     // Previously using selectAll here, this wouldn't allow the otherLine selection to cause effects,
-    var specificLine = svg.select("#line-"+fishTypeName);
+    var specificLine = svg.select("#line-"+index);
 
         specificLine.transition(t)
             .attr("stroke-dashoffset", 0)

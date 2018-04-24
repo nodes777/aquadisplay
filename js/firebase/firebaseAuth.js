@@ -50,7 +50,7 @@ function getUserPortfolio(userId) {
 
 function getUserInfo(userId) {
   	firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
-  		console.log(snapshot.val())
+  		//console.log(snapshot.val())
 	  	return snapshot.val()
 	})
 }

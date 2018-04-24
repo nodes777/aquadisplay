@@ -25,6 +25,10 @@
 * Add line graph
 
 
+
+## AutoUpdater
+* This doesnt't include cash in the stats!
+
 ## Line Graph
 * Associate lines and colors
 

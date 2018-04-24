@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="css/style.css" type="text/css">
+  <link rel="stylesheet" href="css/profile.css" type="text/css">
 
   <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
   <script>
@@ -24,8 +25,7 @@
   </script>
 
   <script type="text/javascript" src="./js/firebase/firebaseAuth.js"></script>
-  <!-- <script type="text/javascript" src="./js/firebase/firebaseHomeLoggedIn.js"></script>
- -->
+
 	<script src="./js/utils/d3.min.js"></script>
   <script src="./js/utils/fishTypePairs.js"></script>
   <script src="./js/bar/makeStatsGraph.js"></script>
@@ -37,7 +37,10 @@
   <script src="./js/trading/updatePortfolio.js"></script>
   <script src="./js/trading/buyingUtils.js"></script>
 
-	<script src="./js/index.js"></script>
+  <script src="./js/profile/setupProfileLineGraph.js"></script>
+  <script src="./js/profile/makeProfileLineGraph.js"></script>
+	<script src="./js/profile/index.js"></script>
+
   </head>
   <body>
     <div class="row">
@@ -48,9 +51,72 @@
         <ul class="nav nav-pills">
           <li class="nav-item"><a class="nav-link" href="./index.html">Home</a> </li>
           <li class="nav-item"><a class="nav-link" href="./about.html" class="text-center">About</a> </li>
-          <li class="nav-item"><a class="nav-link active" href="#" class="text-center">Leaderboard</a> </li>
-          <li class="nav-item"><a id="loginLink" class="nav-link" href="./signup.html" class="text-center">Login</a> </li>
+          <li class="nav-item"><a class="nav-link " href="./leaderboard.html" class="text-center">Leaderboard</a> </li>
+          <li class="nav-item"><a id="loginLink" class="nav-link active" href="#" class="text-center">Login</a> </li>
         </ul>
+      </div>
+    </div>
+
+    <div class="row" id="uhhh">
+      <div class="col-md-12" >
+        <h2 id="whosPortfolio" class="text-center">Your Portfolio</h2>
+        <div id="portStats" class="text-center">
+            <span>Value: <span id="value" style="padding: 0px;"></span></span>
+            <span>Cash: <span id="cash" style="padding: 0px;"></span></span>
+            <span>Avg: <span id="avg" style="padding: 0px;"></span></span>
+            <span>Shares: <span id="shares" style="padding: 0px;"></span></span>
+        </div>
+        <div class="" id="portfolio">
+        </div>
+        <h3 class="text-center">Trading</h3>
+         <div id="tradingDiv" class="row">
+
+          <div id="buyingDiv" class="col-md-6">
+            <h4 class="text-center">Buy</h4>
+            <table>
+              <tr>
+                <th>Fish Type</th>
+                <th>Price Per Share</th>
+                <th>Total</th>
+                <th>Number to Buy</th>
+                <th>Purchase</th>
+              </tr>
+              <tr>
+                <td><div id="buyList"></div></td>
+                <td><p id="pricePerShare">0</p></td>
+                <td class="center"><p id="totalPrice">0</p></td>
+                <td><input type="number" name="quantity" min="1" max="10" id="numberToBuy" value="1"></td>
+                <td><button id="buyButton">Buy</button></td>
+              </tr>
+            </table>
+          </div>
+
+          <div id="sellingDiv" class="col-md-6">
+            <h4 class="text-center">Sell</h4>
+            <table>
+            <tr>
+              <th>Fish Type</th>
+              <th>Value Per Share</th>
+              <th>Total Sale</th>
+              <th>Number to Sell</th>
+              <th>Sell</th>
+            </tr>
+            <tr>
+              <td><div id="sellList"><select id="sellListDropDown"></select></div></td>
+              <td><p id="valuePerShare">0</p></td>
+              <td class="center"><p id="totalSale">0</p></td>
+              <td><input type="number" name="quantity" min="1" max="10" id="numberToSell" value="1"></td>
+              <td><button id="sellButton">Sell</button></td>
+            </tr>
+          </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12" id="lineGraph">
+        
       </div>
     </div>
 
