@@ -10,6 +10,7 @@ function createTable(data){
     /* Create table and headers */
     var table = document.createElement("TABLE");
     table.border = "1";
+    //table.classList.add("w3-animate-opacity");
 
     //Add the header row.
     var row = table.insertRow(-1);

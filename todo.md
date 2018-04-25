@@ -1,33 +1,19 @@
 # TO DO:
-* Provide button for drop down// Doesnt feel good...
-* Find better organization for graphs and everything
-
-
 
 # SOMETIMES Firebase doesn't return in time, or returns too fast
 * This causes errors with value in portfolio being displayed and login name
 
-
-
 ## Game:
-* Make line for portfolio
-
-* Make a profile page
 
 * Paid, Dollar Change, and Percent Change are not implemented correctly
 
-* Make fades on changes to portfolio
+* Make fades on changes to portfolio, on individual cells (Must check if that cell already exists, find it, fade it and change it)
 
 ## Leaderboard page
 * Style
 * Include cash and avg? Make this a table?
 * Value is only updated once a day, not after making trades ?BUG?
-* Add line graph
-
-
-
-## AutoUpdater
-* This doesnt't include cash in the stats!
+* Add line graph for top 10 players
 
 ## Line Graph
 * Associate lines and colors

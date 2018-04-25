@@ -105,6 +105,7 @@ function makeSale(fishType, sharesSold){
 
 		p[fishType].shares = sharesLeft;
 		p.cash = p.cash + cashGained;
+		p[fishType].paid = p[fishType].paid - cashGained;  // Reduce amount paid into that fish stock by the amount gained in the sale
 
 		updatePortfolio(p);
 	})
