@@ -5,7 +5,7 @@
 
 ## Game:
 
-* Paid, Dollar Change, and Percent Change are not implemented correctly
+* Paid, Dollar Change, and Percent Change are not implemented correctly - DOuble check, this may be fixed after updating makeSale to edit p[fishType].paid
 
 * Make fades on changes to portfolio, on individual cells (Must check if that cell already exists, find it, fade it and change it)
 
