@@ -10,8 +10,6 @@
 * Make fades on changes to portfolio, on individual cells (Must check if that cell already exists, find it, fade it and change it)
 
 ## Leaderboard page
-* Style
-* Include cash and avg? Make this a table?
 * Value is only updated once a day, not after making trades ?BUG?
 * Add line graph for top 10 players
 
