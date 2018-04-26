@@ -8,19 +8,20 @@ var today = getToday();
 //This could cause slow down in the future with large numbers of users
 usersRef.once("value", function(snapshot) {
     users = snapshot.val();
-    var leaderboardArr = [{"username":"player.username", "value": 500, "cash": 0, "avg": 2}, {"username":"player.username", "value": 500, "cash": 0, "avg": 2},{"username":"player.username", "value": 500, "cash": 0, "avg": 2}, {"username":"player.username", "value": 500, "cash": 0, "avg": 2}];
+    var leaderboardArr = [];
 
     // Grab all the users
     for(user in users){
         let player = users[user];
         //console.log(player)
-
-        leaderboardArr.push({"username":player.username, "value": player.stats[today].value, "cash": player.stats[today].cash, "avg": player.stats[today].avg});
+        // This is another place for optimization, I'm taking all the stats of all the players. I really only need the top 10 to have allStats
+        leaderboardArr.push({"username":player.username, "value": player.stats[today].value, "cash": player.stats[today].cash, "avg": player.stats[today].avg, "uid":user});
     }
     //Sort the scores
     leaderboardArr.sort(function(a, b){
         return  b.value - a.value;
     });
+    //console.log(leaderboardArr)
 
     /* Create table and headers */
     var headers = ["Rank", "Name", "Value", "Cash", "Average"];
@@ -56,6 +57,9 @@ usersRef.once("value", function(snapshot) {
             newRow.removeClass("invisible")
         }, delay+10);
     })
+
+
+    setupLeaderboardLineGraph(leaderboardArr.splice(0,9))
 })
 
 

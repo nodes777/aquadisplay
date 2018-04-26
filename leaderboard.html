@@ -24,6 +24,8 @@
   </script>
 
   <script type="text/javascript" src="./js/firebase/createProfileLink.js"></script>
+  <script type="text/javascript" src="./js/utils/utils.js"></script>
+  <script src="./js/utils/d3.min.js"></script>
 
   </head>
 
@@ -56,5 +58,10 @@
         </table> -->
       </div>
     </div>
-      <script src="./js/leaderboard/index.js"></script>
+    <div class="row">
+      <div class="col-md-10 offset-md-1" id="leaderboardGraph"></div>
+    </div>
+      <script src="./js/leaderboard/index.js"></script>        
+      <script src="./js/leaderboard/setupLeaderboardLineGraph.js"></script>    
+      <script src="./js/leaderboard/makeLeaderboardLineGraph.js"></script>
   </body>
