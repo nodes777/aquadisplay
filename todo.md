@@ -9,6 +9,8 @@
 
 * Make fades on changes to portfolio, on individual cells (Must check if that cell already exists, find it, fade it and change it)
 
+* Add on hover descriptions for cash/value/average/paid etc on home, leaderboard, and portfolio pages.
+
 ## Leaderboard page
 * Value is only updated once a day, not after making trades ?BUG?
 * Add line graph for top 10 players

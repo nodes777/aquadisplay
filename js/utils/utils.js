@@ -127,3 +127,5 @@ function getReadableDate(today, monthAndYear){
   return string;
 
 }
+
+// var parseTime = d3.timeParse("%b-%Y-%e-%a"); // Structure for converting Apr-2018-27-Fri to Date object

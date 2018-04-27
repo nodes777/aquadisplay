@@ -19,7 +19,7 @@ function makeLeaderboardLineGraph(topTenArr){
 
     var lineFunc = d3.line()
 	    //.curve(d3.curveBasis)
-	    .x(function(d) {return x(d.date); })
+	    .x(function(d) {return x(new Date(d.timestamp)); })
 	    .y(function(d) {return y(d.value); });
 
     var parseTime = d3.timeParse("%b-%Y-%e-%a"); // Not used, but useful
@@ -105,38 +105,36 @@ function handleCheckboxChange(topTenArr, fishType, x, y, svg, lineFunc, height, 
 
 function draw(data, index, x, y, svg, lineFunc, height, color, tooltip) {
     var formatTime = d3.timeFormat("%B %d, %Y");
-    console.log(data)
+    // format the data into an array
+    var dataArr = Object.values(data.history)
 
     var t = d3.transition()
             .duration(1000)
             .ease(d3.easeLinear)
 
-    var fishType = data[index];
-
     var id = "line-"+index;
 
-    // Add the line path. Why does this have to be selectAll for the path to be drawn transition??
     var line = svg.selectAll("#line-"+index)
-            .data(data);
+            .data(dataArr);
 
         line.enter().append("path").classed("line", true)
             .merge(line)
-            .attr("d", lineFunc(data))
+            .attr("d", lineFunc(dataArr))
             .attr("id", id)
             .style("opacity", 1)
             .style("stroke", function() { // Add the colours dynamically
-                return data.color = color(index); })
+                return dataArr.color = color(index); })
             .attr("stroke-dasharray", function(d){ return this.getTotalLength() })
             .attr("stroke-dashoffset", function(d){ return this.getTotalLength() })
 
     var dotID = "dot-"+index;
     var dots = svg.selectAll("dot")
-        .data(data)
+        .data(dataArr)
       .enter().append("circle")
         .attr("id", id)
         .attr("r", 3.5)
         //.style("opacity", 0)
-        .attr("cx", function(d) { return x(d.date); })
+        .attr("cx", function(d) { return x(d.timestamp); })
         .attr("cy", function(d) { return y(d.value); });
 
     dots.on("mouseover", function(d) {
@@ -147,7 +145,7 @@ function draw(data, index, x, y, svg, lineFunc, height, color, tooltip) {
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 0.9);
-                tooltip.html(`$${d.value} on ${formatTime(d.date)}`)
+                tooltip.html(`${data.username}  $${d.value} on ${formatTime(d.timestamp)}`)
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 28) + "px");
                 })
@@ -166,6 +164,8 @@ function draw(data, index, x, y, svg, lineFunc, height, color, tooltip) {
             .attr("stroke-dashoffset", 0)
 
         specificLine.on("mouseover", function(d) {
+            // get username from data JSON, this isn't in the d parameter
+            let name = data.username
             var self = this;
                 specificLine.transition()
                     .style("stroke-width", "9px");
@@ -173,7 +173,7 @@ function draw(data, index, x, y, svg, lineFunc, height, color, tooltip) {
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 0.9);
-                tooltip.html(getReadableName(d.item))
+                tooltip.html(name)
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 28) + "px");
                 var otherLines = d3.selectAll("path.line").filter(function (x) { return self != this; })

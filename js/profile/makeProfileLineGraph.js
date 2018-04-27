@@ -70,10 +70,8 @@ function makeProfileLineGraph(thirtyDayLineObj){
         .style("text-anchor", "middle")
         .text("Average Portfolio Value Over Time");
 
-   $.each(thirtyDayLineObj, function(index){
-     draw(thirtyDayLineObj, index, x, y, svg, lineFunc, height, color, tooltip)
-    })
 
+    draw(thirtyDayLineObj, x, y, svg, lineFunc, height, color, tooltip)
     // add checkbox listeners
     // $("#checkBoxesDiv").on("change", "input[type=checkbox]", function(d) {
     //     var fishType = this.value;
@@ -93,19 +91,19 @@ function handleCheckboxChange(thirtyDayLineObj, fishType, x, y, svg, lineFunc, h
     }
 }
 
-function draw(data, index, x, y, svg, lineFunc, height, color, tooltip) {
+function draw(data, x, y, svg, lineFunc, height, color, tooltip) {
     var formatTime = d3.timeFormat("%B %d, %Y");
-
+    console.log(data)
     var t = d3.transition()
             .duration(1000)
             .ease(d3.easeLinear)
 
-    var fishType = data[index];
+    //var fishType = data[index];
 
-    var id = "line-"+index;
+    var id = "line-";
 
     // Add the line path. Why does this have to be selectAll for the path to be drawn transition??
-    var line = svg.selectAll("#line-"+index)
+    var line = svg.selectAll("#line-")
             .data(data);
 
         line.enter().append("path").classed("line", true)
@@ -114,11 +112,11 @@ function draw(data, index, x, y, svg, lineFunc, height, color, tooltip) {
             .attr("id", id)
             .style("opacity", 1)
             .style("stroke", function() { // Add the colours dynamically
-                return data.color = color(index); })
+                return data.color = color(data); })
             .attr("stroke-dasharray", function(d){ return this.getTotalLength() })
             .attr("stroke-dashoffset", function(d){ return this.getTotalLength() })
 
-    var dotID = "dot-"+index;
+    var dotID = "dot-";
     var dots = svg.selectAll("dot")
         .data(data)
       .enter().append("circle")
@@ -149,7 +147,7 @@ function draw(data, index, x, y, svg, lineFunc, height, color, tooltip) {
         });
 
     // Previously using selectAll here, this wouldn't allow the otherLine selection to cause effects,
-    var specificLine = svg.select("#line-"+index);
+    var specificLine = svg.select("#line-");
 
         specificLine.transition(t)
             .attr("stroke-dashoffset", 0)

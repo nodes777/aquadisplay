@@ -10,7 +10,6 @@ function setupLeaderboardLineGraph(topTenArr){
 	}
 
 	Promise.all(promiseArr).then(function(values){
-		console.log(values)
 		makeLeaderboardLineGraph(values)
 	})
 
