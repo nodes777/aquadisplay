@@ -1,6 +1,6 @@
-function makeLeaderboardLineGraph(thirtyDayLineObj){
+function makeLeaderboardLineGraph(topTenArr){
 
-    console.log(thirtyDayLineObj)
+    console.log(topTenArr)
 	var margin = {top: 40, right: 80, bottom: 110, left: 80},
     width = getWidthOfGraph('#leaderboardGraph') - margin.left - margin.right,
     height = 720 - margin.top - margin.bottom;
@@ -20,14 +20,24 @@ function makeLeaderboardLineGraph(thirtyDayLineObj){
     var lineFunc = d3.line()
 	    //.curve(d3.curveBasis)
 	    .x(function(d) {return x(d.date); })
-	    .y(function(d) { return y(d.value); });
+	    .y(function(d) {return y(d.value); });
 
-       // console.log(d3.extent(thirtyDayLineObj, function(d) { return d.date; }))
+    var parseTime = d3.timeParse("%b-%Y-%e-%a"); // Not used, but useful
 
-    // Supply the earliest and latest dates, choosing fw, just because they all have the same date range
-	x.domain(d3.extent(thirtyDayLineObj, function(d) { return d.date; }));
+    // Trying to get the timestamp of every players all stats...
+    var timestampArr = [];
+    var valuesArr = [];
+    for(let i = 0; i<topTenArr.length; i++){
+        for(obj in topTenArr[i].history){
+            timestampArr.push(topTenArr[i].history[obj].timestamp);
+            valuesArr.push(topTenArr[i].history[obj].value);
+        }
+    }
+
+
+	x.domain(d3.extent(timestampArr, function(d) { return new Date (d); }));
     // Max point was created when first sorting the data.
-  	y.domain([ 0, d3.max(thirtyDayLineObj, function(d) { return d.value; })])
+  	y.domain([ 0, d3.max(valuesArr, function(d) { return d; })])
 
     // Define the div for the tooltip
     var tooltip = d3.select("body").append("div")
@@ -70,23 +80,23 @@ function makeLeaderboardLineGraph(thirtyDayLineObj){
         .style("text-anchor", "middle")
         .text("Average Portfolio Value Over Time");
 
-   $.each(thirtyDayLineObj, function(index){
-     draw(thirtyDayLineObj, index, x, y, svg, lineFunc, height, color, tooltip)
+   $.each(topTenArr, function(index, player){
+        draw(player, index, x, y, svg, lineFunc, height, color, tooltip)
     })
 
     // add checkbox listeners
     // $("#checkBoxesDiv").on("change", "input[type=checkbox]", function(d) {
     //     var fishType = this.value;
-    //     handleCheckboxChange.call(this, thirtyDayLineObj, fishType, x, y, svg, lineFunc, height, color, tooltip);
+    //     handleCheckboxChange.call(this, topTenArr, fishType, x, y, svg, lineFunc, height, color, tooltip);
     // });
 
 
 }
 
-function handleCheckboxChange(thirtyDayLineObj, fishType, x, y, svg, lineFunc, height, color, tooltip){
+function handleCheckboxChange(topTenArr, fishType, x, y, svg, lineFunc, height, color, tooltip){
     var fishType = this.value;
     var checked = this.checked;
-    if(checked){draw.call(this, thirtyDayLineObj, fishType, x, y, svg, lineFunc, height, color, tooltip)}
+    if(checked){draw.call(this, topTenArr, fishType, x, y, svg, lineFunc, height, color, tooltip)}
     if(!checked){
         d3.selectAll("#line-"+fishType).remove();
         d3.selectAll("#dot-"+fishType).remove();
@@ -95,6 +105,7 @@ function handleCheckboxChange(thirtyDayLineObj, fishType, x, y, svg, lineFunc, h
 
 function draw(data, index, x, y, svg, lineFunc, height, color, tooltip) {
     var formatTime = d3.timeFormat("%B %d, %Y");
+    console.log(data)
 
     var t = d3.transition()
             .duration(1000)
