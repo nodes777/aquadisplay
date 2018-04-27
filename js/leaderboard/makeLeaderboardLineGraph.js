@@ -1,6 +1,5 @@
 function makeLeaderboardLineGraph(topTenArr){
 
-    console.log(topTenArr)
 	var margin = {top: 40, right: 80, bottom: 110, left: 80},
     width = getWidthOfGraph('#leaderboardGraph') - margin.left - margin.right,
     height = 720 - margin.top - margin.bottom;

@@ -3,8 +3,8 @@ var database = firebase.database();
 var uid;
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
-    console.log(`User uid: ${user.uid}`);
-    console.log(`User Name: ${user.displayName}`)
+    // console.log(`User uid: ${user.uid}`);
+    // console.log(`User Name: ${user.displayName}`)
     uid = firebase.auth().currentUser.uid;
 	initPortfolio(user);
 

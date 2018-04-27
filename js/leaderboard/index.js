@@ -66,69 +66,6 @@ usersRef.once("value", function(snapshot) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// usersRef.once("value", function(snapshot) {
-//     users = snapshot.val();
-//     var leaderboardArr = [{"username":"player.username", "value": 500, "cash": 0, "avg": 2}];
-
-//     // Grab all the users
-//     for(user in users){
-// 		let player = users[user];
-//     	//console.log(player)
-
-//     	leaderboardArr.push({"username":player.username, "value": player.stats[today].value, "cash": player.stats[today].cash, "avg": player.stats[today].avg})
-//     }
-//     //Sort the scores
-//    	leaderboardArr.sort(function(a, b){
-//    		return  b.value - a.value
-//    	});
-
-//     leaderboardArr.forEach(function(element, i){
-//     	console.log(element)
-//     	//let newLi = leaderboardList.append(`<li class=""> ${element.username} ${element.value}</li>`)
-//     	let newRow = $(`<td class="invisible"> ${i+1}</td> <td class="invisible">${element.username} </td>
-//             <td class="invisible">${element.value} </td><td class="invisible">${element.cash} </td>
-//             <td class="invisible">${element.avg}</td>`).appendTo(leaderboardList);
-//     	let delay = i*300;
-
-//     	//Animate the new li's coming in
-
-//     	newRow[0].style.animationDelay = String(delay+"ms");
-//     	newRow.addClass("w3-animate-bottom")
-//     	setTimeout(function () {
-//             newRow.removeClass("invisible")
-// 		}, delay+10);
-
-//     })
-// })
-
-
-
-
-
-
-
 function getToday(){
 	var date = new Date(Date.now());
 
@@ -145,6 +82,6 @@ function getToday(){
 	var firebaseMonthPath = firebaseMonthDashYear.toString();
 
 	var dateString = `${firebaseMonthPath}-${dayScrapedUrl}`;
-	console.log(dateString);
+	//console.log(dateString);
 	return dateString;
 }
