@@ -78,7 +78,7 @@ function makeLeaderboardLineGraph(topTenArr){
         .attr("y", -10)
         .style("font-size", "24px")
         .style("text-anchor", "middle")
-        .text("Average Portfolio Value Over Time");
+        .text("Top Ten Player's Portfolio Value Over Time");
 
    $.each(topTenArr, function(index, player){
         draw(player, index, x, y, svg, lineFunc, height, color, tooltip)

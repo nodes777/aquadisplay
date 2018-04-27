@@ -14,7 +14,6 @@ usersRef.once("value", function(snapshot) {
     for(user in users){
         let player = users[user];
         //console.log(player)
-        // This is another place for optimization, I'm taking all the stats of all the players. I really only need the top 10 to have allStats
         leaderboardArr.push({"username":player.username, "value": player.stats[today].value, "cash": player.stats[today].cash, "avg": player.stats[today].avg, "uid":user});
     }
     //Sort the scores
