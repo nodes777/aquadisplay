@@ -14,7 +14,10 @@ usersRef.once("value", function(snapshot) {
     for(user in users){
         let player = users[user];
         //console.log(player)
-        leaderboardArr.push({"username":player.username, "value": player.stats[today].value, "cash": player.stats[today].cash, "avg": player.stats[today].avg, "uid":user});
+        if(player.stats){
+            leaderboardArr.push({"username":player.username, "value": player.stats[today].value, "cash": player.stats[today].cash, "avg": player.stats[today].avg, "uid":user});
+
+        }
     }
     //Sort the scores
     leaderboardArr.sort(function(a, b){

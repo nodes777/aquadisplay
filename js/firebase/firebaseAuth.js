@@ -6,7 +6,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     console.log(`User uid: ${user.uid}`);
     console.log(`User Name: ${user.displayName}`)
     uid = firebase.auth().currentUser.uid;
-	initPortfolio(uid);
+	initPortfolio(user);
 
 	document.getElementById("loginLink").innerText = user.displayName;
 	document.getElementById("whosPortfolio").innerText = `${user.displayName}'s Portfolio`;
@@ -32,7 +32,7 @@ function writeUserPortfolio(userId, portfolio) {
 
 // save the user's profile into Firebase so we can list users,
 // use them in Security and Firebase Rules, and show profiles
-function writeUserData(userId, name, email, imageUrl, portfolio) {
+function writeUserNameAndEmail(userId, name, email, imageUrl, portfolio) {
   firebase.database().ref('users/' + userId).set({
     username: name,
     email: email
@@ -56,13 +56,13 @@ function getUserInfo(userId) {
 }
 
 // Make sure to wrap this in an if check. This overwrites the users data
-function initPortfolio(userId){
+function initPortfolio(user){
 
-	firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+	firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
 		var portfolio;
 		if (!snapshot.hasChild("/portfolio")) {
 		 				  
-	  	console.log(`User has no portfolio; initting`)
+		  	console.log(`User has no portfolio; initting`)
 		  	var fishTypes = Object.keys(fishTypePairs);
 
 			portfolio = {
@@ -74,14 +74,16 @@ function initPortfolio(userId){
 					}
 				};
 
+
 			// Send to Firebase
-			writeUserPortfolio(userId, portfolio);
+			writeUserNameAndEmail(user.uid, user.displayName, user.email)
+			writeUserPortfolio(user.uid, portfolio);
 			// Update client side
 			updatePortfolio(portfolio);
 		} else {
 			portfolio  = snapshot.val().portfolio;
 			// Check Firebase
-			getUserInfo(userId)
+			getUserInfo(user.uid)
 			// Update client side
 			updatePortfolio(portfolio);
 		}

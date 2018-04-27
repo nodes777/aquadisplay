@@ -1,6 +1,5 @@
 function makeProfileLineGraph(thirtyDayLineObj){
 
-    console.log(thirtyDayLineObj)
 	var margin = {top: 40, right: 80, bottom: 110, left: 80},
     width = getWidthOfGraph('#lineGraph') - margin.left - margin.right,
     height = 720 - margin.top - margin.bottom;
@@ -93,7 +92,7 @@ function handleCheckboxChange(thirtyDayLineObj, fishType, x, y, svg, lineFunc, h
 
 function draw(data, x, y, svg, lineFunc, height, color, tooltip) {
     var formatTime = d3.timeFormat("%B %d, %Y");
-    console.log(data)
+    
     var t = d3.transition()
             .duration(1000)
             .ease(d3.easeLinear)
