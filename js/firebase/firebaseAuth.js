@@ -59,13 +59,13 @@ function getUserInfo(userId) {
 function initPortfolio(userId){
 
 	firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
-	  var portfolio = snapshot.val().portfolio;
-
-	  if(snapshot.val().portfolio === undefined || null){
+		var portfolio;
+		if (!snapshot.hasChild("/portfolio")) {
+		 				  
 	  	console.log(`User has no portfolio; initting`)
 		  	var fishTypes = Object.keys(fishTypePairs);
 
-			var portfolio = {
+			portfolio = {
 					cash: 500,
 					aggStats: {
 						"value": 0,
@@ -79,6 +79,7 @@ function initPortfolio(userId){
 			// Update client side
 			updatePortfolio(portfolio);
 		} else {
+			portfolio  = snapshot.val().portfolio;
 			// Check Firebase
 			getUserInfo(userId)
 			// Update client side

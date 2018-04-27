@@ -1,6 +1,4 @@
 function updatePortfolio(portfolioData){
-	// Get portfolio
-	var portfolioData = portfolioData;
 
     var runningTotalOfValue = 0;
     var runningTotalOfShares = 0;

@@ -136,18 +136,19 @@ function updateSellOptions(fish, cb){
 	// Set max attribute to only be able to sell
 	firebase.database().ref('/users/' + uid).once('value').then(function(snapshot) {
 		var portfolio = snapshot.val().portfolio;
-		var numOwned = portfolio[fish].shares;
+		if(portfolio[fish] !== undefined){
+			var numOwned = portfolio[fish].shares;
+			if(todaysPrices[fish] == undefined){
+				price = 0
+			} else {
+				price = todaysPrices[fish].price;
+			}
 
-		if(todaysPrices[fish] == undefined){
-			price = 0
-		} else {
-			price = todaysPrices[fish].price;
+			perShareHTML.node().textContent = price;
+			totalPriceHTML.node().textContent = price;
+
+			numToSellHTML.node().setAttribute("max", numOwned)
 		}
-
-		perShareHTML.node().textContent = price;
-		totalPriceHTML.node().textContent = price;
-
-		numToSellHTML.node().setAttribute("max", numOwned)
 	})
 	// The inital loading of the page calls this function without the cb. Selling will call the cb, updateTotal
 	if(cb){cb()}
