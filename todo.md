@@ -11,9 +11,11 @@
 
 * Add on hover descriptions for cash/value/average/paid etc on home, leaderboard, and portfolio pages.
 
+* Add Market Avg to profile line graph
+
 ## Leaderboard page
 * Value is only updated once a day, not after making trades ?BUG?
-* Add line graph for top 10 players
+* Sort by  Cash/Avg too
 
 ## Line Graph
 * Associate lines and colors
