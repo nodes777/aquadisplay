@@ -61,7 +61,7 @@ function initPortfolio(user){
 	firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
 		var portfolio;
 		if (!snapshot.hasChild("/portfolio")) {
-		 				  
+
 		  	console.log(`User has no portfolio; initting`)
 		  	var fishTypes = Object.keys(fishTypePairs);
 
