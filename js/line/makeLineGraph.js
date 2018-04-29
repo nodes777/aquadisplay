@@ -9,7 +9,8 @@ function makeLineGraph(thirtyDayLineObj, maxPoint){
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+
 
     var x = d3.scaleTime().range([0, width]);
     var y = d3.scaleLinear().range([height, 0]);
@@ -24,7 +25,7 @@ function makeLineGraph(thirtyDayLineObj, maxPoint){
     // Supply the earliest and latest dates, choosing fw, just because they all have the same date range
 	x.domain(d3.extent(thirtyDayLineObj.fw, function(d) { return d.date; }));
     // Max point was created when first sorting the data.
-  	y.domain([ 0, maxPoint])
+  	y.domain([ 0, maxPoint]);
     //color.domain(fishType.map(function(d) { return d.salesVolume; }));
 
     // Define the div for the tooltip
@@ -79,9 +80,9 @@ function makeLineGraph(thirtyDayLineObj, maxPoint){
     });
 
     // Add default checked status
-    $("#fwbettasctCheckbox").trigger("click")
-    $("#marketStatsCheckbox").trigger("click")
-    $("#fwcatfishpCheckbox").trigger("click")
+    $("#fwbettasctCheckbox").trigger("click");
+    $("#marketStatsCheckbox").trigger("click");
+    $("#fwcatfishpCheckbox").trigger("click");
 
 }
 
@@ -101,12 +102,12 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
 
     var t = d3.transition()
             .duration(1000)
-            .ease(d3.easeLinear)
+            .ease(d3.easeLinear);
 
     var fishType = data[fishTypeName];
 
     // Sort by date so that months don't have a weird gap
-    fishType.sort(function(a, b){return a.date - b.date});
+    fishType.sort(function(a, b){return a.date - b.date;});
 
     var id = "line-"+fishTypeName;
 
@@ -121,8 +122,8 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
             .style("opacity", 1)
             .style("stroke", function() { // Add the colours dynamically
                 return fishType.color = color(fishTypeName); })
-            .attr("stroke-dasharray", function(d){ return this.getTotalLength() })
-            .attr("stroke-dashoffset", function(d){ return this.getTotalLength() })
+            .attr("stroke-dasharray", function(d){ return this.getTotalLength(); })
+            .attr("stroke-dashoffset", function(d){ return this.getTotalLength(); })
 
     var dotID = "dot-"+fishTypeName;
     var dots = svg.selectAll("dot")
@@ -158,7 +159,7 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
     var specificLine = svg.select("#line-"+fishTypeName);
 
         specificLine.transition(t)
-            .attr("stroke-dashoffset", 0)
+            .attr("stroke-dashoffset", 0);
 
         specificLine.on("mouseover", function(d) {
             var self = this;
@@ -172,7 +173,7 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 28) + "px");
                 var otherLines = d3.selectAll("path.line").filter(function (x) { return self != this; })
-                    .style("opacity", 0.3)
+                    .style("opacity", 0.3);
                 })
         .on("mouseout", function(d) {
             specificLine//.transition()
@@ -181,7 +182,7 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
                 .duration(500)
                 .style("opacity", 0);
             d3.selectAll("path").transition()
-                .style("opacity", 1)
+                .style("opacity", 1);
         });
 
 }

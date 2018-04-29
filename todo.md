@@ -13,9 +13,11 @@
 
 * Add Market Avg to profile line graph
 
+* Figure out Responsify on the graphs
+
 ## Leaderboard page
 * Value is only updated once a day, not after making trades ?BUG?
-* Sort by  Cash/Avg too
+* Sort by Cash/Avg too
 
 ## Line Graph
 * Associate lines and colors
