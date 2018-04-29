@@ -1,0 +1,8 @@
+C:\Users\Tay\Desktop\Coding\aquadisplay\signup.html
+heading|issue|element|id|class|line|column|description
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_2.H25.2|<title>Sign Up for an Aqua Trading Account</title>|||5|3|Check that the title element describes the document.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a class="nav-link" href="./index.html">Home</a>||nav-link|39|31|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a class="nav-link" href="./about.html">About</a>||nav-link|1|0|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a class="nav-link" href="./leaderboard.html">Leaderboard</a>||nav-link|1|0|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a id="loginLink" class="nav-link active" href="#">Login</a>|loginLink|nav-link active|1|0|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a href="https://github.com/firebase/firebaseui-web"> FirebaseUI.</a>|||51|34|Check that the link text combined with programmatically determined link context identifies the purpose of the link.

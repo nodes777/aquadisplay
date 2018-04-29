@@ -1,0 +1,126 @@
+C:\Users\Tay\Desktop\Coding\aquadisplay\index.html
+heading|issue|element|id|class|line|column|description
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_2.H25.2|<title>Aquascraper Display</title>|||5|3|Check that the title element describes the document.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a class="nav-link active" href="#">Home</a>||nav-link active|53|31|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a class="nav-link" href="./about.html">About</a>||nav-link|1|0|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a class="nav-link" href="./leaderboard.html">Leaderboard</a>||nav-link|1|0|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a id="loginLink" class="nav-link" href="./signup.html">Login</a>|loginLink|nav-link|1|0|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+WARNING|WCAG2A.Principle1.Guideline1_3.1_3_1_A.G141|<h3>Bettas</h3>|||63|14|The heading structure is not logically nested. This h3 element should be an h2 to be properly nested.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwbettasctCheckbox" name="fishTypePair" value="fwbettasct">|fwbettasctCheckbox||65|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwbettasdCheckbox" name="fishTypePair" value="fwbettasd">|fwbettasdCheckbox||68|19|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwbettasdtCheckbox" name="fishTypePair" value="fwbettasdt">|fwbettasdtCheckbox||71|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwbettashmCheckbox" name="fishTypePair" value="fwbettashm">|fwbettashmCheckbox||74|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwbettashmpCheckbox" name="fishTypePair" value="fwbettashmp">|fwbettashmpCheckbox||77|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwbettasvtCheckbox" name="fishTypePair" value="fwbettasvt">|fwbettasvtCheckbox||80|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwbettaswtCheckbox" name="fishTypePair" value="fwbettaswt">|fwbettaswtCheckbox||83|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwbettasCheckbox" name="fishTypePair" value="fwbettas">|fwbettasCheckbox||86|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwcatfishpCheckbox" name="fishTypePair" value="fwcatfishp">|fwcatfishpCheckbox||93|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwcatfishcCheckbox" name="fishTypePair" value="fwcatfishc">|fwcatfishcCheckbox||96|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwcatfishlCheckbox" name="fishTypePair" value="fwcatfishl">|fwcatfishlCheckbox||99|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwcatfishCheckbox" name="fishTypePair" value="fwcatfish">|fwcatfishCheckbox||102|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwsnailsCheckbox" name="fishTypePair" value="fwsnails">|fwsnailsCheckbox||107|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwstringrayCheckbox" name="fishTypePair" value="fwstringray">|fwstringrayCheckbox||110|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwusnativeCheckbox" name="fishTypePair" value="fwusnative">|fwusnativeCheckbox||113|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwangelfishCheckbox" name="fishTypePair" value="fwangelfish">|fwangelfishCheckbox||122|24|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwapistoCheckbox" name="fishTypePair" value="fwapisto">|fwapistoCheckbox||125|24|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwdiscusCheckbox" name="fishTypePair" value="fwdiscus">|fwdiscusCheckbox||128|24|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwflowerhornCheckbox" name="fishTypePair" value="fwflowerhorn">|fwflowerhornCheckbox||131|24|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwcichlidsmhCheckbox" name="fishTypePair" value="fwcichlidsmh">|fwcichlidsmhCheckbox||134|24|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwcichlidsmmbCheckbox" name="fishTypePair" value="fwcichlidsmmb">|fwcichlidsmmbCheckbox||137|24|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwcichlidsmpCheckbox" name="fishTypePair" value="fwcichlidsmp">|fwcichlidsmpCheckbox||140|24|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwcichlidsmCheckbox" name="fishTypePair" value="fwcichlidsm">|fwcichlidsmCheckbox||146|24|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwcichlidstCheckbox" name="fishTypePair" value="fwcichlidst">|fwcichlidstCheckbox||149|24|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwcichlidsvCheckbox" name="fishTypePair" value="fwcichlidsv">|fwcichlidsvCheckbox||152|24|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwcichlidswCheckbox" name="fishTypePair" value="fwcichlidsw">|fwcichlidswCheckbox||155|24|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwcichlidcCheckbox" name="fishTypePair" value="fwcichlidc">|fwcichlidcCheckbox||158|24|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwcichlidsoCheckbox" name="fishTypePair" value="fwcichlidso">|fwcichlidsoCheckbox||161|24|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwguppiesCheckbox" name="fishTypePair" value="fwguppies">|fwguppiesCheckbox||171|22|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwlivebearersCheckbox" name="fishTypePair" value="fwlivebearers">|fwlivebearersCheckbox||174|22|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwlivebearerswCheckbox" name="fishTypePair" value="fwlivebearersw">|fwlivebearerswCheckbox||177|22|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwkillifishCheckbox" name="fishTypePair" value="fwkillifish">|fwkillifishCheckbox||183|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwkillifisheCheckbox" name="fishTypePair" value="fwkillifishe">|fwkillifisheCheckbox||186|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwrainbowsCheckbox" name="fishTypePair" value="fwrainbows">|fwrainbowsCheckbox||189|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwMixedCheckbox" name="fishTypePair" value="fwmixed">|fwMixedCheckbox||192|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwarowanaCheckbox" name="fishTypePair" value="fwarowana">|fwarowanaCheckbox||201|18|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwanabantoidCheckbox" name="fishTypePair" value="fwanabantoid">|fwanabantoidCheckbox||204|18|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwcharacinsCheckbox" name="fishTypePair" value="fwcharacins">|fwcharacinsCheckbox||207|18|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwcyprinidsCheckbox" name="fishTypePair" value="fwcyprinids">|fwcyprinidsCheckbox||210|18|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwgoldfishCheckbox" name="fishTypePair" value="fwgoldfish">|fwgoldfishCheckbox||213|18|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwkoiCheckbox" name="fishTypePair" value="fwkoi">|fwkoiCheckbox||216|18|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwinvertsCheckbox" name="fishTypePair" value="fwinverts">|fwinvertsCheckbox||219|18|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="fwCheckbox" name="fishTypePair" value="fw">|fwCheckbox||222|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="checkbox" id="marketStatsCheckbox" name="fishTypePair" value="marketStats">|marketStatsCheckbox||225|18|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input id="averageRadio" type="radio" name="graphType" value="avg" checked="">|averageRadio||1|0|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input id="stdDevRadio" type="radio" name="graphType" value="stdDev">|stdDevRadio||240|10|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input id="salesVolumeRadio" type="radio" name="graphType" value="salesVolume">|salesVolumeRadio||243|10|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle1.Guideline1_3.1_3_1.DataTable|<table>
+              <tbody><tr>
+                <th>Fish Type</th>
+                <th>Price Per Share</th>
+                <th>Total</th>
+                <th>Number to Buy</th>
+                <th>Purchase</th>
+              </tr>
+              <tr>
+                <td><div id="buyList"></div></td>
+                <td><p id="pricePerShare">0</p></td>
+                <td class="center"><p id="totalPrice">0</p></td>
+                <td><input type="number" aria-label="Number to buy" name="quantity" min="1" max="10" id="numberToBuy" value="1"></td>
+                <td><button id="buyButton">Buy</button></td>
+              </tr>
+            </tbody></table>|||1|0|This table appears to be a data table. If it is meant to instead be a layout table, ensure there are no th elements, and no summary or caption.
+WARNING|WCAG2A.Principle1.Guideline1_3.1_3_1.H39.3.NoCaption|<table>
+              <tbody><tr>
+                <th>Fish Type</th>
+                <th>Price Per Share</th>
+                <th>Total</th>
+                <th>Number to Buy</th>
+                <th>Purchase</th>
+              </tr>
+              <tr>
+                <td><div id="buyList"></div></td>
+                <td><p id="pricePerShare">0</p></td>
+                <td class="center"><p id="totalPrice">0</p></td>
+                <td><input type="number" aria-label="Number to buy" name="quantity" min="1" max="10" id="numberToBuy" value="1"></td>
+                <td><button id="buyButton">Buy</button></td>
+              </tr>
+            </tbody></table>|||1|0|If this table is a data table, consider using a caption element to the table element to identify this table.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="number" aria-label="Number to buy" name="quantity" min="1" max="10" id="numberToBuy" value="1">|numberToBuy||278|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<button id="buyButton">Buy</button>|buyButton||279|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle1.Guideline1_3.1_3_1.DataTable|<table>
+            <tbody><tr>
+              <th>Fish Type</th>
+              <th>Value Per Share</th>
+              <th>Total Sale</th>
+              <th>Number to Sell</th>
+              <th>Sell</th>
+            </tr>
+            <tr>
+              <td><div id="sellList"><select aria-label="Choose fish stock to sell" id="sellListDropDown"></select></div></td>
+              <td><p id="valuePerShare">0</p></td>
+              <td class="center"><p id="totalSale">0</p></td>
+              <td><input type="number" aria-label="Number to sell" name="quantity" min="1" max="10" id="numberToSell" value="1"></td>
+              <td><button id="sellButton">Sell</button></td>
+            </tr>
+          </tbody></table>|||1|0|This table appears to be a data table. If it is meant to instead be a layout table, ensure there are no th elements, and no summary or caption.
+WARNING|WCAG2A.Principle1.Guideline1_3.1_3_1.H39.3.NoCaption|<table>
+            <tbody><tr>
+              <th>Fish Type</th>
+              <th>Value Per Share</th>
+              <th>Total Sale</th>
+              <th>Number to Sell</th>
+              <th>Sell</th>
+            </tr>
+            <tr>
+              <td><div id="sellList"><select aria-label="Choose fish stock to sell" id="sellListDropDown"></select></div></td>
+              <td><p id="valuePerShare">0</p></td>
+              <td class="center"><p id="totalSale">0</p></td>
+              <td><input type="number" aria-label="Number to sell" name="quantity" min="1" max="10" id="numberToSell" value="1"></td>
+              <td><button id="sellButton">Sell</button></td>
+            </tr>
+          </tbody></table>|||1|0|If this table is a data table, consider using a caption element to the table element to identify this table.
+WARNING|WCAG2A.Principle4.Guideline4_1.4_1_2.H91.Select.Value|<select aria-label="Choose fish stock to sell" id="sellListDropDown"></select>|sellListDropDown||294|37|This select element does not have an initially selected option. Depending on your HTML version, the value exposed to an accessibility API may be undefined.
+WARNING|WCAG2A.Principle1.Guideline1_3.1_3_1.H85.2|<select aria-label="Choose fish stock to sell" id="sellListDropDown"></select>|sellListDropDown||294|37|If this selection list contains groups of related options, they should be grouped with optgroup.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<select aria-label="Choose fish stock to sell" id="sellListDropDown"></select>|sellListDropDown||294|37|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="number" aria-label="Number to sell" name="quantity" min="1" max="10" id="numberToSell" value="1">|numberToSell||297|18|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<button id="sellButton">Sell</button>|sellButton||298|18|Check that a change of context does not occur when this input field receives focus.

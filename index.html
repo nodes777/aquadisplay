@@ -223,7 +223,7 @@
                               <label for="fwCheckbox">Other Freshwater Fish</label></li>
 
               <li><input type="checkbox" id="marketStatsCheckbox" name="fishTypePair" value="marketStats">
-                            <label for="marketStats">Average of All</label></li>
+                            <label for="marketStatsCheckbox">Average of All</label></li>
             </ul>
           </div>
       </div>
@@ -275,7 +275,7 @@
                 <td><div id="buyList"></div></td>
                 <td><p id="pricePerShare">0</p></td>
                 <td class="center"><p id="totalPrice">0</p></td>
-                <td><input type="number" name="quantity" min="1" max="10" id="numberToBuy" value="1"></td>
+                <td><input type="number" aria-label="Number to buy" name="quantity" min="1" max="10" id="numberToBuy" value="1"></td>
                 <td><button id="buyButton">Buy</button></td>
               </tr>
             </table>
@@ -291,10 +291,10 @@
               <th>Sell</th>
             </tr>
             <tr>
-              <td><div id="sellList"><select id="sellListDropDown"></select></div></td>
+              <td><div id="sellList"><select aria-label="Choose fish stock to sell" id="sellListDropDown"></select></div></td>
               <td><p id="valuePerShare">0</p></td>
               <td class="center"><p id="totalSale">0</p></td>
-              <td><input type="number" name="quantity" min="1" max="10" id="numberToSell" value="1"></td>
+              <td><input type="number" aria-label="Number to sell" name="quantity" min="1" max="10" id="numberToSell" value="1"></td>
               <td><button id="sellButton">Sell</button></td>
             </tr>
           </table>

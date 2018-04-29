@@ -1,0 +1,81 @@
+C:\Users\Tay\Desktop\Coding\aquadisplay\profile.html
+heading|issue|element|id|class|line|column|description
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_2.H25.2|<title>Aquatrader Profile</title>|||5|3|Check that the title element describes the document.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a class="nav-link" href="./index.html">Home</a>||nav-link|56|31|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a class="nav-link" href="./about.html">About</a>||nav-link|1|0|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a class="nav-link " href="./leaderboard.html">Leaderboard</a>||nav-link |1|0|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a id="loginLink" class="nav-link active" href="./signup.html">Login</a>|loginLink|nav-link active|1|0|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a id="logoutLink" class="nav-link" href="./signup.html">Logout</a>|logoutLink|nav-link|1|0|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+NOTICE|WCAG2A.Principle1.Guideline1_3.1_3_1.DataTable|<table>
+              <tbody><tr>
+                <th>Fish Type</th>
+                <th>Price Per Share</th>
+                <th>Total</th>
+                <th>Number to Buy</th>
+                <th>Purchase</th>
+              </tr>
+              <tr>
+                <td><div id="buyList"></div></td>
+                <td><p id="pricePerShare">0</p></td>
+                <td class="center"><p id="totalPrice">0</p></td>
+                <td><input type="number" aria-label="Number to buy" name="quantity" min="1" max="10" id="numberToBuy" value="1"></td>
+                <td><button id="buyButton">Buy</button></td>
+              </tr>
+            </tbody></table>|||1|0|This table appears to be a data table. If it is meant to instead be a layout table, ensure there are no th elements, and no summary or caption.
+WARNING|WCAG2A.Principle1.Guideline1_3.1_3_1.H39.3.NoCaption|<table>
+              <tbody><tr>
+                <th>Fish Type</th>
+                <th>Price Per Share</th>
+                <th>Total</th>
+                <th>Number to Buy</th>
+                <th>Purchase</th>
+              </tr>
+              <tr>
+                <td><div id="buyList"></div></td>
+                <td><p id="pricePerShare">0</p></td>
+                <td class="center"><p id="totalPrice">0</p></td>
+                <td><input type="number" aria-label="Number to buy" name="quantity" min="1" max="10" id="numberToBuy" value="1"></td>
+                <td><button id="buyButton">Buy</button></td>
+              </tr>
+            </tbody></table>|||1|0|If this table is a data table, consider using a caption element to the table element to identify this table.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="number" aria-label="Number to buy" name="quantity" min="1" max="10" id="numberToBuy" value="1">|numberToBuy||93|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<button id="buyButton">Buy</button>|buyButton||94|20|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle1.Guideline1_3.1_3_1.DataTable|<table>
+            <tbody><tr>
+              <th>Fish Type</th>
+              <th>Value Per Share</th>
+              <th>Total Sale</th>
+              <th>Number to Sell</th>
+              <th>Sell</th>
+            </tr>
+            <tr>
+              <td><div id="sellList"><select id="sellListDropDown"></select></div></td>
+              <td><p id="valuePerShare">0</p></td>
+              <td class="center"><p id="totalSale">0</p></td>
+              <td><input type="number" aria-label="Number to sell" name="quantity" min="1" max="10" id="numberToSell" value="1"></td>
+              <td><button id="sellButton">Sell</button></td>
+            </tr>
+          </tbody></table>|||1|0|This table appears to be a data table. If it is meant to instead be a layout table, ensure there are no th elements, and no summary or caption.
+WARNING|WCAG2A.Principle1.Guideline1_3.1_3_1.H39.3.NoCaption|<table>
+            <tbody><tr>
+              <th>Fish Type</th>
+              <th>Value Per Share</th>
+              <th>Total Sale</th>
+              <th>Number to Sell</th>
+              <th>Sell</th>
+            </tr>
+            <tr>
+              <td><div id="sellList"><select id="sellListDropDown"></select></div></td>
+              <td><p id="valuePerShare">0</p></td>
+              <td class="center"><p id="totalSale">0</p></td>
+              <td><input type="number" aria-label="Number to sell" name="quantity" min="1" max="10" id="numberToSell" value="1"></td>
+              <td><button id="sellButton">Sell</button></td>
+            </tr>
+          </tbody></table>|||1|0|If this table is a data table, consider using a caption element to the table element to identify this table.
+ERROR|WCAG2A.Principle4.Guideline4_1.4_1_2.H91.Select.Name|<select id="sellListDropDown"></select>|sellListDropDown||110|37|This select element does not have a name available to an accessibility API. Valid names are: label element, title attribute, aria-label attribute, aria-labelledby attribute.
+WARNING|WCAG2A.Principle4.Guideline4_1.4_1_2.H91.Select.Value|<select id="sellListDropDown"></select>|sellListDropDown||110|37|This select element does not have an initially selected option. Depending on your HTML version, the value exposed to an accessibility API may be undefined.
+ERROR|WCAG2A.Principle1.Guideline1_3.1_3_1.F68|<select id="sellListDropDown"></select>|sellListDropDown||110|37|This form field should be labelled in some way. Use the label element (either with a "for" attribute or wrapped around the form field), or "title", "aria-label" or "aria-labelledby" attributes as appropriate.
+WARNING|WCAG2A.Principle1.Guideline1_3.1_3_1.H85.2|<select id="sellListDropDown"></select>|sellListDropDown||110|37|If this selection list contains groups of related options, they should be grouped with optgroup.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<select id="sellListDropDown"></select>|sellListDropDown||110|37|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<input type="number" aria-label="Number to sell" name="quantity" min="1" max="10" id="numberToSell" value="1">|numberToSell||113|18|Check that a change of context does not occur when this input field receives focus.
+NOTICE|WCAG2A.Principle3.Guideline3_2.3_2_1.G107|<button id="sellButton">Sell</button>|sellButton||114|18|Check that a change of context does not occur when this input field receives focus.

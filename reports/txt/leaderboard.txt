@@ -1,0 +1,7 @@
+C:\Users\Tay\Desktop\Coding\aquadisplay\leaderboard.html
+heading|issue|element|id|class|line|column|description
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_2.H25.2|<title>Leaderboard</title>|||5|3|Check that the title element describes the document.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a class="nav-link" href="./index.html">Home</a>||nav-link|39|31|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a class="nav-link" href="./about.html">About</a>||nav-link|1|0|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a class="nav-link active" href="#">Leaderboard</a>||nav-link active|1|0|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
+NOTICE|WCAG2A.Principle2.Guideline2_4.2_4_4.H77,H78,H79,H80,H81|<a id="loginLink" class="nav-link" href="./signup.html">Login</a>|loginLink|nav-link|1|0|Check that the link text combined with programmatically determined link context identifies the purpose of the link.
