@@ -22,7 +22,7 @@ function updatePortfolio(portfolioData){
     }
 
     // Update aggregate stats
-    portfolioData.aggStats.value = runningTotalOfValue;
+    portfolioData.aggStats.value = runningTotalOfValue + portfolioData.cash;
     portfolioData.aggStats.avg = (runningTotalOfValue/runningTotalOfShares).toFixed(2);
     portfolioData.aggStats.shares = runningTotalOfShares;
 
