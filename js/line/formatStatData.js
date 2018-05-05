@@ -3,7 +3,7 @@ function formatStatData(json){
     thirtyDayLineObj.marketStats = [];
     var maxPoint = 0;
     var parseTime = d3.timeParse("%b-%Y-%d-%a");
-    var formatDate = d3.timeFormat("%B %d")
+    var formatDate = d3.timeFormat("%B %d");
 /*
     var marketStats = {
         "avg": avg,
@@ -19,7 +19,7 @@ function formatStatData(json){
     	//console.log(date +" + "+ JSON.stringify(objectDay))
     	var fishTypeNames = Object.keys(objectDay); // array of just the names
         var numOfFishTypes = fishTypeNames.length;
-    	var date = parseTime(date);
+    	date = parseTime(date);
         var runningTotalAvg = 0;
         var runningTotalStdDev = 0;
         var runningTotalSales = 0;
@@ -57,14 +57,14 @@ function formatStatData(json){
             runningTotalAvg += avg;
             runningTotalStdDev += stdDev;
             runningTotalSales += salesVolume;
-    	})
+    	});
 
         // Create the market averages for the day
         var dayAvg = runningTotalAvg/numOfFishTypes;
         var dayStdDev = runningTotalStdDev/numOfFishTypes;
         var daySalesVol = runningTotalSales/numOfFishTypes;
         // Add the stats to the day
-        thirtyDayLineObj.marketStats.push({avg:+dayAvg.toFixed(2), item:"Market Stats", date:date, stdDev:+dayStdDev.toFixed(2), salesVolume:+daySalesVol.toFixed(2)})
+        thirtyDayLineObj.marketStats.push({avg:+dayAvg.toFixed(2), item:"Market Stats", date:date, stdDev:+dayStdDev.toFixed(2), salesVolume:+daySalesVol.toFixed(2)});
       });
     makeLineGraph(thirtyDayLineObj, maxPoint);
 }

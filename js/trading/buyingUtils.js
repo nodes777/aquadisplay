@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 /*------------------------------------------------
 * Buying
 *-------------------------------------------------
@@ -8,9 +10,9 @@ function handleBuy(){
     var numberToBuy = document.getElementById("numberToBuy").value;
     var pricePerShare = document.getElementById("pricePerShare").textContent;
     if (pricePerShare==0) {
-    	alert("Hey, you can't buy at zero dollar value.")
+    	alert("Hey, you can't buy at zero dollar value.");
     } else {
-    	makePurchase(fishType, numberToBuy)
+    	makePurchase(fishType, numberToBuy);
     }
 }
 
@@ -53,7 +55,7 @@ function addToPortfolio(fishType, sharesBought, paid, portfolio, afterCash){
 	p[fishType].value = p[fishType].shares * todaysPrices[fishType].price; // Value of number of shares at todays price - Changes each day
 
 	/* updatePortfolio handles changes that occur by day, ex: p[fishType].quote*/
-	updatePortfolio(p)
+	updatePortfolio(p);
 }
 
 /*------------------------------------------------
@@ -68,7 +70,7 @@ function updateBuyOptions(fish, cb){
 	totalPriceHTML.node().textContent = todaysPrices[fish].price;
 
 	// The inital loading of the page calls this function without the cb. Buying will call the cb, updateTotal
-	if(cb){cb()}
+	if(cb){cb();}
 }
 
 
@@ -91,9 +93,9 @@ function handleSell(){
     var numberToSell = document.getElementById("numberToSell").value;
     var valuePerShare = document.getElementById("valuePerShare").textContent;
     if (valuePerShare == 0) {
-    	alert("Hey, you can't sell at zero dollar value.")
+    	alert("Hey, you can't sell at zero dollar value.");
     } else {
-    	makeSale(fishType, numberToSell)
+    	makeSale(fishType, numberToSell);
     }
 }
 
@@ -108,7 +110,7 @@ function makeSale(fishType, sharesSold){
 		p[fishType].paid = p[fishType].paid - cashGained;  // Reduce amount paid into that fish stock by the amount gained in the sale
 
 		updatePortfolio(p);
-	})
+	});
 }
 
 /*------------------------------------------------

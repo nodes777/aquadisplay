@@ -9,14 +9,14 @@
 
 * Make fades on changes to portfolio, on individual cells (Must check if that cell already exists, find it, fade it and change it)
 
-* Add on hover descriptions for cash/value/average/paid etc on home, leaderboard, and portfolio pages.
+* Add accessible on hover descriptions for cash/value/average/paid etc on home, leaderboard, and portfolio pages.
 
-* Add Market Avg to profile line graph
+* Add Market Avg to profile and leaderboard line graph
 
 * Figure out Responsify on the graphs
 
+
 ## Leaderboard page
-* Value is only updated once a day, not after making trades ?BUG?
 * Sort by Cash/Avg too
 
 ## Line Graph

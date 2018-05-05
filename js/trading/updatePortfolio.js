@@ -8,6 +8,7 @@ function updatePortfolio(portfolioData){
 	//Update each fish, check for not being stats
     for (let fishType in portfolioData) {
     	if(fishType != 'aggStats' && fishType != 'cash') {
+
     		price = getPriceOf(fishType);
 	    	portfolioData[fishType].value = portfolioData[fishType].shares*(price);
 	        portfolioData[fishType].quote = price;

@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 function renderPortfolio(data) {
     createTable(data);
     renderAggStats(data);
@@ -17,35 +18,35 @@ function createTable(data){
     // Create name header
     var headerCell = document.createElement("TH");
     headerCell.textContent = "Name";
-    headerCell.setAttribute("scope","col")
+    headerCell.setAttribute("scope","col");
     row.appendChild(headerCell);
 
     // For each stat, add another header cell
     statsList.forEach(function(stat) {
         headerCell = document.createElement("TH");
-        headerCell.setAttribute("scope","col")
+        headerCell.setAttribute("scope","col");
         headerCell.textContent = stat;
         row.appendChild(headerCell);
-    })
+    });
 
     //Add the data rows.
     // Sort the stats to match up with the table headers, order isnt guaranteed in JSON.
     for (fishType in portfolioData) {
         let p = portfolioData[fishType];
         let arr = [p.shares, p.quote, p.value, p.paid, p.dollarChange, p.percentChange, p.weight]
-        var name = getReadableName(fishType)
+        var name = getReadableName(fishType);
         // Check for not being avg, Avg, and value
         if(name !== undefined){
             // Check for owning at least one stock of that fish
             if (portfolioData[fishType].shares > 0) {
                 row = table.insertRow(-1);
                 var cell = row.insertCell(-1);
-                cell.setAttribute("scope","row")
+                cell.setAttribute("scope","row");
                 cell.textContent = name;
                 arr.forEach(function(stat){
                     var cell = row.insertCell(-1);
                     cell.textContent = stat;
-                })
+                });
             }
         }
     }

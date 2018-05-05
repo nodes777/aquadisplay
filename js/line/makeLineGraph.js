@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 function makeLineGraph(thirtyDayLineObj, maxPoint){
 
 	var margin = {top: 40, right: 80, bottom: 110, left: 80},
@@ -9,7 +10,7 @@ function makeLineGraph(thirtyDayLineObj, maxPoint){
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
     var x = d3.scaleTime().range([0, width]);
@@ -80,16 +81,16 @@ function makeLineGraph(thirtyDayLineObj, maxPoint){
     });
 
     // Add default checked status
-    $("#fwbettasctCheckbox").trigger("click");
+    // $("#fwbettasctCheckbox").trigger("click");
     $("#marketStatsCheckbox").trigger("click");
-    $("#fwcatfishpCheckbox").trigger("click");
+    // $("#fwcatfishpCheckbox").trigger("click");
 
 }
 
-function handleCheckboxChange(thirtyDayLineObj, fishType, x, y, svg, lineFunc, height, color, tooltip){
+function handleCheckboxChange(thirtyDayLineObj, fishTypeX, x, y, svg, lineFunc, height, color, tooltip){
     var fishType = this.value;
     var checked = this.checked;
-    if(checked){draw.call(this, thirtyDayLineObj, fishType, x, y, svg, lineFunc, height, color, tooltip)}
+    if(checked){draw.call(this, thirtyDayLineObj, fishType, x, y, svg, lineFunc, height, color, tooltip);}
     if(!checked){
         d3.selectAll("#line-"+fishType).remove();
         d3.selectAll("#dot-"+fishType).remove();
@@ -123,7 +124,7 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
             .style("stroke", function() { // Add the colours dynamically
                 return fishType.color = color(fishTypeName); })
             .attr("stroke-dasharray", function(d){ return this.getTotalLength(); })
-            .attr("stroke-dashoffset", function(d){ return this.getTotalLength(); })
+            .attr("stroke-dashoffset", function(d){ return this.getTotalLength(); });
 
     var dotID = "dot-"+fishTypeName;
     var dots = svg.selectAll("dot")
