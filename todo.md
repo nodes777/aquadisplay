@@ -15,6 +15,12 @@
 
 * Figure out Responsify on the graphs
 
+## Accessibility
+* Better indication of focus
+* Hide the axes
+* provide programmatic access to bar or line graph nodes
+* For tables add aria-label to number to buy and total? for both buying and selling
+
 
 ## Leaderboard page
 * Sort by Cash/Avg too
