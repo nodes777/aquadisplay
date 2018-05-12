@@ -26,7 +26,7 @@ function makeStatsGraph(soldData){
 function initAvgGraph(statArr){
 
 	var margin = {top: 20, right: 80, bottom: 140, left: 80},
-        width = getWidthOfGraph('#firstGraph') - margin.left - margin.right,
+        width = getWidthOfGraph('#dailyStatsGraph') - margin.left - margin.right,
         height = 720 - margin.top - margin.bottom;
 
     // set the ranges, these are funcs that return a number, scaled to a particular domain and range
@@ -43,7 +43,8 @@ function initAvgGraph(statArr){
     // append the svg object to the body of the page
         // append a 'group' element to 'svg'
         // moves the 'group' element to the top left margin
-    var svg = d3.select("#firstGraph").append("svg")
+    var svg = d3.select("#dailyStatsGraph").append("svg")
+        //.attr("role","application")// role of application for screen readers
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
@@ -59,7 +60,8 @@ function initAvgGraph(statArr){
         .attr("width", x.bandwidth())
         // set y and height to 0, they will grow in the transition
         .attr("y", y(0))
-        .attr("height", 0);
+        .attr("height", 0)
+        .attr("aria-label", function(d) { return `Average ${d.item} Price: $ ${Math.round(d.avg)}`});// Provide labels for screen readers
 
       // Transition for growing the bars upwards
       var rect = d3.selectAll("rect");
@@ -74,7 +76,7 @@ function initAvgGraph(statArr){
             tooltip.transition()
                 .duration(200)
                 .style("opacity", 0.9);
-            tooltip.html("Average "+d.item+" Price: $"+Math.round(d.avg))
+            tooltip.html(`Average ${d.item} Price: $ ${Math.round(d.avg)}`)
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
             })
@@ -95,13 +97,15 @@ function initAvgGraph(statArr){
             .style("font-size", "1.2em")
             .attr("dx", "-.8em")
             .attr("dy", ".15em")
+            .attr("aria-hidden","true") // hide the axis from assistive technology
             .attr("transform", "rotate(-65)");
 
 
     // add the y Axis
     var yAxis = d3.axisLeft(y);
     svg.append("g")
-        .attr("class", "yAxisStatGraph")
+        .attr("class", "yAxisStatGraph") 
+        .attr("aria-hidden","true") // hide the axis from assistive technology
         .call(yAxis);
 
     //Create Title
@@ -110,7 +114,7 @@ function initAvgGraph(statArr){
         .attr("id", "statGraphTitle")
         .attr("y", -5)
         .style("text-anchor", "middle")
-        .text("Averages");
+        .text("Average Price of Fish Type");
 
       // text label for the y axis
     svg.append("text")

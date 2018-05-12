@@ -7,7 +7,7 @@ function makeCategoryGraphs(fishType){
 
    // set the dimensions and margins of the graph
     var margin = {top: 30, right: 20, bottom: 60, left: 80},
-        width = getWidthOfGraph('#secondGraph') - margin.left - margin.right -20,
+        width = getWidthOfGraph('#individualFishTypeGraph') - margin.left - margin.right -20,
         height = 720 - margin.top - margin.bottom;
 
     // set the ranges, these are funcs that return a number, scaled to a particular domain and range
@@ -24,7 +24,7 @@ function makeCategoryGraphs(fishType){
     // append the svg object to the body of the page
         // append a 'group' element to 'svg'
         // moves the 'group' element to the top left margin
-    var svg = d3.select("#secondGraph").append("svg")
+    var svg = d3.select("#individualFishTypeGraph").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
@@ -40,7 +40,8 @@ function makeCategoryGraphs(fishType){
         .attr("width", x.bandwidth())
         // set y and height to 0, they will grow in the transition
         .attr("y", y(0))
-        .attr("height", 0);
+        .attr("height", 0)
+        .attr("aria-label", function(d) { return `${d.item} sold at $ ${d.bPrice}`});// Provide labels for screen readers;
 
       bars.transition().duration(1500)//ease(d3.easeElastic)
         .attr("y", function(d) { return y(currencyToNumber(d.bPrice)); })

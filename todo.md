@@ -20,6 +20,13 @@
 * Hide the axes
 * provide programmatic access to bar or line graph nodes
 * For tables add aria-label to number to buy and total? for both buying and selling
+* Role of application on line graphs?
+
+
+
+------
+Change the ids for graph html
+Make the dots bigger
 
 
 ## Leaderboard page
