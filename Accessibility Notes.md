@@ -5,3 +5,4 @@
 
 
 
+* Chrome does not handle keyboard events on the svg elements.

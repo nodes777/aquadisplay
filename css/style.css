@@ -3,8 +3,14 @@
 
 .w3-animate-opacity{animation:opac 0.8s}@keyframes opac{from{opacity:0} to{opacity:1}}
 
+:focus {
+    outline: 3px solid blue;
+}
+
+
 *{
 }
+
 div.tooltip {
     position: absolute;
     text-align: center;

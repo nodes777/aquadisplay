@@ -147,4 +147,9 @@ function getToday(){
   //console.log(dateString);
   return dateString;
 }
-// var parseTime = d3.timeParse("%b-%Y-%e-%a"); // Structure for converting Apr-2018-27-Fri to Date object
+var parseTime = d3.timeParse("%b-%Y-%e-%a"); // Structure for converting Apr-2018-27-Fri to Date object
+var parseDateObj = d3.timeFormat("%B %d, %Y"); // Converts a date object into a readable string: // "June 30, 2015"
+
+
+var formatTime = d3.timeFormat("%B %d, %Y");
+var formatTimeDashed = d3.timeFormat("%B-%d-%Y");
