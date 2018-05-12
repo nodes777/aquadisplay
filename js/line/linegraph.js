@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 
 function makeLineGraph(json){
-	var thirtyDayLineObj = {};
+    var thirtyDayLineObj = {};
     var maxPoint = 0;
     var parseTime = d3.timeParse("%b-%Y-%d-%a");
     var formatDate = d3.timeFormat("%B %d");
@@ -14,40 +14,40 @@ function makeLineGraph(json){
         "salesVolume": salesVolume
     }
 */
-	/* Format data, each line/category must be an entry in the array */
-	$.each(json, function(date, objectDay){
-		/* Within a particular day*/
-    	//console.log(date +" + "+ JSON.stringify(objectDay))
-    	var fishTypeNames = Object.keys(objectDay); // array of just the names
-    	//console.log(date)
+    /* Format data, each line/category must be an entry in the array */
+    $.each(json, function(date, objectDay){
+        /* Within a particular day*/
+        //console.log(date +" + "+ JSON.stringify(objectDay))
+        var fishTypeNames = Object.keys(objectDay); // array of just the names
+        //console.log(date)
 
-    	$.each(fishTypeNames, function(index, fishTypeName){
-    		/* Within a particular fish type*/
-    		// Just leave if its the timestamp
-    		if(fishTypeName === "timestamp"){ return;}
-    		// Create the empty array if there isn't an array there yet
-    		if(thirtyDayLineObj[fishTypeName] === undefined){
-    			thirtyDayLineObj[fishTypeName] = [];
-    		}
+        $.each(fishTypeNames, function(index, fishTypeName){
+            /* Within a particular fish type*/
+            // Just leave if its the timestamp
+            if(fishTypeName === "timestamp"){ return;}
+            // Create the empty array if there isn't an array there yet
+            if(thirtyDayLineObj[fishTypeName] === undefined){
+                thirtyDayLineObj[fishTypeName] = [];
+            }
 
-    		var avg = objectDay[fishTypeName].avg;
+            var avg = objectDay[fishTypeName].avg;
             // Check the max point for y domain
             if(avg > maxPoint){ maxPoint = avg;}
-    		var item = fishTypeName;
-    		var currentDate = parseTime(date);
-    		var stdDev = objectDay[fishTypeName].stdDev;
-    		var salesVolume = objectDay[fishTypeName].salesVolume;
+            var item = fishTypeName;
+            var currentDate = parseTime(date);
+            var stdDev = objectDay[fishTypeName].stdDev;
+            var salesVolume = objectDay[fishTypeName].salesVolume;
 
-    		lineFishTypeObj = {
-		        "avg": avg,
-		        "item": item,
-		        "stdDev": stdDev,
-		        "date": currentDate,
-		        "salesVolume": salesVolume
-		     };
+            lineFishTypeObj = {
+                "avg": avg,
+                "item": item,
+                "stdDev": stdDev,
+                "date": currentDate,
+                "salesVolume": salesVolume
+             };
             // Add that days stats to the array for the fishtype within the 30day obj
-			thirtyDayLineObj[fishTypeName].push(lineFishTypeObj);
-    	});
+            thirtyDayLineObj[fishTypeName].push(lineFishTypeObj);
+        });
       });
     thirtyDayLineObj.marketStats = createMarketStats(thirtyDayLineObj);
 
@@ -56,7 +56,7 @@ function makeLineGraph(json){
     * Create Graph
     *-------------------------------------------------------------------------------------------------
     */
-	var margin = {top: 40, right: 80, bottom: 110, left: 80},
+    var margin = {top: 40, right: 80, bottom: 110, left: 80},
     width = getWidthOfGraph('#lineGraph') - margin.left - margin.right,
     height = 720 - margin.top - margin.bottom;
 
@@ -73,22 +73,22 @@ function makeLineGraph(json){
     var color = d3.scaleOrdinal(d3.schemeCategory20);
 
     var lineFunc = d3.line()
-	    //.curve(d3.curveBasis)
-	    .x(function(d) { return x(d.date); })
-	    .y(function(d) { return y(d.avg); });
+        //.curve(d3.curveBasis)
+        .x(function(d) { return x(d.date); })
+        .y(function(d) { return y(d.avg); });
 
     // Supply the earliest and latest dates, choosing fw, just because they all have the same date range
-	x.domain(d3.extent(thirtyDayLineObj.fw, function(d) { return d.date; }));
+    x.domain(d3.extent(thirtyDayLineObj.fw, function(d) { return d.date; }));
     // Max point was created when first sorting the data.
-  	y.domain([ 0, maxPoint]);
+    y.domain([ 0, maxPoint]);
     //color.domain(fishType.map(function(d) { return d.salesVolume; }));
 
             // Define the div for the tooltip
     var tooltip = d3.select("body").append("div")
         .attr("class", "tooltip")
         .style("opacity", 0);
-  	// add the x Axis
-  	var xAxis = d3.axisBottom(x);
+    // add the x Axis
+    var xAxis = d3.axisBottom(x);
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis)
@@ -99,7 +99,7 @@ function makeLineGraph(json){
             .attr("dy", ".15em")
             .attr("transform", "rotate(-65)");
 
- 	// add the y Axis
+    // add the y Axis
     var yAxis = d3.axisLeft(y);
     svg.append("g")
         .attr("class", "yAxisLineGraph")

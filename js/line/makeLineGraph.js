@@ -131,7 +131,7 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
         .data(fishType)
       .enter().append("circle")
         .attr("id", id)
-        .attr("r", 3.5)
+        .attr("r", 5.5)
         //.style("opacity", 0)
         .attr("cx", function(d) { return x(d.date); })
         .attr("cy", function(d) { return y(d.avg); });
