@@ -225,6 +225,7 @@ function keyboardHandler (d,i,nodes) {  // left, up, right, down
     // console.log(`parent: ${JSON.stringify(d3.select(this.parentNode))}`); // svg obj
     //console.log(`Date plus: ${formatTimeDashed(new Date(d.date.getTime()+(1*24*60*60*1000)))}`);
     //console.log(`d3.event: ${d3.event}`);
+    var fishTypeFromGroupId;
     if (d3.event.keyCode == 37 || d3.event.keyCode == 38 || d3.event.keyCode == 39 || d3.event.keyCode == 40 ) {
         d3.event.preventDefault();
         //left
@@ -235,16 +236,14 @@ function keyboardHandler (d,i,nodes) {  // left, up, right, down
         // up
         if (d3.event.keyCode == 38 ) {
             console.log(this.parentNode.previousSibling);// go to this fish's parent group, then look for the next fish group
-            var fishTypeFromGroupId = this.parentNode.previousSibling.id.slice(6); // grab the fishtype from the id
-            console.log(fishTypeFromGroupId);
+            fishTypeFromGroupId = this.parentNode.previousSibling.id.slice(6); // grab the fishtype from the id
             document.getElementById(`dot-${fishTypeFromGroupId}-${formatTimeDashed(d.date)}`).focus(); // focus with the dot-fishtype-date id pattern
         }
         // down
         if (d3.event.keyCode == 40 ) {
             console.log(this.parentNode.nextSibling);
-            var nextDot = $("svg").find(`g #group-${d.item}`);
-            console.log(nextDot);
-            nextDot.focus();
+            fishTypeFromGroupId = this.parentNode.nextSibling.id.slice(6);
+            document.getElementById(`dot-${fishTypeFromGroupId}-${formatTimeDashed(d.date)}`).focus();
         }
        // document.getElementById(`dot-${d.item}-${formatTimeDashed(d.date)}`).focus();
     }
