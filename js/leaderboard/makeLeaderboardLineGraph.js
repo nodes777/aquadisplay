@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 function makeLeaderboardLineGraph(topTenArr){
 
 	var margin = {top: 40, right: 80, bottom: 110, left: 80},
@@ -8,6 +9,9 @@ function makeLeaderboardLineGraph(topTenArr){
     var svg = d3.select("#leaderboardGraph").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
+        .attr("role", "application") // Add accessibility info - role of application to let screen reader users know about key presses
+        .attr("aria-label","Leaderboard Line Graph") // Label for purpose of the application
+        .attr("tabindex","0")
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -27,7 +31,7 @@ function makeLeaderboardLineGraph(topTenArr){
     var timestampArr = [];
     var valuesArr = [];
     for(let i = 0; i<topTenArr.length; i++){
-        for(obj in topTenArr[i].history){
+        for(let obj in topTenArr[i].history){
             timestampArr.push(topTenArr[i].history[obj].timestamp);
             valuesArr.push(topTenArr[i].history[obj].value);
         }
@@ -36,16 +40,18 @@ function makeLeaderboardLineGraph(topTenArr){
 
 	x.domain(d3.extent(timestampArr, function(d) { return new Date (d); }));
     // Max point was created when first sorting the data.
-  	y.domain([ 0, d3.max(valuesArr, function(d) { return d; })])
+  	y.domain([ 0, d3.max(valuesArr, function(d) { return d; })]);
 
     // Define the div for the tooltip
     var tooltip = d3.select("body").append("div")
         .attr("class", "tooltip")
+        .attr("id", "tooltip")
         .style("opacity", 0);
 
   	// add the x Axis
   	var xAxis = d3.axisBottom(x);
     svg.append("g")
+        .attr("aria-hidden","true") //Ensures axes will not be exposed, unnessesarily, to AT users
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis)
         .selectAll("text")
@@ -59,6 +65,7 @@ function makeLeaderboardLineGraph(topTenArr){
     var yAxis = d3.axisLeft(y);
     svg.append("g")
         .attr("class", "yAxisLineGraph")
+        .attr("aria-hidden","true") //Ensures axes will not be exposed, unnessesarily, to AT users
         .call(yAxis);
 
     // y Axis Label
@@ -80,36 +87,19 @@ function makeLeaderboardLineGraph(topTenArr){
         .text("Top Ten Player's Portfolio Value Over Time");
 
    $.each(topTenArr, function(index, player){
-        draw(player, index, x, y, svg, lineFunc, height, color, tooltip)
-    })
+        draw(player, index, x, y, svg, lineFunc, height, color, tooltip);
+    });
 
-    // add checkbox listeners
-    // $("#checkBoxesDiv").on("change", "input[type=checkbox]", function(d) {
-    //     var fishType = this.value;
-    //     handleCheckboxChange.call(this, topTenArr, fishType, x, y, svg, lineFunc, height, color, tooltip);
-    // });
-
-
-}
-
-function handleCheckboxChange(topTenArr, fishType, x, y, svg, lineFunc, height, color, tooltip){
-    var fishType = this.value;
-    var checked = this.checked;
-    if(checked){draw.call(this, topTenArr, fishType, x, y, svg, lineFunc, height, color, tooltip)}
-    if(!checked){
-        d3.selectAll("#line-"+fishType).remove();
-        d3.selectAll("#dot-"+fishType).remove();
-    }
 }
 
 function draw(data, index, x, y, svg, lineFunc, height, color, tooltip) {
     var formatTime = d3.timeFormat("%B %d, %Y");
     // format the data into an array
-    var dataArr = Object.values(data.history)
+    var dataArr = Object.values(data.history);
 
     var t = d3.transition()
             .duration(1000)
-            .ease(d3.easeLinear)
+            .ease(d3.easeLinear);
 
     var id = "line-"+index;
 
@@ -123,48 +113,69 @@ function draw(data, index, x, y, svg, lineFunc, height, color, tooltip) {
             .style("opacity", 1)
             .style("stroke", function() { // Add the colours dynamically
                 return dataArr.color = color(index); })
-            .attr("stroke-dasharray", function(d){ return this.getTotalLength() })
-            .attr("stroke-dashoffset", function(d){ return this.getTotalLength() })
+            .attr("stroke-dasharray", function(d){ return this.getTotalLength(); })
+            .attr("stroke-dashoffset", function(d){ return this.getTotalLength(); })
 
     var dotID = "dot-"+index;
     var dots = svg.selectAll("dot")
         .data(dataArr)
       .enter().append("circle")
-        .attr("id", id)
-        .attr("r", 3.5)
-        //.style("opacity", 0)
+        .attr("id", function(d) {return `dot-${data.username}-${formatTimeDashed(d.timestamp)}`;})
+        .attr("tabindex","0")
+        .attr("r", 5.5)
+        .attr("aria-label", function(d) { return `${(data.username)}'s portfolio valued at ${d.value} on ${formatTime(d.timestamp)}`;})
         .attr("cx", function(d) { return x(d.timestamp); })
         .attr("cy", function(d) { return y(d.value); });
 
-    dots.on("mouseover", function(d) {
-            var self = this;
-                dots.transition()
-                    .style("stroke-width", "9px");
 
-                tooltip.transition()
+    dots.on("mouseover", function(d, i, dots) {
+            d3.select(this).transition()
+                .style("stroke-width", "9px");
+
+            d3.select("#tooltip").transition()
+                .duration(200)
+                .style("opacity", 0.9);
+             d3.select("#tooltip").html(`${data.username}  $${d.value} on ${formatTime(d.timestamp)}`)
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+        })
+        .on("mouseout", function(d) {
+                d3.select(this)//.transition()
+                    .style("stroke-width", "2.5px");
+                d3.select("#tooltip").transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            })
+        .on("focus", function(d) {
+                var rect = this.getBoundingClientRect();
+                d3.select(this).transition()
+                    .style("stroke-width", "9px");
+                d3.select("#tooltip").transition()
                     .duration(200)
                     .style("opacity", 0.9);
-                tooltip.html(`${data.username}  $${d.value} on ${formatTime(d.timestamp)}`)
-                    .style("left", (d3.event.pageX) + "px")
-                    .style("top", (d3.event.pageY - 28) + "px");
-                })
-        .on("mouseout", function(d) {
-            dots//.transition()
-                .style("stroke-width", "2.5px");
-            tooltip.transition()
-                .duration(500)
-                .style("opacity", 0);
-        });
+                d3.select("#tooltip").html(`${getReadableName(d.item)} $${d.avg} on ${formatTime(d.date)}`)
+                    .style("left",  `${rect.left}px`)
+                    .style("top",  `${rect.top + d3.select("svg").node().getBoundingClientRect().height-200}px`);
+            })
+        .on("focusout", function(d) {
+                d3.select(this)//.transition()
+                    .style("stroke-width", "2.5px");
+                d3.select("#tooltip").transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            })
+        .on("keypress", keyboardHandler);
+
 
     // Previously using selectAll here, this wouldn't allow the otherLine selection to cause effects,
     var specificLine = svg.select("#line-"+index);
 
         specificLine.transition(t)
-            .attr("stroke-dashoffset", 0)
+            .attr("stroke-dashoffset", 0);
 
         specificLine.on("mouseover", function(d) {
             // get username from data JSON, this isn't in the d parameter
-            let name = data.username
+            let name = data.username;
             var self = this;
                 specificLine.transition()
                     .style("stroke-width", "9px");
@@ -176,7 +187,7 @@ function draw(data, index, x, y, svg, lineFunc, height, color, tooltip) {
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 28) + "px");
                 var otherLines = d3.selectAll("path.line").filter(function (x) { return self != this; })
-                    .style("opacity", 0.3)
+                    .style("opacity", 0.3);
                 })
         .on("mouseout", function(d) {
             specificLine//.transition()
@@ -185,9 +196,93 @@ function draw(data, index, x, y, svg, lineFunc, height, color, tooltip) {
                 .duration(500)
                 .style("opacity", 0);
             d3.selectAll("path").transition()
-                .style("opacity", 1)
+                .style("opacity", 1);
         });
 
 }
 
 
+// function showToolTipMouse(d, i, dots) {
+//     d3.select(this).transition()
+//         .style("stroke-width", "9px");
+
+//     d3.select("#tooltip").transition()
+//         .duration(200)
+//         .style("opacity", 0.9);
+//      d3.select("#tooltip").html(`${data.username}  $${d.value} on ${formatTime(d.timestamp)}`)
+//         .style("left", (d3.event.pageX) + "px")
+//         .style("top", (d3.event.pageY - 28) + "px");
+// }
+
+// function showToolTip(d) {
+//     var rect = this.getBoundingClientRect();
+//     d3.select(this).transition()
+//         .style("stroke-width", "9px");
+//     d3.select("#tooltip").transition()
+//         .duration(200)
+//         .style("opacity", 0.9);
+//     d3.select("#tooltip").html(`${getReadableName(d.item)} $${d.avg} on ${formatTime(d.date)}`)
+//         .style("left",  `${rect.left}px`)
+//         .style("top",  `${rect.top + d3.select("svg").node().getBoundingClientRect().height-200}px`);
+// }
+
+// function hideToolTip(d) {
+//     d3.select(this)//.transition()
+//         .style("stroke-width", "2.5px");
+//     d3.select("#tooltip").transition()
+//         .duration(500)
+//         .style("opacity", 0);
+// }
+
+// function lineMouseOver(d) {
+//     var self = this;
+//     d3.select(this).transition()
+//         .style("stroke-width", "9px");
+
+//     d3.select("#tooltip").transition()
+//         .duration(200)
+//         .style("opacity", 0.9);
+//     d3.select("#tooltip").html(getReadableName(d.item))
+//         .style("left", (d3.event.pageX) + "px")
+//         .style("top", (d3.event.pageY - 28) + "px");
+//     var otherLines = d3.selectAll("path.line").filter(function (x) { return self != this; })
+//         .style("opacity", 0.3);
+// }
+
+// function lineMouseOut (d) {
+//     d3.select(this)//.transition()
+//         .style("stroke-width", "2.5px");
+//     d3.select("#tooltip").transition()
+//         .duration(500)
+//         .style("opacity", 0);
+//     d3.selectAll("path").transition()
+//         .style("opacity", 1);
+// }
+
+function keyboardHandler (d,i,nodes) {  // left, up, right, down
+    // console.log(`d: ${JSON.stringify(d)}`);
+    // console.log(`i: ${i}`); // 0
+    // console.log(`nodes: ${nodes}`); // svg obj
+    // console.log(`parent: ${JSON.stringify(d3.select(this.parentNode))}`); // svg obj
+    // console.log(`Date plus: ${formatTimeDashed(new Date(d.date.getTime()+(1*24*60*60*1000)))}`);
+    // console.log(`d3.event: ${d3.event}`);
+    var fishTypeFromGroupId;
+    if (d3.event.keyCode == 37 || d3.event.keyCode == 38 || d3.event.keyCode == 39 || d3.event.keyCode == 40 ) {
+        d3.event.preventDefault();
+        //left
+        if (d3.event.keyCode == 37 ) {this.previousSibling.focus();}
+        //right
+        if (d3.event.keyCode == 39 ) {this.nextSibling.focus();}
+        // up
+        if (d3.event.keyCode == 38 ) {
+            // go to this fish's parent group, then look for the next fish group
+            fishTypeFromGroupId = this.parentNode.previousSibling.id.slice(6); // grab the fishtype from the id
+            document.getElementById(`dot-${fishTypeFromGroupId}-${formatTimeDashed(d.date)}`).focus(); // focus with the dot-fishtype-date id pattern
+        }
+        // down
+        if (d3.event.keyCode == 40 ) {
+            fishTypeFromGroupId = this.parentNode.nextSibling.id.slice(6);
+            document.getElementById(`dot-${fishTypeFromGroupId}-${formatTimeDashed(d.date)}`).focus();
+        }
+    }
+}

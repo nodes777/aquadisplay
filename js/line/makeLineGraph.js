@@ -1,10 +1,8 @@
 /*jshint esversion: 6 */
-function makeLineGraph(thirtyDayLineObj, maxPoint){
-
-	var margin = {top: 40, right: 80, bottom: 110, left: 80},
-    width = getWidthOfGraph('#lineGraph') - margin.left - margin.right,
-    height = 720 - margin.top - margin.bottom;
-
+function makeLineGraph(thirtyDayLineObj, maxPoint, options){
+    var margin = {top: 40, right: 80, bottom: 110, left: 80},
+        width = getWidthOfGraph('#lineGraph') - margin.left - margin.right,
+        height = 720 - margin.top - margin.bottom;
 
     var svg = d3.select("#lineGraph").append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -34,6 +32,7 @@ function makeLineGraph(thirtyDayLineObj, maxPoint){
     // Define the div for the tooltip
     var tooltip = d3.select("body").append("div")
         .attr("class", "tooltip")
+        .attr("id", "tooltip")
         .style("opacity", 0);
 
   	// add the x Axis
@@ -91,16 +90,6 @@ function makeLineGraph(thirtyDayLineObj, maxPoint){
 
 }
 
-function handleCheckboxChange(thirtyDayLineObj, fishTypeX, x, y, svg, lineFunc, height, color, tooltip){
-    var fishType = this.value;
-    var checked = this.checked;
-    if(checked){draw.call(this, thirtyDayLineObj, fishType, x, y, svg, lineFunc, height, color, tooltip);}
-    if(!checked){
-        d3.selectAll("#line-"+fishType).remove();
-        d3.selectAll("#dot-"+fishType).remove();
-    }
-}
-
 function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
 
     var t = d3.transition()
@@ -145,75 +134,86 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
         .attr("cy", function(d) { return y(d.avg); });
 
     dots.on("mouseover", showToolTipMouse)
-        .on("mouseout", hideToolTip);
-    dots.on("focus", showToolTip)
-        .on("focusout", hideToolTip);
-    dots.on("keypress", keyboardHandler);
-    dots.on("click", keyboardHandler);
-
+        .on("mouseout", hideToolTip)
+        .on("focus", showToolTip)
+        .on("focusout", hideToolTip)
+        .on("keypress", keyboardHandler)
+        //.on("click", keyboardHandler);
 
     // Previously using selectAll here, this wouldn't allow the otherLine selection to cause effects,
     var specificLine = svg.select("#line-"+fishTypeName);
 
         specificLine.transition(t)
             .attr("stroke-dashoffset", 0);
-
+        // putting this all in one call breaks it for some reason
         specificLine.on("mouseover", lineMouseOver)
                     .on("mouseout", lineMouseOut);
+}
 
-    function showToolTip(d) {
-        var rect = this.getBoundingClientRect();
-         dots.transition()
-            .style("stroke-width", "9px");
-        tooltip.transition()
-            .duration(200)
-            .style("opacity", 0.9);
-        tooltip.html(`${getReadableName(d.item)} $${d.avg} on ${formatTime(d.date)}`)
-            .style("left",  `${rect.left}px`)
-            .style("top",  `${rect.top + height}px`);
-    }
-    function showToolTipMouse(d) {
-        dots.transition()
-            .style("stroke-width", "9px");
-        tooltip.transition()
-            .duration(200)
-            .style("opacity", 0.9);
-        tooltip.html(`${getReadableName(d.item)} $${d.avg} on ${formatTime(d.date)}`)
-            .style("left", (d3.event.pageX) + "px")
-            .style("top", (d3.event.pageY - 28) + "px");
-    }
+function showToolTipMouse(d, i, dots) {
+    d3.select(this).transition()
+        .style("stroke-width", "9px");
+    d3.select("#tooltip").transition()
+        .duration(200)
+        .style("opacity", 0.9);
+    d3.select("#tooltip").html(`${getReadableName(d.item)} $${d.avg} on ${formatTime(d.date)}`)
+        .style("left", (d3.event.pageX) + "px")
+        .style("top", (d3.event.pageY - 28) + "px");
+}
 
-    function hideToolTip(d) {
-        dots//.transition()
-            .style("stroke-width", "2.5px");
-        tooltip.transition()
-            .duration(500)
-            .style("opacity", 0);
-    }
+function showToolTip(d) {
+    var rect = this.getBoundingClientRect();
+    d3.select(this).transition()
+        .style("stroke-width", "9px");
+    d3.select("#tooltip").transition()
+        .duration(200)
+        .style("opacity", 0.9);
+    d3.select("#tooltip").html(`${getReadableName(d.item)} $${d.avg} on ${formatTime(d.date)}`)
+        .style("left",  `${rect.left}px`)
+        .style("top",  `${rect.top + d3.select("svg").node().getBoundingClientRect().height-200}px`);
+}
 
-    function lineMouseOver(d) {
-        var self = this;
-        specificLine.transition()
-            .style("stroke-width", "9px");
+function hideToolTip(d) {
+    d3.select(this)//.transition()
+        .style("stroke-width", "2.5px");
+    d3.select("#tooltip").transition()
+        .duration(500)
+        .style("opacity", 0);
+}
 
-        tooltip.transition()
-            .duration(200)
-            .style("opacity", 0.9);
-        tooltip.html(getReadableName(d.item))
-            .style("left", (d3.event.pageX) + "px")
-            .style("top", (d3.event.pageY - 28) + "px");
-        var otherLines = d3.selectAll("path.line").filter(function (x) { return self != this; })
-            .style("opacity", 0.3);
-    }
+function lineMouseOver(d) {
+    var self = this;
+    d3.select(this).transition()
+        .style("stroke-width", "9px");
 
-    function lineMouseOut (d) {
-        specificLine//.transition()
-            .style("stroke-width", "2.5px");
-        tooltip.transition()
-            .duration(500)
-            .style("opacity", 0);
-        d3.selectAll("path").transition()
-            .style("opacity", 1);
+    d3.select("#tooltip").transition()
+        .duration(200)
+        .style("opacity", 0.9);
+    d3.select("#tooltip").html(getReadableName(d.item))
+        .style("left", (d3.event.pageX) + "px")
+        .style("top", (d3.event.pageY - 28) + "px");
+    var otherLines = d3.selectAll("path.line").filter(function (x) { return self != this; })
+        .style("opacity", 0.3);
+}
+
+function lineMouseOut (d) {
+    d3.select(this)//.transition()
+        .style("stroke-width", "2.5px");
+    d3.select("#tooltip").transition()
+        .duration(500)
+        .style("opacity", 0);
+    d3.selectAll("path").transition()
+        .style("opacity", 1);
+}
+
+
+function handleCheckboxChange(thirtyDayLineObj, fishTypeX, x, y, svg, lineFunc, height, color, tooltip){
+    var fishType = this.value;
+    var checked = this.checked;
+    if(checked){draw.call(this, thirtyDayLineObj, fishType, x, y, svg, lineFunc, height, color, tooltip);}
+    if(!checked){
+        d3.selectAll("#line-"+fishType).remove();
+        d3.selectAll("#dot-"+fishType).remove();
     }
 }
 
@@ -223,28 +223,25 @@ function keyboardHandler (d,i,nodes) {  // left, up, right, down
     // console.log(`i: ${i}`); // 0
     // console.log(`nodes: ${nodes}`); // svg obj
     // console.log(`parent: ${JSON.stringify(d3.select(this.parentNode))}`); // svg obj
-    //console.log(`Date plus: ${formatTimeDashed(new Date(d.date.getTime()+(1*24*60*60*1000)))}`);
-    //console.log(`d3.event: ${d3.event}`);
+    // console.log(`Date plus: ${formatTimeDashed(new Date(d.date.getTime()+(1*24*60*60*1000)))}`);
+    // console.log(`d3.event: ${d3.event}`);
     var fishTypeFromGroupId;
     if (d3.event.keyCode == 37 || d3.event.keyCode == 38 || d3.event.keyCode == 39 || d3.event.keyCode == 40 ) {
         d3.event.preventDefault();
         //left
         if (d3.event.keyCode == 37 ) {this.previousSibling.focus();}
-        //right, add one day to the date obj
+        //right
         if (d3.event.keyCode == 39 ) {this.nextSibling.focus();}
-        //var nextGroup = document.getElementById(`group-${fishType}`);
         // up
         if (d3.event.keyCode == 38 ) {
-            console.log(this.parentNode.previousSibling);// go to this fish's parent group, then look for the next fish group
+            // go to this fish's parent group, then look for the next fish group
             fishTypeFromGroupId = this.parentNode.previousSibling.id.slice(6); // grab the fishtype from the id
             document.getElementById(`dot-${fishTypeFromGroupId}-${formatTimeDashed(d.date)}`).focus(); // focus with the dot-fishtype-date id pattern
         }
         // down
         if (d3.event.keyCode == 40 ) {
-            console.log(this.parentNode.nextSibling);
             fishTypeFromGroupId = this.parentNode.nextSibling.id.slice(6);
             document.getElementById(`dot-${fishTypeFromGroupId}-${formatTimeDashed(d.date)}`).focus();
         }
-       // document.getElementById(`dot-${d.item}-${formatTimeDashed(d.date)}`).focus();
     }
 }
