@@ -1,4 +1,22 @@
+:focus {
+    outline: 3px solid blue;
+}
 
+
+*{
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+
+    padding: 2px;
+    font: 18px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
 
 #leaderboard {
 	font-size: 26px;

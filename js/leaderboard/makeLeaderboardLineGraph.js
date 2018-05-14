@@ -153,9 +153,11 @@ function draw(data, index, x, y, svg, lineFunc, height, color, tooltip) {
                 d3.select("#tooltip").transition()
                     .duration(200)
                     .style("opacity", 0.9);
-                d3.select("#tooltip").html(`${getReadableName(d.item)} $${d.avg} on ${formatTime(d.date)}`)
+                d3.select("#tooltip").html(`${data.username}  $${d.value} on ${formatTime(d.timestamp)}`)
                     .style("left",  `${rect.left}px`)
-                    .style("top",  `${rect.top + d3.select("svg").node().getBoundingClientRect().height-200}px`);
+                    // This should be dependent on the size of the leaderboard!!!!!!!!!!!!
+                    .style("top",  `${800}px`);
+                    //.style("top",  `${rect.top + d3.select("svg").node().getBoundingClientRect().top}px`);
             })
         .on("focusout", function(d) {
                 d3.select(this)//.transition()
