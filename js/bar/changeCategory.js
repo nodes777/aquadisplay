@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 function changeCategory(d, selection, fishType, x, y, yAxis, xAxis, svg, height, width, tooltip, selectionName){
     checkIfSales(selection, svg, height, width);
 
@@ -10,14 +11,6 @@ function changeCategory(d, selection, fishType, x, y, yAxis, xAxis, svg, height,
           //d3.selectAll(".categoryBar").style("opacity", 1).transition().duration(300).style("opacity", 0).remove();// whyyyyyyyyy doesnt this actually remove the elements????
           d3.selectAll(".categoryBar").remove();// needed to remove the elements from the DOM
 
-        /* This fades out correctly, but when new bars appear, some bars are just missing
-         d3.selectAll(".categoryBar")
-            .style("opacity", 1)
-          .transition()
-          .duration(300)
-            .style("opacity", 0).remove();
-        */
-
           var barsOfCategory = svg.selectAll(".categoryBar")
             .data(selection)
           .enter().append("rect") //update?
@@ -26,7 +19,9 @@ function changeCategory(d, selection, fishType, x, y, yAxis, xAxis, svg, height,
             .attr("x", function(d) { return x(d.item); })
             .attr("width", x.bandwidth())
             .attr("y", y(0))
-            .attr("height", 0);
+            .attr("height", 0)
+            .attr("tabindex", 0)
+            .attr("aria-label", function(d) { return `${d.item} sold at $ ${d.bPrice}`;});// Provide labels for screen readers;;
 
           barsOfCategory.transition().duration(1500)
             .attr("y", function(d) { return y(Math.round(currencyToNumber(d.bPrice))); })
@@ -44,6 +39,21 @@ function changeCategory(d, selection, fishType, x, y, yAxis, xAxis, svg, height,
                 tooltip.transition()
                     .duration(500)
                     .style("opacity", 0);
+            })
+            .on("focus", function(d) {
+              var rect = this.getBoundingClientRect();
+              var svgRect = d3.select("#individualFishTypeGraph").node().getBoundingClientRect();
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", 0.9);
+            tooltip .html(d.item+" $"+currencyToNumber(d.bPrice))
+                .style("left", (rect.left) + "px")
+                .style("top", (svgRect.height + height + height) + "px");
+            })
+          .on("focusout", function(d) {
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
             });
 
           // Change Title
@@ -75,6 +85,6 @@ function checkIfSales(selection, svg, height, width){
           .text("No sales of that fish type today");
       } else {
         svg.select("#noSales")
-          .remove()
+          .remove();
       }
 }

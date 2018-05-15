@@ -1,5 +1,5 @@
+/*jshint esversion: 6 */
 var statArr = [];
-
 function makeStatsGraph(soldData){
     // create an array to fill with objects
 								              // key      value
@@ -61,6 +61,7 @@ function initAvgGraph(statArr){
         // set y and height to 0, they will grow in the transition
         .attr("y", y(0))
         .attr("height", 0)
+        .attr("tabindex", 0)
         .attr("aria-label", function(d) { return `Average ${d.item} Price: $ ${Math.round(d.avg)}`});// Provide labels for screen readers
 
       // Transition for growing the bars upwards
@@ -84,7 +85,22 @@ function initAvgGraph(statArr){
             tooltip.transition()
                 .duration(500)
                 .style("opacity", 0);
-        });
+        })
+        .on("focus", function(d) {
+          var rect = this.getBoundingClientRect();
+          var svgRect = d3.select("#dailyStatsGraph").node().getBoundingClientRect();
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", 0.9);
+            tooltip.html(`Average ${d.item} Price: $ ${Math.round(d.avg)}`)
+                .style("left", (rect.left) + "px")
+                .style("top", (svgRect.height + height) + "px");
+            })
+          .on("focusout", function(d) {
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+            });
 
 
     // add the x Axis

@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 function makeCategoryGraphs(fishType){
 	//fishType is a object of objects
   var fishTypeNames = Object.keys(fishType);
@@ -41,7 +42,8 @@ function makeCategoryGraphs(fishType){
         // set y and height to 0, they will grow in the transition
         .attr("y", y(0))
         .attr("height", 0)
-        .attr("aria-label", function(d) { return `${d.item} sold at $ ${d.bPrice}`});// Provide labels for screen readers;
+        .attr("tabindex", 0)
+        .attr("aria-label", function(d) { return `${d.item} sold at $ ${d.bPrice}`;});// Provide labels for screen readers;
 
       bars.transition().duration(1500)//ease(d3.easeElastic)
         .attr("y", function(d) { return y(currencyToNumber(d.bPrice)); })
@@ -55,11 +57,26 @@ function makeCategoryGraphs(fishType){
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
             })
-        .on("mouseout", function(d) {
+          .on("mouseout", function(d) {
             tooltip.transition()
                 .duration(500)
                 .style("opacity", 0);
-        });
+            })
+          .on("focus", function(d) {
+              var rect = this.getBoundingClientRect();
+              var svgRect = d3.select("#individualFishTypeGraph").node().getBoundingClientRect();
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", 0.9);
+            tooltip .html(d.item+" $"+currencyToNumber(d.bPrice))
+                .style("left", (rect.left) + "px")
+                .style("top", (svgRect.height + height + height) + "px");
+            })
+          .on("focusout", function(d) {
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+            });
 
     // Add the x Axis
     var xAxis = d3.axisBottom(x);
