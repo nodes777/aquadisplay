@@ -86,7 +86,7 @@ function makeLineGraph(thirtyDayLineObj, maxPoint, options){
     // Add default checked status
     // $("#fwbettasctCheckbox").trigger("click");
     $("#marketStatsCheckbox").trigger("click");
-    $("#fwcatfishpCheckbox").trigger("click");
+    //$("#fwcatfishpCheckbox").trigger("click");
 
 }
 
@@ -128,6 +128,7 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
       .enter().append("circle")
         .attr("id", function(d) {return `dot-${fishTypeName}-${formatTimeDashed(d.date)}`;})
         .attr("r", 5.5)
+        .attr("class", `dot-${fishTypeName}`)
         .attr("tabindex", "0") // Allow focus on dots
         .attr("aria-label", function(d) { return `${getReadableName(d.item)} sold ${d.avg} on ${formatTime(d.date)}`;})
         .attr("cx", function(d) { return x(d.date); })
@@ -137,7 +138,7 @@ function draw(data, fishTypeName, x, y, svg, lineFunc, height, color, tooltip) {
         .on("mouseout", hideToolTip)
         .on("focus", showToolTip)
         .on("focusout", hideToolTip)
-        .on("keypress", keyboardHandler)
+        .on("keypress", keyboardHandler);
         //.on("click", keyboardHandler);
 
     // Previously using selectAll here, this wouldn't allow the otherLine selection to cause effects,
@@ -213,7 +214,7 @@ function handleCheckboxChange(thirtyDayLineObj, fishTypeX, x, y, svg, lineFunc, 
     if(checked){draw.call(this, thirtyDayLineObj, fishType, x, y, svg, lineFunc, height, color, tooltip);}
     if(!checked){
         d3.selectAll("#line-"+fishType).remove();
-        d3.selectAll("#dot-"+fishType).remove();
+        d3.selectAll(".dot-"+fishType).remove();
     }
 }
 
